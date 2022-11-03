@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState, useEffect } from "react";
+import MegaMenuList from "./MegaMenuList";
 
 const MegaMenu = () => {
     const scroll = useScrollTrigger();
@@ -51,7 +52,9 @@ const MegaMenu = () => {
                         <MenuButton>باشگاه مشتریان</MenuButton>
                     </div>
                     <Collapse in={menuOpen}>
-                        <Box sx={{ height: 200, py: 2 }}>salam</Box>
+                        <Box sx={{ py: 2 }}>
+                            <MegaMenuList />
+                        </Box>
                     </Collapse>
                 </Stack>
             </Container>
