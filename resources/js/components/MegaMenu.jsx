@@ -14,6 +14,7 @@ const MegaMenu = () => {
     const scroll = useScrollTrigger();
     const [menuOpen, setMenuOpen] = useState(false);
 
+    window.addEventListener("click", () => setMenuOpen(false));
     const MenuButton = (props) => (
         <Button
             {...props}
@@ -41,7 +42,8 @@ const MegaMenu = () => {
                         <MenuButton
                             variant="text"
                             sx={{ color: "black" }}
-                            onClick={() => setMenuOpen(!menuOpen)}
+                            onClick={() => setMenuOpen(true)}
+                            onMouseEnter={() => setMenuOpen(true)}
                         >
                             <span className="inline-block align-baseline">
                                 <MenuIcon />

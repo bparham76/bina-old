@@ -11,7 +11,7 @@ const TabPanel = (props) => {
             aria-labelledby={`vtp-${index}`}
             {...other}
         >
-            {value === index && <Box sx={{ p: 1 }}>{children}</Box>}
+            {value === index && <Box sx={{ p: 1, pl: 5 }}>{children}</Box>}
         </div>
     );
 };
@@ -22,8 +22,14 @@ const MegaMenuList = () => {
     const handleChangeOnHover = (value) => setValue(value);
 
     return (
-        <Box fullwidth sx={{ display: "flex" }}>
-            <Tabs orientation="vertical" value={value} onChange={handleChange}>
+        <Box sx={{ display: "flex" }}>
+            <Tabs
+                orientation="vertical"
+                value={value}
+                onChange={handleChange}
+                textColor="inherit"
+                indicatorColor="#f00"
+            >
                 <Tab
                     label="salam"
                     aria-controls="vtp-0"
@@ -46,10 +52,10 @@ const MegaMenuList = () => {
                 />
             </Tabs>
             <TabPanel value={value} index={0}>
-                hello
+                <a href="google.com">Fuck Google</a>
             </TabPanel>
             <TabPanel value={value} index={1}>
-                hi
+                <button>Fuck me</button>
             </TabPanel>
             <TabPanel value={value} index={2}>
                 how are you
