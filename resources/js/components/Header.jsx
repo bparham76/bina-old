@@ -4,7 +4,6 @@ import {
     Container,
     Typography,
     Paper,
-    // useScrollTrigger,
     useMediaQuery,
 } from "@mui/material";
 import DashboardController from "./DashboardController";
@@ -12,23 +11,26 @@ import MegaMenu from "./MegaMenu";
 import SearchGeneral from "./SearchGeneral";
 
 const Header = () => {
-    // const scrollTrigger = useScrollTrigger();
     const showMegaMenu = useMediaQuery("(min-width:768px)");
+    const showHeader = useMediaQuery("(min-width: 450px)");
+
+    if (!showHeader) return;
+
     return (
         <>
             <Stack
                 sx={{
                     position: "fixed",
                     width: "100vw",
+                    zIndex: 5000,
                 }}
             >
                 <Paper
                     elevation={2} //{scrollTrigger ? 4 : 0}
                     square
-                    sx={{ pt: 4, pb: 1, zIndex: 1000 }}
                 >
-                    <Container>
-                        <Grid container spacing={1} alignItems="center">
+                    <Container sx={{ py: 2 }}>
+                        <Grid container spacing={0} alignItems="center">
                             <Grid item xs={12} md={3}>
                                 <Typography variant="h4">
                                     نام فروشگاه

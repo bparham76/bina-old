@@ -36,7 +36,7 @@ const MegaMenu = () => {
 
     return (
         <Collapse in={!scroll}>
-            <Container sx={{ pt: 2, pb: 0 }}>
+            <Container>
                 <Stack>
                     <div>
                         <MenuButton
@@ -54,7 +54,10 @@ const MegaMenu = () => {
                         <MenuButton>باشگاه مشتریان</MenuButton>
                     </div>
                     <Collapse in={menuOpen}>
-                        <Box sx={{ py: 2 }}>
+                        <Box
+                            sx={{ py: 2 }}
+                            onMouseLeave={() => setMenuOpen(false)}
+                        >
                             <MegaMenuList />
                         </Box>
                     </Collapse>

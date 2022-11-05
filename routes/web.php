@@ -21,6 +21,11 @@ Route::get('login', function () {
     return view('login');
 })->name('login');
 
+Route::get('product', function () {
+    return view('single-product');
+})->name('product');
+
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('hello', function () {
         return 'auth route';
