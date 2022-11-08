@@ -32,22 +32,22 @@ const MegaMenuList = () => {
                 indicatorColor="#f00"
             >
                 <Tab
-                    label="salam"
+                    label="مصالح"
                     aria-controls="vtp-0"
                     onMouseEnter={() => handleChangeOnHover(0)}
                 />
                 <Tab
-                    label="salam"
+                    label="آهن آلات"
                     aria-controls="vtp-1"
                     onMouseEnter={() => handleChangeOnHover(1)}
                 />
                 <Tab
-                    label="salam"
+                    label="شیرآلات"
                     aria-controls="vtp-2"
                     onMouseEnter={() => handleChangeOnHover(2)}
                 />
                 <Tab
-                    label="salam"
+                    label="پیش ساخته"
                     aria-controls="vtp-3"
                     onMouseEnter={() => handleChangeOnHover(3)}
                 />

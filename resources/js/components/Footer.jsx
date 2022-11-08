@@ -4,10 +4,12 @@ export default function Footer(props) {
         classes += " fixed";
 
     return (
-        <div className={classes}>
-            <p className="text-sm">
-                تمامی حقوق این سامانه برای بینا محفوظ است.
-            </p>
-        </div>
+        <>
+            <div className={classes}>
+                <p className="text-sm">
+                    تمامی حقوق این سامانه برای بینا محفوظ است.
+                </p>
+            </div>
+        </>
     );
 }

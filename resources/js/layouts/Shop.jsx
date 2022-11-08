@@ -11,7 +11,7 @@ export default function Shop() {
             <Header />
             <div className="w-full h-36"></div>
             <Grid container spacing={mobile ? 0 : 2} padding={mobile ? 0 : 2}>
-                {[...new Array(30)].map((item, idx) => (
+                {[...new Array(7)].map((item, idx) => (
                     <Grid item xs={12} sm={6} lg={3} key={idx}>
                         <ShopCard pic={idx}>
                             Lorem ipsum, dolor sit amet consectetur adipisicing
