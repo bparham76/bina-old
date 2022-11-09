@@ -14,7 +14,6 @@ const MegaMenu = () => {
     const scroll = useScrollTrigger();
     const [menuOpen, setMenuOpen] = useState(false);
 
-    window.addEventListener("click", () => setMenuOpen(false));
     const MenuButton = (props) => (
         <Button
             {...props}
@@ -31,7 +30,7 @@ const MegaMenu = () => {
     );
 
     useEffect(() => {
-        setMenuOpen(false);
+        scroll && setMenuOpen(false);
     }, [scroll]);
 
     return (
@@ -42,8 +41,7 @@ const MegaMenu = () => {
                         <MenuButton
                             variant="text"
                             sx={{ color: "black" }}
-                            onClick={() => setMenuOpen(true)}
-                            onMouseEnter={() => setMenuOpen(true)}
+                            onClick={() => setMenuOpen(!menuOpen)}
                         >
                             <span className="inline-block align-baseline">
                                 <MenuIcon />
@@ -54,10 +52,7 @@ const MegaMenu = () => {
                         <MenuButton>باشگاه مشتریان</MenuButton>
                     </div>
                     <Collapse in={menuOpen}>
-                        <Box
-                            sx={{ py: 2 }}
-                            onMouseLeave={() => setMenuOpen(false)}
-                        >
+                        <Box sx={{ py: 2 }}>
                             <MegaMenuList />
                         </Box>
                     </Collapse>

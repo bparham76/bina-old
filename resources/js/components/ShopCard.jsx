@@ -14,10 +14,8 @@ import {
     Fade,
 } from "@mui/material";
 
+import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
-import PlaylistAddCheckIcon from "@mui/icons-material/PlaylistAddCheck";
 import ShareIcon from "@mui/icons-material/Share";
 
 import { useState } from "react";
@@ -30,6 +28,67 @@ const ShopCard = (props) => {
 
     const mobile = useMediaQuery("(max-width: 450px)");
 
+    const ButtonList = () => (
+        <>
+            <Button
+                size="small"
+                sx={{
+                    color: "white",
+                    p: 4,
+                    display: "flex",
+                    gap: 2,
+                }}
+            >
+                <ManageSearchIcon />
+                مشاهده جزئیات
+            </Button>
+            <Button
+                size="small"
+                sx={{
+                    color: "white",
+                    p: 4,
+                    display: "flex",
+                    gap: 2,
+                }}
+            >
+                <FavoriteBorderIcon />
+                افزودن به علاقه مندی ها
+            </Button>
+            <Button
+                size="small"
+                sx={{
+                    color: "white",
+                    p: 4,
+                    display: "flex",
+                    gap: 2,
+                }}
+            >
+                <ShareIcon />
+                اشتراک گذاری محصول
+            </Button>
+        </>
+    );
+
+    const FadeButtonList = (props) => (
+        <Fade in={props.hover}>
+            <Box
+                sx={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    height: "100%",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    backgroundColor: "rgba(0,0,10,0.7)",
+                }}
+            >
+                <ButtonList />
+            </Box>
+        </Fade>
+    );
+
     return (
         <Card
             square
@@ -37,9 +96,9 @@ const ShopCard = (props) => {
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
             sx={{
-                my: mobile ? 2 : 0,
+                m: 1,
                 position: "relative",
-                cursor: "default",
+                // cursor: "default",
             }}
         >
             <Paper square sx={{ overflow: "hidden", position: "relative" }}>
@@ -50,39 +109,10 @@ const ShopCard = (props) => {
                     alt={pic}
                     sx={{
                         transition: "all 400ms ease",
-                        transform: !mobile && hover ? "scale(140%)" : "",
+                        transform: !mobile && hover ? "scale(120%)" : "",
                     }}
                 />
-                {/* <Slide in={hover} direction="up"> */}
-                <Fade in={hover}>
-                    <Box
-                        sx={{
-                            position: "absolute",
-                            top: 0,
-                            right: 0,
-                            height: "100%",
-                            width: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            flexDirection: "column",
-                            backgroundColor: "rgba(0,0,10,0.7)",
-                        }}
-                    >
-                        <Button size="small" sx={{ color: "white", p: 4 }}>
-                            <PlaylistAddIcon />
-                            افزودن به سبد خرید
-                        </Button>
-                        <Button size="small" sx={{ color: "white", p: 4 }}>
-                            <FavoriteBorderIcon />
-                            افزودن به علاقه مندی ها
-                        </Button>
-                        <Button size="small" sx={{ color: "white", p: 4 }}>
-                            <ShareIcon />
-                            اشتراک گذاری محصول
-                        </Button>
-                    </Box>
-                </Fade>
-                {/* </Slide> */}
+                {!mobile && <FadeButtonList hover={hover} />}
             </Paper>
             <Chip
                 label="فروش ویژه"
@@ -96,10 +126,7 @@ const ShopCard = (props) => {
                 }}
             />
             <CardContent>
-                <Typography variant="p">
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و
-                    با استفاده از طراحان گرافیک است.
-                </Typography>
+                <Typography variant="p">عنوان محصول</Typography>
             </CardContent>
             <CardActions
                 sx={{
@@ -109,9 +136,8 @@ const ShopCard = (props) => {
                 }}
             >
                 <Button variant="contained" color="error">
-                    مشاهده جزئیات
+                    افزودن به سبد خرید
                 </Button>
-                {/* <div></div> */}
                 <Stack direction="column">
                     <Typography variant="p">9.799.000</Typography>
                     <Typography

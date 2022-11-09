@@ -13,6 +13,8 @@ export const Login = (props) => {
     const handleExit = () => {
         if (typeof props.onCancel == "function") {
             props.onCancel();
+        } else {
+            window.location.href = "/";
         }
     };
 

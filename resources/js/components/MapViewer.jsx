@@ -6,16 +6,16 @@ const MapViewer = (props) => {
     const { mapHeight, mapCenter, ...other } = props;
     const mapRef = useRef();
 
-    useEffect(() => {
-        document
-            .querySelector("div.leaflet-control-attribution.leaflet-control")
-            .remove();
+    // useEffect(() => {
+    //     document
+    //         .querySelector("div.leaflet-control-attribution.leaflet-control")
+    //         .remove();
 
-        setTimeout(() => {
-            const map = mapRef.current.leafletElement;
-            map.invalidateSize();
-        }, 250);
-    }, []);
+    //     setTimeout(() => {
+    //         const map = mapRef.current.leafletElement;
+    //         map.invalidateSize();
+    //     }, 250);
+    // }, []);
 
     return (
         <MapContainer

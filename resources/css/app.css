@@ -5,4 +5,7 @@
 html, body{
     all: unset !important;
     font-family: 'shabnam' !important;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
 }
