@@ -84,12 +84,10 @@ const BottomNavigation = () => {
             <MobileMenuDrawer
                 show={menuDrawer}
                 onClose={() => setMenuDrawer(false)}
-                showCloseButton
             />
             <ShoppingCartDrawer
                 show={cartDrawer}
                 onClose={() => setCartDrawer(false)}
-                showCloseButton
             />
             <SearchDrawer
                 show={searchDrawer}

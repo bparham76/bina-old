@@ -27,7 +27,7 @@ const ShoppingCartDrawer = (props) => {
                         sx={{ color: "blueviolet", fontSize: "4rem" }}
                     />
                     <Typography variant="p" color="CaptionText" sx={{ my: 2 }}>
-                        برای ثبت محصولات در لیست خرید ابتدا باید وارد شوید.
+                        برای ثبت محصولات در سبد خرید ابتدا باید وارد شوید.
                     </Typography>
                     <Button onClick={nlgButton} variant="contained">
                         ورود یا ثبت نام
