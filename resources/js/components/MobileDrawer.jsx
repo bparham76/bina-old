@@ -1,13 +1,16 @@
-import { Drawer } from "@mui/material";
+import { Drawer, Button } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 
 const MobileDrawer = (props) => {
-    const { anchor, open, onClick, children, ...others } = props;
+    const { anchor, open, onClick, showCloseButton, children, ...others } =
+        props;
 
     return (
         <Drawer
+            {...others}
             open={open}
-            onClick={onClick}
             anchor={anchor}
+            onClose={onClick}
             PaperProps={{
                 style: {
                     left: anchor === "right" ? "unset" : 0,
@@ -23,6 +26,21 @@ const MobileDrawer = (props) => {
                 },
             }}
         >
+            {showCloseButton && (
+                <Button
+                    onClick={onClick}
+                    sx={{
+                        position: "absolute",
+                        top: 0,
+                        right: anchor === "right" ? 0 : "unset",
+                        left: anchor === "left" ? 0 : "unset",
+                        margin: 1,
+                        padding: 2,
+                    }}
+                >
+                    <CloseIcon sx={{ color: "black", fontSize: "2rem" }} />
+                </Button>
+            )}
             {children}
         </Drawer>
     );

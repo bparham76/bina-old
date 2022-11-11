@@ -8,7 +8,7 @@ const SingleProduct = () => {
             <Header />
             <div className="w-full h-48"></div>
             <MapViewer mapCenter={[35.69975, 51.33806]} mapHeight={200} />
-            <Footer />
+            <Footer showBottomNavigation />
         </>
     );
 };

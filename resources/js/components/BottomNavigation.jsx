@@ -1,10 +1,6 @@
 import { Stack, Button, Paper, useMediaQuery } from "@mui/material";
 
-import {
-    AccountCircle,
-    ShoppingBasket,
-    TroubleshootRounded,
-} from "@mui/icons-material";
+import { AccountCircle, ShoppingBasket } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -74,7 +70,7 @@ const BottomNavigation = () => {
                     <MenuButton onClick={() => setSearchDrawer(true)}>
                         <SearchIcon />
                     </MenuButton>
-                    <MenuButton>
+                    <MenuButton onClick={() => (window.location.href = "/")}>
                         <HomeIcon />
                     </MenuButton>
                     <MenuButton onClick={() => setCartDrawer(true)}>
@@ -88,10 +84,12 @@ const BottomNavigation = () => {
             <MobileMenuDrawer
                 show={menuDrawer}
                 onClose={() => setMenuDrawer(false)}
+                showCloseButton
             />
             <ShoppingCartDrawer
                 show={cartDrawer}
                 onClose={() => setCartDrawer(false)}
+                showCloseButton
             />
             <SearchDrawer
                 show={searchDrawer}

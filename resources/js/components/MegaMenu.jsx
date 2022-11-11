@@ -45,11 +45,13 @@ const MegaMenu = () => {
                         >
                             <span className="inline-block align-baseline">
                                 <MenuIcon />
-                                محصولات
+                                دسته بندی محصولات
                             </span>
                         </MenuButton>
                         <MenuButton>جشنواره</MenuButton>
                         <MenuButton>باشگاه مشتریان</MenuButton>
+                        <MenuButton>در باره ما</MenuButton>
+                        <MenuButton>تماس با ما</MenuButton>
                     </div>
                     <Collapse in={menuOpen}>
                         <Box sx={{ py: 2 }}>
