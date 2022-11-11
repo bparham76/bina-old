@@ -2,7 +2,6 @@ import { useMediaQuery, Grid } from "@mui/material";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ShopCard from "../components/ShopCard";
-import BottomNavigation from "../components/BottomNavigation";
 
 export default function Shop() {
     const mobile = useMediaQuery("(max-width: 450px)");

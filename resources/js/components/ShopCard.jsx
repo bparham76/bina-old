@@ -24,8 +24,6 @@ const ShopCard = (props) => {
     const { pic, ...others } = props;
 
     const [hover, setHover] = useState(false);
-    const [buttonHover, setButtonHover] = useState(false);
-
     const mobile = useMediaQuery("(max-width: 450px)");
 
     const ButtonList = () => (
@@ -37,6 +35,10 @@ const ShopCard = (props) => {
                     p: 4,
                     display: "flex",
                     gap: 2,
+                }}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    console.log("Ass");
                 }}
             >
                 <ManageSearchIcon />
@@ -91,6 +93,8 @@ const ShopCard = (props) => {
 
     return (
         <Card
+            {...others}
+            onClick={() => (window.location.href = "/product")}
             square
             elevation={!mobile && hover ? 12 : 1}
             onMouseEnter={() => setHover(true)}
@@ -98,6 +102,7 @@ const ShopCard = (props) => {
             sx={{
                 m: 1,
                 position: "relative",
+                cursor: "pointer",
                 // cursor: "default",
             }}
         >

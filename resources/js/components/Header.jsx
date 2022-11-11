@@ -5,14 +5,14 @@ import {
     Typography,
     Paper,
     useMediaQuery,
+    Link,
 } from "@mui/material";
 import DashboardController from "./DashboardController";
 import MegaMenu from "./MegaMenu";
 import SearchGeneral from "./SearchGeneral";
 
 const Header = () => {
-    // const showMegaMenu = useMediaQuery("(min-width:768px)");
-    const showHeader = useMediaQuery("(min-width: 768px)");
+    const showHeader = useMediaQuery("(min-width: 450px)");
 
     if (!showHeader)
         return (
@@ -33,7 +33,10 @@ const Header = () => {
                     elevation={4}
                     square
                 >
-                    <Typography variant="h5">نام فروشگاه</Typography>
+                    <Link href="/" underline="none" sx={{ color: "black" }}>
+                        نام فروشگاه
+                    </Link>
+                    {/* <Typography variant="h5">نام فروشگاه</Typography> */}
                 </Paper>
                 <div className="w-full h-[50px]"></div>
             </>
@@ -57,9 +60,15 @@ const Header = () => {
                             alignItems="center"
                         >
                             <Grid item xs={12} sm={3}>
-                                <Typography variant="h4">
-                                    نام فروشگاه
-                                </Typography>
+                                <Link
+                                    href="/"
+                                    underline="none"
+                                    sx={{ color: "black" }}
+                                >
+                                    <Typography variant="h4">
+                                        نام فروشگاه
+                                    </Typography>
+                                </Link>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Stack alignItems="start">
