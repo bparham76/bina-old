@@ -25,7 +25,7 @@ const BottomNavigation = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
     if (!mobile) return;
 
-    const loginButton = () => (window.location.href = "/login");
+    const loginButton = () => (window.location.href = "/auth");
 
     const MenuButton = (props) => {
         const { children, ...others } = props;

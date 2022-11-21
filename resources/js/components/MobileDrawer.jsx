@@ -16,11 +16,11 @@ const MobileDrawer = (props) => {
                     right: anchor === "right" ? 0 : "unset",
                     height:
                         anchor === "top" || anchor === "bottom"
-                            ? "85vh"
+                            ? "90vh"
                             : "100vh",
                     width:
                         anchor === "left" || anchor === "right"
-                            ? "85vw"
+                            ? "90vw"
                             : "100vw",
                 },
             }}

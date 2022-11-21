@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Grid, Box, Paper, Button, TextField } from "@mui/material";
+import { Paper, useMediaQuery } from "@mui/material";
 import Footer from "../components/Footer";
-import Logo from "../../image/logo.png";
+import LoginStage from "../components/auth/LoginStage";
+import VerifyStage from "../components/auth/VerifyStage";
 
 export const Login = (props) => {
-    const [formInput, setFormInput] = useState("");
+    const [stage, setStage] = useState(0);
+    const mobile = useMediaQuery("(max-width: 600px)");
 
-    const handleSubmit = () => {
-        alert(formInput);
+    const handleSubmit = (s) => {
+        setStage(s);
     };
 
     const handleExit = () => {
@@ -20,67 +22,39 @@ export const Login = (props) => {
 
     return (
         <>
-            <Box className="p-0 m-0 w-screen h-screen bg-white">
-                <Grid
-                    container
-                    justifyContent="center"
-                    alignItems="center"
-                    className="w-full h-full"
-                >
-                    <Grid item>
-                        <Paper elevation={2}>
-                            <Box className="p-8 w-[300px]">
-                                <Grid
-                                    container
-                                    rowSpacing={1}
-                                    className="w-full"
-                                >
-                                    <Grid item className="w-full">
-                                        <div className="flex justify-center">
-                                            <img src={Logo} alt="bina logo" />
-                                        </div>
-                                    </Grid>
-                                    <Grid item className="w-full">
-                                        <h1 className="w-full text-center font-bold text-xl py-5">
-                                            ورود یا ثبت نام
-                                        </h1>
-                                        <TextField
-                                            id="mytextfield"
-                                            variant="standard"
-                                            label="ایمیل یا شماره تلفن همراه"
-                                            dir="ltr"
-                                            fullWidth
-                                            value={formInput}
-                                            onChange={(e) =>
-                                                setFormInput(e.target.value)
-                                            }
-                                        />
-                                    </Grid>
-                                    <Grid item className="w-full">
-                                        <Button
-                                            fullWidth
-                                            variant="contained"
-                                            onClick={handleSubmit}
-                                        >
-                                            ارسال رمز یک بار مصرف
-                                        </Button>
-                                    </Grid>
-                                    <Grid item className="w-full">
-                                        <Button
-                                            fullWidth
-                                            variant="text"
-                                            onClick={handleExit}
-                                        >
-                                            بازگشت
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                            </Box>
-                        </Paper>
-                    </Grid>
-                </Grid>
-                <Footer stickToBottom />
-            </Box>
+            <Paper
+                elevation={4}
+                sx={{
+                    position: "fixed",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translateX(-50%) translateY(-50%)",
+                    width: mobile ? "300px" : "450px",
+                    m: 0,
+                    p: 0,
+                    py: 4,
+                    backgroundColor: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                }}
+            >
+                {stage == 0 && (
+                    <LoginStage
+                        mobile={mobile}
+                        handleExit={handleExit}
+                        handleSubmit={(e) => handleSubmit(1)}
+                    />
+                )}
+                {stage == 1 && (
+                    <VerifyStage
+                        mobile={mobile}
+                        handleExit={(e) => handleSubmit(0)}
+                        handleSubmit={(e) => handleSubmit(0)}
+                    />
+                )}
+            </Paper>
+            <Footer stickToBottom />
         </>
     );
 };

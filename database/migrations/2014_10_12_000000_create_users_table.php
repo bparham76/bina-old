@@ -18,9 +18,9 @@ return new class extends Migration
             $table->integer('state')->default(0);
             $table->bigInteger('user_info_id')->nullable();
             $table->string('phone')->unique()->nullable();
-            $table->string('email')->unique()->nullable();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            // $table->string('email')->unique()->nullable();
+            // $table->timestamp('email_verified_at')->nullable();
+            // $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });

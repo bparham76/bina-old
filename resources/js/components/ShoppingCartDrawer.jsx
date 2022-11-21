@@ -11,7 +11,7 @@ const ShoppingCartDrawer = (props) => {
     const [authState, setAuthState] = useState(false);
 
     const NotLoggedIn = () => {
-        const nlgButton = () => setAuthState(true); //(window.location.href = "/login");
+        const nlgButton = () => setAuthState(true); //(window.location.href = "/auth");
 
         return (
             <Grid
@@ -22,11 +22,16 @@ const ShoppingCartDrawer = (props) => {
                 spacing={0}
                 rowSpacing={0}
             >
-                <Grid item container justifyContent="center">
+                <Grid item container justifyContent="center" sx={{ p: 4 }}>
                     <FeedbackIcon
-                        sx={{ color: "blueviolet", fontSize: "4rem" }}
+                        sx={{ color: "blueviolet", fontSize: "4rem", mb: 8 }}
                     />
-                    <Typography variant="p" color="CaptionText" sx={{ my: 2 }}>
+                    <Typography
+                        variant="p"
+                        textAlign="center"
+                        color="CaptionText"
+                        sx={{ my: 2 }}
+                    >
                         برای ثبت محصولات در سبد خرید ابتدا باید وارد شوید.
                     </Typography>
                     <Button onClick={nlgButton} variant="contained">
@@ -93,7 +98,7 @@ const ShoppingCartDrawer = (props) => {
                         overflow: "scroll",
                     }}
                 >
-                    {[...new Array(5)].map((item, idx) => (
+                    {[...new Array(50)].map((item, idx) => (
                         <CartItem key={idx} />
                     ))}
                 </Box>

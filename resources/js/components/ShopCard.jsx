@@ -10,7 +10,6 @@ import {
     Stack,
     Typography,
     useMediaQuery,
-    Slide,
     Fade,
 } from "@mui/material";
 
@@ -91,6 +90,10 @@ const ShopCard = (props) => {
         </Fade>
     );
 
+    const addToCartButton = (e) => {
+        e.stopPropagation();
+    };
+
     return (
         <Card
             {...others}
@@ -140,7 +143,11 @@ const ShopCard = (props) => {
                     justifyContent: "space-between",
                 }}
             >
-                <Button variant="contained" color="error">
+                <Button
+                    variant="contained"
+                    color="error"
+                    onClick={addToCartButton}
+                >
                     افزودن به سبد خرید
                 </Button>
                 <Stack direction="column">
