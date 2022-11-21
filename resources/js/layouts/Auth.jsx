@@ -1,24 +1,12 @@
-import { useState } from "react";
-import { Paper, useMediaQuery } from "@mui/material";
+import { Paper, Stack, useMediaQuery } from "@mui/material";
 import Footer from "../components/Footer";
 import LoginStage from "../components/auth/LoginStage";
 import VerifyStage from "../components/auth/VerifyStage";
 
-export const Auth = (props) => {
-    const [stage, setStage] = useState(0);
+import { dataReducer } from "../features/Auth";
+
+export const Auth = () => {
     const mobile = useMediaQuery("(max-width: 600px)");
-
-    const handleSubmit = (s) => {
-        setStage(s);
-    };
-
-    const handleExit = () => {
-        if (typeof props.onCancel == "function") {
-            props.onCancel();
-        } else {
-            window.location.href = "/";
-        }
-    };
 
     return (
         <>
@@ -39,20 +27,13 @@ export const Auth = (props) => {
                     justifyContent: "center",
                 }}
             >
-                {stage == 0 && (
-                    <LoginStage
-                        mobile={mobile}
-                        handleExit={handleExit}
-                        handleSubmit={(e) => handleSubmit(1)}
-                    />
-                )}
-                {stage == 1 && (
-                    <VerifyStage
-                        mobile={mobile}
-                        handleExit={(e) => handleSubmit(0)}
-                        handleSubmit={(e) => handleSubmit(0)}
-                    />
-                )}
+                <Stack>
+                    <div>
+                        {true && <LoginStage mobile={mobile} />}
+                        {false && <VerifyStage mobile={mobile} />}
+                    </div>
+                    <div>salam</div>
+                </Stack>
             </Paper>
             <Footer stickToBottom />
         </>

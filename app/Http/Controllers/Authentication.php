@@ -16,6 +16,8 @@ class Authentication extends Controller
             'phone' => 'required|digits:11',
         ]);
 
+        sleep(2);
+
         $code = random_int(100000, 999999);
         $time = jdate()->getTimestamp();
 
