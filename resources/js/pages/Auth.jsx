@@ -1,10 +1,10 @@
 import ReactDOM from "react-dom/client";
-import { Login } from "../layouts/Login";
+import { Auth } from "../layouts/Auth";
 
 import Boilerplate from "./Boilerplate";
 
 ReactDOM.createRoot(document.getElementById("body")).render(
     <Boilerplate>
-        <Login />
+        <Auth />
     </Boilerplate>
 );

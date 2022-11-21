@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import LoginStage from "../components/auth/LoginStage";
 import VerifyStage from "../components/auth/VerifyStage";
 
-export const Login = (props) => {
+export const Auth = (props) => {
     const [stage, setStage] = useState(0);
     const mobile = useMediaQuery("(max-width: 600px)");
 
