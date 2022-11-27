@@ -5,9 +5,10 @@ import { useFetch } from "use-http";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 const LoginStage = (props) => {
-    const [formInput, setFormInput] = useState("");
+    const { mobile, dispatch, ...others } = props;
 
-    const { mobile, ...others } = props;
+    const [formInput, setFormInput] = useState("");
+    const { response, post, get, loading, error } = useFetch("/api");
 
     //input integrity controller
     const handleInput = (input) => {
@@ -16,7 +17,24 @@ const LoginStage = (props) => {
             setFormInput(input);
     };
 
-    const { response, get, loading, error } = useFetch("/api");
+    //submit button action
+    const handleSubmit = async () => {
+        const result = await get("/sendcode?phone=" + formInput);
+        // const result = await post("/test");
+
+        // if (result == null) console.log(error);
+        // else console.log(result.code);
+
+        if (response.ok) {
+            if (response.status === 200)
+                dispatch({ type: "phone_sent_success", phone: formInput });
+            else {
+                dispatch({ type: "phone_sent_fail_network" });
+            }
+        } else {
+            dispatch({ type: "phone_sent_fail_network" });
+        }
+    };
 
     return (
         <Stack spacing={1} sx={{ dispaly: "flex", alignItems: "center" }}>
@@ -37,6 +55,7 @@ const LoginStage = (props) => {
                 id="mytextfield"
                 variant="standard"
                 label="تلفن همراه"
+                color="error"
                 dir="ltr"
                 fullWidth
                 value={formInput}
@@ -44,8 +63,10 @@ const LoginStage = (props) => {
             />
             <Button
                 fullWidth
+                color="error"
                 variant="contained"
                 disabled={formInput.length == 11 ? false : true}
+                onClick={handleSubmit}
             >
                 {!loading && "ارسال رمز یک بار مصرف"}
                 {loading && (
@@ -57,10 +78,10 @@ const LoginStage = (props) => {
                     />
                 )}
             </Button>
-            <Button fullWidth variant="text">
+            <Button fullWidth variant="text" color="error">
                 ورود پرسنل
             </Button>
-            <Button fullWidth variant="text">
+            <Button fullWidth variant="text" color="error">
                 بازگشت
             </Button>
         </Stack>

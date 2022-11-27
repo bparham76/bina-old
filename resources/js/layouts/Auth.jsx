@@ -1,12 +1,22 @@
-import { Paper, Stack, useMediaQuery } from "@mui/material";
+import { Paper, Stack, Alert, Snackbar, useMediaQuery } from "@mui/material";
 import Footer from "../components/Footer";
 import LoginStage from "../components/auth/LoginStage";
 import VerifyStage from "../components/auth/VerifyStage";
-
-import { dataReducer } from "../features/Auth";
+import { useReducer, useEffect } from "react";
+import { authData, authDataReducer } from "../features/Auth";
 
 export const Auth = () => {
     const mobile = useMediaQuery("(max-width: 600px)");
+
+    const [auth, authDispatch] = useReducer(authDataReducer, authData);
+
+    useEffect(() => {
+        console.table(auth);
+        // if (auth.error !== 0)
+        //     setTimeout(() => {
+        //         authDispatch({ type: "clear_error" });
+        //     }, 5000);
+    }, [auth]);
 
     return (
         <>
@@ -29,12 +39,51 @@ export const Auth = () => {
             >
                 <Stack>
                     <div>
-                        {true && <LoginStage mobile={mobile} />}
-                        {false && <VerifyStage mobile={mobile} />}
+                        {auth.stage === 0 && (
+                            <LoginStage
+                                mobile={mobile}
+                                dispatch={authDispatch}
+                            />
+                        )}
+                        {auth.stage === 1 && (
+                            <VerifyStage
+                                mobile={mobile}
+                                phone={auth.phone}
+                                dispatch={authDispatch}
+                            />
+                        )}
                     </div>
-                    <div>salam</div>
+                    <div>
+                        {/* {auth.error === 1 && (
+                            <Snackbar
+                                open={auth.error === 1}
+                                autoHideDuration={2000}
+                            >
+                                <Alert severity="error">خطا! کد مورد نظر</Alert>
+                            </Snackbar>
+                        )}
+                        {auth.error === 2 && (
+                            <Alert severity="error">خطا! کد مورد نظر</Alert>
+                        )}
+                        {auth.error === 3 && (
+                            <Alert severity="error">خطا! کد مورد نظر</Alert>
+                        )}
+                        {auth.error === 4 && (
+                            <Alert severity="error">خطا! کد مورد نظر</Alert>
+                        )} */}
+                    </div>
                 </Stack>
             </Paper>
+            <Snackbar
+                open={auth.error != 0}
+                autoHideDuration={4000}
+                anchorOrigin={{ horizontal: "left", vertical: "top" }}
+                onClose={() => {
+                    authDispatch({ type: "clear_error" });
+                }}
+            >
+                <Alert severity="error">خطا! کد {auth.error}</Alert>
+            </Snackbar>
             <Footer stickToBottom />
         </>
     );

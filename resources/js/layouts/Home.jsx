@@ -1,15 +1,13 @@
-import { useMediaQuery, Grid } from "@mui/material";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
+import Header from "../components/general/Header";
+// import Footer from "../components/general/Footer";
 
 export default function Home() {
-    const mobile = useMediaQuery("(max-width: 450px)");
-
     return (
         <>
-            <Header />
-            This is Home
-            <Footer showBottomNavigation />
+            <Header
+                websiteName="بازرگانی مهر"
+                websiteDetails="نماینده رسمی فروش و خدمات شرکت ایران رادیاتور"
+            />
         </>
     );
 }

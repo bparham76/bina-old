@@ -73,6 +73,7 @@ class Authentication extends Controller
 
             return response()->json([
                 'message' => 'new user created.',
+                'action' => 1,
                 'token' => $token
             ]);
         }
@@ -81,6 +82,7 @@ class Authentication extends Controller
 
         return response()->json([
             'message' => 'redirect to user home page.',
+            'action' => 2,
             'token' => $token
         ]);
     }
