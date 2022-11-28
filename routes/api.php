@@ -32,6 +32,10 @@ Route::controller(Authentication::class)->group(function () {
 
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('check', function () {
+        return response()->json(['status' => 'authenticated']);
+    });
+
     Route::post('hello', function () {
         return response()->json(["screw" => "you"]);
     });

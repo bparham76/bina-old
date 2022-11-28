@@ -48,7 +48,7 @@ class Authentication extends Controller
         $time = jdate()->getTimestamp();
 
         if ($time - $temp_user->time > 120)
-            return response()->json(['message' => 'code expired.'], 401);
+            return response()->json(['message' => 'code expired.'], 403);
 
         if ($data['code'] !== $temp_user->code)
             return response()->json(['message' => 'wrong authentication code.'], 401);

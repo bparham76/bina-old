@@ -14,6 +14,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ComponentPopper from "./ComponentPopper";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import TestBtn from "./TestBtn";
 
 const Header = (props) => {
     const { websiteName, websiteDetails, ...otherProps } = props;
@@ -75,6 +76,7 @@ const Header = (props) => {
                     sx={{ px: 4 }}
                     onClick={() => setOpenMenu(true)}
                 >
+                    <MenuOpenIcon />
                     مشاهده گزینه ها
                 </Fab>
             </Box>
@@ -85,7 +87,7 @@ const Header = (props) => {
         return (
             <Button
                 {...props}
-                color="error"
+                color="secondary"
                 variant="outlined"
                 sx={{ border: "none", "&:hover": { border: "none" } }}
             >
@@ -126,9 +128,7 @@ const Header = (props) => {
     };
 
     useEffect(() => {
-        setOpenCart(false);
-        setOpenProducts(false);
-        setOpenSearch(false);
+        drawerState("close");
     }, [mobileScreen]);
 
     return (
@@ -185,6 +185,7 @@ const Header = (props) => {
             <ComponentPopper
                 open={openMenu}
                 anchor="bottom"
+                autoHeight
                 onClick={() => setOpenMenu(false)}
             >
                 <Stack spacing={4}>
@@ -194,9 +195,11 @@ const Header = (props) => {
             <ComponentPopper
                 open={openProducts}
                 anchor="right"
+                fullScreen
                 onClick={() => setOpenProducts(false)}
             >
                 Products list place
+                <TestBtn />
             </ComponentPopper>
             <ComponentPopper
                 open={openSearch}

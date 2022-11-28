@@ -9,7 +9,15 @@ import {
 } from "@mui/material";
 
 const ComponentPopper = (props) => {
-    const { anchor, open, onClick, children, ...otherProps } = props;
+    const {
+        anchor,
+        open,
+        onClick,
+        autoHeight,
+        fullScreen,
+        children,
+        ...otherProps
+    } = props;
     const mobileScreen = useMediaQuery("(max-width: 450px)");
 
     const [mouseOnFadeComponent, setMouseOnFadeComponent] = useState(false);
@@ -29,18 +37,22 @@ const ComponentPopper = (props) => {
                         style: {
                             left: anchor === "right" ? "unset" : 0,
                             right: anchor === "right" ? 0 : "unset",
-                            height:
-                                anchor === "top" || anchor === "bottom"
-                                    ? "90vh"
-                                    : "100vh",
-                            width:
-                                anchor === "left" || anchor === "right"
-                                    ? "90vw"
-                                    : "100vw",
+                            height: fullScreen
+                                ? "100vh"
+                                : autoHeight
+                                ? ""
+                                : anchor === "top" || anchor === "bottom"
+                                ? "90vh"
+                                : "100vh",
+                            width: fullScreen
+                                ? "100vw"
+                                : anchor === "left" || anchor === "right"
+                                ? "90vw"
+                                : "100vw",
                         },
                     }}
                 >
-                    {children}
+                    <Box sx={{ p: 2 }}>{children}</Box>
                 </Drawer>
             ) : (
                 <Fade in={open} onClick={handleFadeClick}>
@@ -66,12 +78,11 @@ const ComponentPopper = (props) => {
                                 }
                                 elevation={6}
                                 sx={{
-                                    width: "90vw",
-                                    height: "90vh",
-                                    p: 2,
+                                    width: fullScreen ? "95vw" : "60vw",
+                                    height: fullScreen ? "95vh" : "80vh",
                                 }}
                             >
-                                {children}
+                                <Box sx={{ p: 2 }}>{children}</Box>
                             </Paper>
                         </Box>
                     </Backdrop>
