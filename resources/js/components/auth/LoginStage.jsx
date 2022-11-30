@@ -1,14 +1,13 @@
 import { Stack, Typography, TextField, Button } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useState } from "react";
-import { useFetch } from "use-http";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 
 const LoginStage = (props) => {
-    const { mobile, dispatch, ...others } = props;
+    const { mobile } = props;
 
     const [formInput, setFormInput] = useState("");
-    const { response, post, get, loading, error } = useFetch("/api");
+    const [loading, setLoading] = useState(false);
 
     //input integrity controller
     const handleInput = (input) => {
@@ -18,23 +17,7 @@ const LoginStage = (props) => {
     };
 
     //submit button action
-    const handleSubmit = async () => {
-        const result = await get("/sendcode?phone=" + formInput);
-        // const result = await post("/test");
-
-        // if (result == null) console.log(error);
-        // else console.log(result.code);
-
-        if (response.ok) {
-            if (response.status === 200)
-                dispatch({ type: "phone_sent_success", phone: formInput });
-            else {
-                dispatch({ type: "phone_sent_fail_network" });
-            }
-        } else {
-            dispatch({ type: "phone_sent_fail_network" });
-        }
-    };
+    const handleSubmit = async () => {};
 
     return (
         <Stack spacing={1} sx={{ dispaly: "flex", alignItems: "center" }}>

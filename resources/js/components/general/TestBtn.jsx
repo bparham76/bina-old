@@ -1,11 +1,11 @@
-import { useAuth } from "../../features/AuthProvider";
+import { useAuth } from "../../features/auth/AuthEcosystem";
 import { Button } from "@mui/material";
 
 const TestBtn = () => {
-    const authState = useAuth();
+    const { setPhone, setCode } = useAuth();
 
     const handleClick = () => {
-        console.info(authState);
+        setPhone("09117186757");
     };
 
     return <Button onClick={handleClick}>Click Me!</Button>;

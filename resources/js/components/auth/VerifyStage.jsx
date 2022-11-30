@@ -1,15 +1,13 @@
 import { Stack, Typography, TextField, Button } from "@mui/material";
 import SmsIcon from "@mui/icons-material/Sms";
 import { useState, useEffect } from "react";
-import { useFetch } from "use-http";
 
 const VerifyStage = (props) => {
-    const { mobile, phone, dispatch, ...others } = props;
+    const { mobile } = props;
 
     const [formInput, setFormInput] = useState("");
     const [canResend, setCanResend] = useState(false);
     const [countDown, setCountDown] = useState(20);
-    const { response, get, loading, error } = useFetch("/api");
 
     //input integrity controller
     const handleInput = (input) => {
@@ -28,28 +26,7 @@ const VerifyStage = (props) => {
     }, [countDown]);
 
     //submit button action
-    const handleSubmit = async () => {
-        const result = await get(
-            `/verifycode?phone=${phone}&code=${formInput}`
-        );
-        if (response.ok) {
-            console.table(result);
-            switch (response.status) {
-                case "200":
-                    if (result.action == 1) dispatch({ type: "" });
-                    else dispatch({ type: "" });
-                    break;
-                case "404":
-                    dispatch({ type: "" });
-                    break;
-                case "401":
-                    dispatch({ type: "" });
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
+    const handleSubmit = async () => {};
 
     return (
         <Stack spacing={1} sx={{ dispaly: "flex", alignItems: "center" }}>

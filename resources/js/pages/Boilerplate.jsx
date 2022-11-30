@@ -6,7 +6,8 @@ import { prefixer } from "stylis";
 import { CssBaseline, createTheme } from "@mui/material";
 import Shabnam from "../../font/Shabnam.woff2";
 import ShabnamBold from "../../font/Shabnam-Bold.woff2";
-import AuthProvider from "../features/AuthProvider";
+import AuthEcosystem from "../features/auth/AuthEcosystem";
+import ShopEcosystem from "../features/shop/ShopEcosystem";
 
 const cacheRtl = createCache({
     key: "muirtl",
@@ -41,11 +42,14 @@ const theme = createTheme({
 });
 
 export default function Boilerplate(props) {
+    const { children } = props;
     return (
         <RTL>
             <ThemeProvider theme={theme}>
                 <CssBaseline />
-                <AuthProvider>{props.children}</AuthProvider>
+                <AuthEcosystem>
+                    <ShopEcosystem>{children}</ShopEcosystem>
+                </AuthEcosystem>
             </ThemeProvider>
         </RTL>
     );

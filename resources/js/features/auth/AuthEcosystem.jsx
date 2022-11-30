@@ -8,14 +8,15 @@ export const useAuthSendCode = (phone) => {};
 export const useAuthVerifyPhone = (code) => {};
 
 export const useAuth = () => {
-    const { state, loading } = useContext(AuthContext);
-
-    if (loading) return 0;
-    else if (state) return 1;
-    else return -1;
+    const { state, loading, phone, setPhone, code, setCode } =
+        useContext(AuthContext);
+    return { state, phone, setPhone, code, setCode };
+    // if (loading) return 0;
+    // else if (state) return 1;
+    // else return -1;
 };
 
-const AuthProvider = (props) => {
+const AuthEcosystem = (props) => {
     const { children } = props;
 
     const [authLoading, setAuthLoading] = useState(true);
@@ -23,8 +24,7 @@ const AuthProvider = (props) => {
     const [userID, setUserID] = useState("");
     const [token, setToken] = useState("");
     const [phone, setPhone] = useState("");
-
-    console.log("render auth provider");
+    const [code, setCode] = useState("");
 
     const checkServerForAuth = async () => {
         try {
@@ -43,6 +43,24 @@ const AuthProvider = (props) => {
         checkServerForAuth();
     }, []);
 
+    const sendCode = async () => {
+        alert(phone);
+    };
+
+    useEffect(() => {
+        if (/^\d{11}$/.test(phone)) sendCode();
+        // else console.error("fucked up phone format");
+    }, [phone]);
+
+    const verifyPhone = async () => {
+        alert(code);
+    };
+
+    useEffect(() => {
+        if (/^\d{6}$/.test(code)) verifyPhone();
+        // else console.error("fucked up code format");
+    }, [code]);
+
     return (
         <AuthContext.Provider
             value={{
@@ -50,6 +68,10 @@ const AuthProvider = (props) => {
                 state: state,
                 userID: userID,
                 token: token,
+                phone: phone,
+                setPhone: setPhone,
+                code: code,
+                setCode: setCode,
             }}
         >
             {children}
@@ -57,4 +79,4 @@ const AuthProvider = (props) => {
     );
 };
 
-export default AuthProvider;
+export default AuthEcosystem;
