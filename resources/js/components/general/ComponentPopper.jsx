@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
     Box,
     Paper,
@@ -80,6 +80,9 @@ const ComponentPopper = (props) => {
                                 sx={{
                                     width: fullScreen ? "95vw" : "60vw",
                                     height: fullScreen ? "95vh" : "80vh",
+                                }}
+                                style={{
+                                    zIndex: 2000,
                                 }}
                             >
                                 <Box sx={{ p: 2 }}>{children}</Box>

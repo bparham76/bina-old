@@ -2,12 +2,13 @@ import { Stack, Typography, TextField, Button } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useState } from "react";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
+import { useAuthenticate } from "../../features/auth/AuthEcosystem";
 
 const LoginStage = (props) => {
     const { mobile } = props;
 
     const [formInput, setFormInput] = useState("");
-    const [loading, setLoading] = useState(false);
+    // const [loading, setLoading] = useState(false);
 
     //input integrity controller
     const handleInput = (input) => {
@@ -16,8 +17,11 @@ const LoginStage = (props) => {
             setFormInput(input);
     };
 
+    const { sendCode, loading } = useAuthenticate();
     //submit button action
-    const handleSubmit = async () => {};
+    const handleSubmit = () => {
+        if (!loading & (formInput.length == 11)) sendCode(formInput);
+    };
 
     return (
         <Stack spacing={1} sx={{ dispaly: "flex", alignItems: "center" }}>
@@ -38,7 +42,7 @@ const LoginStage = (props) => {
                 id="mytextfield"
                 variant="standard"
                 label="تلفن همراه"
-                color="error"
+                color="primary"
                 dir="ltr"
                 fullWidth
                 value={formInput}
@@ -46,7 +50,7 @@ const LoginStage = (props) => {
             />
             <Button
                 fullWidth
-                color="error"
+                color="primary"
                 variant="contained"
                 disabled={formInput.length == 11 ? false : true}
                 onClick={handleSubmit}
@@ -61,10 +65,10 @@ const LoginStage = (props) => {
                     />
                 )}
             </Button>
-            <Button fullWidth variant="text" color="error">
+            {/* <Button fullWidth variant="text" color="primary">
                 ورود پرسنل
-            </Button>
-            <Button fullWidth variant="text" color="error">
+            </Button> */}
+            <Button fullWidth variant="text" color="primary">
                 بازگشت
             </Button>
         </Stack>

@@ -63,21 +63,21 @@ const Header = (props) => {
                     position: "fixed",
                     display: "flex",
                     alignItems: "center",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
                     width: "100vw",
                     bottom: 0,
-                    pb: 2,
+                    p: 2,
                 }}
             >
                 <Fab
-                    variant="extended"
-                    color="error"
+                    variant="circular"
+                    color="primary"
                     size="large"
-                    sx={{ px: 4 }}
+                    sx={{ p: 3 }}
                     onClick={() => setOpenMenu(true)}
                 >
                     <MenuOpenIcon />
-                    مشاهده گزینه ها
+                    {/* مشاهده گزینه ها */}
                 </Fab>
             </Box>
         );
@@ -139,6 +139,7 @@ const Header = (props) => {
                 sx={{
                     width: "100vw",
                     p: 2,
+                    zIndex: 100000,
                 }}
             >
                 <Grid

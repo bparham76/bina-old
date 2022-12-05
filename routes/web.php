@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,25 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+
+Route::get('{all}', function () {
     return view('home');
-})->name('home');
+})->where('all', '.*')->name('home');
 
-Route::get('auth', function () {
-    return view('auth');
-})->name('auth');
+// Route::get('auth', function () {
+//     return view('auth');
+// })->name('login');
 
-Route::get('shop', function () {
-    return view('shop');
-})->name('shop');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
-Route::get('product', function () {
-    return view('single-product');
-})->name('product');
-
-
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('hello', function () {
-        return 'auth route';
-    });
-});
+// Route::middleware(['auth:sanctum'])->group(function () {
+//     Route::get('fuck', function (Request $request) {
+//         $request->user()->tokens()->delete();
+//     });
+// });

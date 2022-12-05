@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bina</title>
     @viteReactRefresh
-    @vite('resources/js/pages/Home.jsx')
+    @vite('resources/js/HomePage.jsx')
     @csrf
 </head>
 

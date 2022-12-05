@@ -1,13 +1,15 @@
-import "../../css/app.css";
+import "../css/app.css";
 import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider, ThemeProvider } from "@emotion/react";
+import { CacheProvider, css, ThemeProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { prefixer } from "stylis";
 import { CssBaseline, createTheme } from "@mui/material";
-import Shabnam from "../../font/Shabnam.woff2";
-import ShabnamBold from "../../font/Shabnam-Bold.woff2";
-import AuthEcosystem from "../features/auth/AuthEcosystem";
-import ShopEcosystem from "../features/shop/ShopEcosystem";
+import Shabnam from "../font/Shabnam.woff2";
+import ShabnamBold from "../font/Shabnam-Bold.woff2";
+import AuthEcosystem from "./features/auth/AuthEcosystem";
+import ShopEcosystem from "./features/shop/ShopEcosystem";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const cacheRtl = createCache({
     key: "muirtl",
@@ -50,6 +52,16 @@ export default function Boilerplate(props) {
                 <AuthEcosystem>
                     <ShopEcosystem>{children}</ShopEcosystem>
                 </AuthEcosystem>
+                <ToastContainer
+                    style={{ zIndex: 20000 }}
+                    toastClassName="font-shabnam"
+                    rtl
+                    position="top-right"
+                    autoClose={3500}
+                    pauseOnHover={false}
+                    pauseOnFocusLoss={false}
+                    closeOnClick={false}
+                />
             </ThemeProvider>
         </RTL>
     );

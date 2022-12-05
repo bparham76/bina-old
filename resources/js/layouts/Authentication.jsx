@@ -1,11 +1,11 @@
-import { Paper, Stack, Alert, Snackbar, useMediaQuery } from "@mui/material";
-import Footer from "../components/Footer";
+import { Paper, Stack, useMediaQuery } from "@mui/material";
 import LoginStage from "../components/auth/LoginStage";
 import VerifyStage from "../components/auth/VerifyStage";
+import { useAuthStage } from "../features/auth/AuthEcosystem";
 
 const Authentication = () => {
     const mobile = useMediaQuery("(max-width: 600px)");
-
+    const authStage = useAuthStage();
     return (
         <>
             <Paper
@@ -27,12 +27,11 @@ const Authentication = () => {
             >
                 <Stack>
                     <div>
-                        {true && <LoginStage mobile={mobile} />}
-                        {false && <VerifyStage mobile={mobile} />}
+                        {authStage == 0 && <LoginStage mobile={mobile} />}
+                        {authStage == 1 && <VerifyStage mobile={mobile} />}
                     </div>
                 </Stack>
             </Paper>
-            <Footer stickToBottom />
         </>
     );
 };

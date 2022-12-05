@@ -1,6 +1,6 @@
 html, body{
     all: unset !important;
-    font-family: 'shabnam' !important;
+    font-family: shabnam !important;
     width: 100vw;
     margin: 0;
     padding: 0;
@@ -13,4 +13,8 @@ html, body{
     to {
         transform: rotate(360deg);
     }
+}
+
+.font-shabnam{
+    font-family: shabnam !important;
 }
