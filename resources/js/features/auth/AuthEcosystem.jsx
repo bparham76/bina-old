@@ -181,3 +181,7 @@ export const useAuthenticate = () => {
         resendCode,
     };
 };
+
+export const useUserData = () => {
+    return { role: 0 };
+};

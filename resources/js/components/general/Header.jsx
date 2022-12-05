@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import {
     Paper,
     Grid,
@@ -20,7 +20,9 @@ import ReorderIcon from "@mui/icons-material/Reorder";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import HomeIcon from "@mui/icons-material/Home";
-import TestBtn from "./TestBtn";
+import ShoppingCart from "./header/ShoppingCart";
+import ProductCategory from "./header/ProductCategory";
+import Search from "./header/Search";
 
 const Header = (props) => {
     const { websiteName, websiteDetails, ...otherProps } = props;
@@ -33,6 +35,13 @@ const Header = (props) => {
     const [openSearch, setOpenSearch] = useState(false);
     const [openCart, setOpenCart] = useState(false);
     const [openProducts, setOpenProducts] = useState(false);
+
+    const headerRef = useRef();
+    const [holderHeight, setHolderHeight] = useState(0);
+
+    useLayoutEffect(() => {
+        setHolderHeight(headerRef.current.clientHeight);
+    }, []);
 
     const drawerState = (state) => {
         switch (state) {
@@ -65,27 +74,15 @@ const Header = (props) => {
 
     const FloatMenuButton = (props) => {
         return (
-            <Box
-                sx={{
-                    position: "fixed",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "flex-start",
-                    width: "100vw",
-                    bottom: 0,
-                    p: 2,
-                }}
+            <Fab
+                variant="circular"
+                color="primary"
+                size="large"
+                sx={{ m: 2, position: "fixed", bottom: 0, left: 0 }}
+                onClick={() => setOpenMenu(true)}
             >
-                <Fab
-                    variant="circular"
-                    color="primary"
-                    size="large"
-                    sx={{ p: 3 }}
-                    onClick={() => setOpenMenu(true)}
-                >
-                    <MenuOpenIcon />
-                </Fab>
-            </Box>
+                <MenuOpenIcon />
+            </Fab>
         );
     };
 
@@ -148,102 +145,111 @@ const Header = (props) => {
     }, [mobileScreen]);
 
     return (
-        <Paper
-            elevation={useScrollTrigger() ? 5 : 0}
-            sx={{
-                width: "100vw",
-                zIndex: 1000,
-                position: "fixed",
-                top: 0,
-                p: 0,
-                m: 0,
-            }}
-        >
-            <Grid
-                container
-                spacing={mobileScreen ? 0 : 1}
+        <>
+            <Paper
+                elevation={useScrollTrigger() ? 5 : 0}
                 sx={{
                     width: "100vw",
-                    py: 1,
-                    px: mobileScreen ? 0 : 2,
+                    zIndex: 1000,
+                    position: "fixed",
+                    top: 0,
+                    p: 0,
                     m: 0,
                 }}
+                ref={headerRef}
             >
                 <Grid
-                    item
                     container
-                    xs={12}
-                    sm={4}
+                    spacing={mobileScreen ? 0 : 1}
                     sx={{
-                        justifyContent: tabletScreen ? "center" : "start",
-                        alignItems: "center",
+                        width: "100vw",
+                        py: 1,
+                        px: mobileScreen ? 0 : 2,
+                        m: 0,
                     }}
                 >
-                    <Stack
+                    <Grid
+                        item
+                        container
+                        xs={12}
+                        sm={4}
                         sx={{
-                            "&:hover": { cursor: "default" },
+                            justifyContent: tabletScreen ? "center" : "start",
+                            alignItems: "center",
                         }}
                     >
-                        <Typography variant="h1" fontSize="2rem">
-                            {websiteName && websiteName}
-                        </Typography>
-                        <Typography variant="p" fontSize="0.8rem">
-                            {websiteDetails && websiteDetails}
-                        </Typography>
-                    </Stack>
+                        <Stack
+                            sx={{
+                                "&:hover": { cursor: "default" },
+                            }}
+                        >
+                            <Typography variant="h1" fontSize="2rem">
+                                {websiteName && websiteName}
+                            </Typography>
+                            <Typography variant="p" fontSize="0.8rem">
+                                {websiteDetails && websiteDetails}
+                            </Typography>
+                        </Stack>
+                    </Grid>
+                    <Grid
+                        item
+                        container
+                        xs={12}
+                        sm={8}
+                        sx={{
+                            justifyContent: tabletScreen ? "center" : "end",
+                            alignItems: "center",
+                        }}
+                    >
+                        <Stack direction="row" spacing={tabletScreen ? 0 : 1}>
+                            {!mobileScreen && <ActionButtonGroup />}
+                        </Stack>
+                    </Grid>
                 </Grid>
-                <Grid
-                    item
-                    container
-                    xs={12}
-                    sm={8}
-                    sx={{
-                        justifyContent: tabletScreen ? "center" : "end",
-                        alignItems: "center",
-                    }}
+
+                <ComponentPopper
+                    open={openMenu}
+                    anchor="bottom"
+                    autoHeight
+                    onClick={() => setOpenMenu(false)}
                 >
-                    <Stack direction="row" spacing={tabletScreen ? 0 : 1}>
-                        {!mobileScreen && <ActionButtonGroup />}
+                    <Stack spacing={4}>
+                        <ActionButtonGroup />
                     </Stack>
-                </Grid>
-            </Grid>
+                </ComponentPopper>
+                <ComponentPopper
+                    open={openProducts}
+                    anchor="right"
+                    fullScreen
+                    onClick={() => setOpenProducts(false)}
+                >
+                    <ProductCategory />
+                </ComponentPopper>
+                <ComponentPopper
+                    open={openSearch}
+                    anchor="bottom"
+                    onClick={() => setOpenSearch(false)}
+                >
+                    <Search />
+                </ComponentPopper>
+                <ComponentPopper
+                    open={openCart}
+                    anchor="left"
+                    onClick={() => setOpenCart(false)}
+                >
+                    <ShoppingCart />
+                </ComponentPopper>
 
-            <ComponentPopper
-                open={openMenu}
-                anchor="bottom"
-                autoHeight
-                onClick={() => setOpenMenu(false)}
-            >
-                <Stack spacing={4}>
-                    <ActionButtonGroup />
-                </Stack>
-            </ComponentPopper>
-            <ComponentPopper
-                open={openProducts}
-                anchor="right"
-                fullScreen
-                onClick={() => setOpenProducts(false)}
-            >
-                Products list place
-                <TestBtn />
-            </ComponentPopper>
-            <ComponentPopper
-                open={openSearch}
-                anchor="bottom"
-                onClick={() => setOpenSearch(false)}
-            >
-                Search place
-            </ComponentPopper>
-            <ComponentPopper
-                open={openCart}
-                anchor="left"
-                onClick={() => setOpenCart(false)}
-            >
-                Shopping cart place
-            </ComponentPopper>
-
-            {mobileScreen && <FloatMenuButton />}
-        </Paper>
+                {mobileScreen && <FloatMenuButton />}
+            </Paper>
+            <Box
+                sx={{
+                    width: "100%",
+                    height: holderHeight,
+                    top: 0,
+                }}
+            ></Box>
+        </>
     );
 };
 

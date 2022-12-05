@@ -20,21 +20,8 @@ const routes = createBrowserRouter([
         element: <Dashboard />,
     },
     {
-        path: "fuck",
-        element: <h1>Fuck page</h1>,
-    },
-    {
-        path: "fuck",
-        children: [
-            {
-                path: "me",
-                element: <h1>Fuck me child page of fuck page</h1>,
-            },
-            {
-                path: "you",
-                element: <h1>Little talk with you</h1>,
-            },
-        ],
+        path: "dashboard/:dist",
+        element: <Dashboard />,
     },
 ]);
 
