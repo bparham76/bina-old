@@ -3,10 +3,11 @@ import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import { useState } from "react";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { useAuthenticate } from "../../features/auth/AuthEcosystem";
+import { useNavigate } from "react-router-dom";
 
 const LoginStage = (props) => {
     const { mobile } = props;
-
+    const navigate = useNavigate();
     const [formInput, setFormInput] = useState("");
     // const [loading, setLoading] = useState(false);
 
@@ -68,7 +69,12 @@ const LoginStage = (props) => {
             {/* <Button fullWidth variant="text" color="primary">
                 ورود پرسنل
             </Button> */}
-            <Button fullWidth variant="text" color="primary">
+            <Button
+                fullWidth
+                variant="text"
+                color="primary"
+                onClick={() => navigate("/")}
+            >
                 بازگشت
             </Button>
         </Stack>

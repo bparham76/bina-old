@@ -18,17 +18,3 @@ use illuminate\Http\Request;
 Route::get('{all}', function () {
     return view('home');
 })->where('all', '.*')->name('home');
-
-// Route::get('auth', function () {
-//     return view('auth');
-// })->name('login');
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
-
-// Route::middleware(['auth:sanctum'])->group(function () {
-//     Route::get('fuck', function (Request $request) {
-//         $request->user()->tokens()->delete();
-//     });
-// });

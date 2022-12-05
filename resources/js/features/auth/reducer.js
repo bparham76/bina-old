@@ -5,7 +5,9 @@ export const reducer = (state, action) => {
         case 'loaded':
             return { ...state, loading: false };
         case 'add_phone':
-            return {...state, phone: action.payload.phone, stage: 1 };
+            return { ...state, phone: action.payload.phone, stage: 1 };
+        case 'resend_code':
+            return { ...state, stage: 0, error: 0 };
         case 'commit_login':
             return { ...state, authenticated: true, token: action.payload.token, error: 0 };
         case 'commit_logout':

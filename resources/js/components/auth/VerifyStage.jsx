@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useAuthenticate } from "../../features/auth/AuthEcosystem";
 import AutorenewIcon from "@mui/icons-material/Autorenew";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const VerifyStage = (props) => {
     const { mobile } = props;
@@ -12,7 +13,10 @@ const VerifyStage = (props) => {
     const [canResend, setCanResend] = useState(false);
     const [countDown, setCountDown] = useState(120);
 
-    const { loading, error, authenticated, verifyCode } = useAuthenticate();
+    const { loading, error, authenticated, verifyCode, resendCode } =
+        useAuthenticate();
+
+    const navigate = useNavigate();
 
     //input integrity controller
     const handleInput = (input) => {
@@ -44,9 +48,6 @@ const VerifyStage = (props) => {
             });
         } else if (!loading & authenticated) {
             toast("با موفقیت وارد شدید.", { type: "success" });
-            setTimeout(() => {
-                window.location.href = "/dashboard";
-            }, 2000);
         }
     }, [loading]);
 
@@ -101,7 +102,12 @@ const VerifyStage = (props) => {
                     </Stack>
                 </Typography>
             ) : (
-                <Button fullWidth variant="text" color="primary">
+                <Button
+                    fullWidth
+                    variant="text"
+                    color="primary"
+                    onClick={resendCode}
+                >
                     ارسال مجدد رمز یک بار مصرف
                 </Button>
             )}

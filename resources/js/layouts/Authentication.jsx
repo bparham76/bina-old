@@ -1,11 +1,20 @@
 import { Paper, Stack, useMediaQuery } from "@mui/material";
 import LoginStage from "../components/auth/LoginStage";
 import VerifyStage from "../components/auth/VerifyStage";
-import { useAuthStage } from "../features/auth/AuthEcosystem";
+import { useAuthStage, useAuthenticate } from "../features/auth/AuthEcosystem";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Authentication = () => {
     const mobile = useMediaQuery("(max-width: 600px)");
     const authStage = useAuthStage();
+    const { authenticated, loading } = useAuthenticate();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!loading & authenticated) navigate("/dashboard");
+    }, [authenticated, loading]);
+
     return (
         <>
             <Paper

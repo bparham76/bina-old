@@ -31,4 +31,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('check', function () {
         return response()->json(['auth' => true]);
     });
+
+    Route::controller(Authentication::class)->group(function () {
+        Route::post('logout', 'logout');
+    });
 });

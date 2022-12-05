@@ -25,7 +25,6 @@ const routes = createBrowserRouter([
     },
     {
         path: "fuck",
-        // element: <h1>Fuck page</h1>,
         children: [
             {
                 path: "me",

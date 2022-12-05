@@ -1,6 +1,6 @@
 import axios from "axios";
 import { reducer } from "./reducer";
-import { useReducer, createContext, useContext } from "react";
+import { useReducer, createContext, useContext, useEffect } from "react";
 
 export const AuthContext = createContext(null);
 
@@ -13,7 +13,7 @@ const AuthEcosystem = (props) => {
         phone: "",
         token: "",
         authenticated: false,
-        loading: false,
+        loading: true,
     };
     const [authData, dispatch] = useReducer(reducer, _data);
 
@@ -37,6 +37,8 @@ const AuthEcosystem = (props) => {
             dispatch({ type: "loaded" });
         }
     };
+
+    const resendCode = () => dispatch({ type: "resend_code" });
 
     const verifyCode = async (code) => {
         try {
@@ -67,16 +69,33 @@ const AuthEcosystem = (props) => {
         }
     };
 
+    const logout = async () => {
+        try {
+            dispatch({ type: "loading" });
+            const response = await axios.post(
+                "/api/logout",
+                {},
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + authData.token,
+                    },
+                }
+            );
+            if ((response !== null) & (response.status < 400)) clearAuthData();
+        } catch (e) {
+            dispatch({ type: "error_no_connection" });
+        } finally {
+            dispatch({ type: "loaded" });
+        }
+    };
+
     const clearAuthData = () => {
         dispatch({ type: "commit_logout" });
         localStorage.removeItem("token");
     };
 
     const checkAuthState = async () => {
-        const c = decodeURIComponent(document.cookie);
-        const ca = c.split(";");
-        ca.forEach((i) => console.table(i));
-
         try {
             dispatch({ type: "loading" });
 
@@ -86,14 +105,13 @@ const AuthEcosystem = (props) => {
                 ? localStorage.getItem("token")
                 : null;
 
-            const response = await axios.get(
-                // "/api/check",
-                "sanctum/csrf-cookie",
-                // {},
+            const response = await axios.post(
+                "/api/check",
+                {},
                 {
                     headers: {
                         accept: "application/json",
-                        // Authorization: "Bearer " + token,
+                        Authorization: "Bearer " + token,
                     },
                 }
             );
@@ -104,7 +122,6 @@ const AuthEcosystem = (props) => {
                     payload: { token: token },
                 });
                 localStorage.setItem("token", token);
-                // console.log(response);
             }
         } catch (e) {
             clearAuthData();
@@ -112,6 +129,10 @@ const AuthEcosystem = (props) => {
             dispatch({ type: "loaded" });
         }
     };
+
+    useEffect(() => {
+        if (!authData.authenticated) checkAuthState();
+    }, [authData.authenticated]);
 
     return (
         <AuthContext.Provider
@@ -121,6 +142,8 @@ const AuthEcosystem = (props) => {
                 sendCode,
                 verifyCode,
                 checkAuthState,
+                logout,
+                resendCode,
             }}
         >
             {children}
@@ -129,8 +152,6 @@ const AuthEcosystem = (props) => {
 };
 
 export default AuthEcosystem;
-
-// if (/^\d{11}$/.test(authData.phone)) sendCode();
 
 export const useAuthStage = () => {
     const { stage } = useContext(AuthContext);
@@ -145,6 +166,8 @@ export const useAuthenticate = () => {
         error,
         authenticated,
         checkAuthState,
+        logout,
+        resendCode,
     } = useContext(AuthContext);
 
     return {
@@ -154,5 +177,7 @@ export const useAuthenticate = () => {
         error,
         authenticated,
         checkAuthState,
+        logout,
+        resendCode,
     };
 };

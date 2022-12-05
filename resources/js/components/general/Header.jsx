@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {
+    Paper,
     Grid,
     Box,
     Stack,
@@ -7,18 +8,24 @@ import {
     Fab,
     Typography,
     useMediaQuery,
+    useScrollTrigger,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { useAuthenticate } from "../../features/auth/AuthEcosystem";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import SearchIcon from "@mui/icons-material/Search";
 import ComponentPopper from "./ComponentPopper";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import HomeIcon from "@mui/icons-material/Home";
 import TestBtn from "./TestBtn";
 
 const Header = (props) => {
     const { websiteName, websiteDetails, ...otherProps } = props;
-
+    const navigate = useNavigate();
+    const { authenticated } = useAuthenticate();
     const mobileScreen = useMediaQuery("(max-width: 450px)");
     const tabletScreen = useMediaQuery("(max-width: 700px)");
 
@@ -77,7 +84,6 @@ const Header = (props) => {
                     onClick={() => setOpenMenu(true)}
                 >
                     <MenuOpenIcon />
-                    {/* مشاهده گزینه ها */}
                 </Fab>
             </Box>
         );
@@ -100,6 +106,12 @@ const Header = (props) => {
         return (
             <>
                 <ActionButton
+                    startIcon={<HomeIcon />}
+                    onClick={() => navigate("/")}
+                >
+                    صفحه اصلی
+                </ActionButton>
+                <ActionButton
                     startIcon={<ReorderIcon />}
                     onClick={() => drawerState("products")}
                 >
@@ -118,10 +130,14 @@ const Header = (props) => {
                     سبد خرید
                 </ActionButton>
                 <ActionButton
-                    startIcon={<AccountBoxIcon />}
-                    onClick={() => (window.location.href = "/auth")}
+                    startIcon={
+                        authenticated ? <DashboardIcon /> : <AccountBoxIcon />
+                    }
+                    onClick={() =>
+                        navigate(authenticated ? "/dashboard" : "/auth")
+                    }
                 >
-                    پروفایل کاربری
+                    {authenticated ? "پروفایل کاربری" : "ورود یا ثبت نام"}
                 </ActionButton>
             </>
         );
@@ -132,22 +148,32 @@ const Header = (props) => {
     }, [mobileScreen]);
 
     return (
-        <>
+        <Paper
+            elevation={useScrollTrigger() ? 5 : 0}
+            sx={{
+                width: "100vw",
+                zIndex: 1000,
+                position: "fixed",
+                top: 0,
+                p: 0,
+                m: 0,
+            }}
+        >
             <Grid
                 container
-                spacing={1}
+                spacing={mobileScreen ? 0 : 1}
                 sx={{
                     width: "100vw",
-                    p: 2,
-                    zIndex: 100000,
+                    py: 1,
+                    px: mobileScreen ? 0 : 2,
+                    m: 0,
                 }}
             >
                 <Grid
                     item
                     container
                     xs={12}
-                    sm={6}
-                    // md={8}
+                    sm={4}
                     sx={{
                         justifyContent: tabletScreen ? "center" : "start",
                         alignItems: "center",
@@ -170,8 +196,7 @@ const Header = (props) => {
                     item
                     container
                     xs={12}
-                    sm={6}
-                    // md={4}
+                    sm={8}
                     sx={{
                         justifyContent: tabletScreen ? "center" : "end",
                         alignItems: "center",
@@ -218,7 +243,7 @@ const Header = (props) => {
             </ComponentPopper>
 
             {mobileScreen && <FloatMenuButton />}
-        </>
+        </Paper>
     );
 };
 
