@@ -7,7 +7,7 @@ import {
     useUserData,
     useAuthenticate,
 } from "../../features/auth/AuthEcosystem";
-
+import DashboardMenuButton from "./DashboardMenuButton";
 import AccountantMenu from "./accountant/AccountantMenu";
 import CustomerMenu from "./customer/CustomerMenu";
 import MarketerMenu from "./marketer/MarketerMenu";
@@ -35,6 +35,20 @@ const DashboardMenu = () => {
                 p: mobile ? 0 : 2,
             }}
         >
+            <DashboardMenuButton onClick={() => menuButtonClick("profile")}>
+                اطلاعات کاربر
+            </DashboardMenuButton>
+            <DashboardMenuButton onClick={() => menuButtonClick("addresses")}>
+                نشانی ها
+            </DashboardMenuButton>
+            <DashboardMenuButton
+                onClick={() => menuButtonClick("order-history")}
+            >
+                تاریخچه سفارشات
+            </DashboardMenuButton>
+            <DashboardMenuButton onClick={() => menuButtonClick("carts")}>
+                سبد های خرید
+            </DashboardMenuButton>
             {userData.role == 0 ? (
                 <CustomerMenu onSelect={menuButtonClick} />
             ) : userData.role == 1 ? (
@@ -44,7 +58,9 @@ const DashboardMenu = () => {
             ) : userData.role == 3 ? (
                 <SupervisorMenu onSelect={menuButtonClick} />
             ) : null}
-            <Button onClick={logout}>خروج از حساب کاربری</Button>
+            <DashboardMenuButton onClick={logout}>
+                خروج از حساب کاربری
+            </DashboardMenuButton>
         </Stack>
     );
 

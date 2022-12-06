@@ -90,9 +90,23 @@ const Header = (props) => {
         return (
             <Button
                 {...props}
-                color="secondary"
                 variant="outlined"
-                sx={{ border: "none", "&:hover": { border: "none" } }}
+                disableRipple
+                disableFocusRipple
+                disableElevation
+                sx={{
+                    color: "cadetblue",
+                    border: "none",
+                    "&:hover": {
+                        backgroundColor: "transparent",
+                        border: "none",
+                        color: "blue",
+                    },
+                    "&:click": {
+                        backgroundColor: "transparent",
+                        color: "blue",
+                    },
+                }}
             >
                 {props.children}
             </Button>
