@@ -15,7 +15,11 @@ const ProfileInfo = () => {
     return (
         <DashboardPage>
             <DashboardPagePart full>
-                <Typography variant="h4">اطلاعات کاربری</Typography>
+                <Typography variant="h4">اطلاعات کاربر</Typography>
+                <Typography variant="p" sx={{ fontSize: "0.8rem" }}>
+                    اطلاعات هویتی، مالی و حقوقی مربوط به خود را در این صفحه
+                    مشاهده و در صورت لزوم ویرایش نمایید.
+                </Typography>
             </DashboardPagePart>
             <DashboardPagePart>
                 <Typography variant="h6">اشخاص حقیقی</Typography>

@@ -1,6 +1,9 @@
 import { useMediaQuery, Box, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
 import Header from "../components/general/Header";
+import Footer from "../components/general/Footer";
+
 import { useAuthenticate } from "../features/auth/AuthEcosystem";
 import { useNavigate, useParams } from "react-router-dom";
 import DashboardMenu from "../components/dashboard/DashboardMenu";
@@ -33,11 +36,12 @@ const Dashboard = () => {
             case "carts":
                 return <ShoppingCarts />;
             default:
-                return;
+                return <Box sx={{ width: "100%", height: "80vh" }}></Box>;
         }
         //if(user role = customer)
         //else if(user role = sth else)
     };
+
     return (
         <>
             <Header
@@ -50,10 +54,17 @@ const Dashboard = () => {
                     sx={{
                         p: 2,
                         pt: mobile ? 2 : 4,
+                        backgroundColor: "snow",
                     }}
                 >
                     <Grid item xs={12} sm={2}>
-                        <Box sx={{ position: "fixed", zIndex: 1000 }}>
+                        <Box
+                            sx={{
+                                zIndex: 900,
+                                position: "sticky",
+                                top: 120,
+                            }}
+                        >
                             <DashboardMenu />
                         </Box>
                     </Grid>
@@ -62,6 +73,7 @@ const Dashboard = () => {
                     </Grid>
                 </Grid>
             </DashboardEcosystem>
+            <Footer />
         </>
     );
 };

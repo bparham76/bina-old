@@ -36,11 +36,18 @@ const Header = (props) => {
     const [openCart, setOpenCart] = useState(false);
     const [openProducts, setOpenProducts] = useState(false);
 
+    const [headerBorder, setHeaderBorder] = useState(false);
+
     const headerRef = useRef();
     const [holderHeight, setHolderHeight] = useState(0);
 
     useLayoutEffect(() => {
         setHolderHeight(headerRef.current.clientHeight);
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 100) setHeaderBorder(true);
+            else setHeaderBorder(false);
+        });
     }, []);
 
     const drawerState = (state) => {
@@ -161,7 +168,8 @@ const Header = (props) => {
     return (
         <>
             <Paper
-                elevation={useScrollTrigger() ? 5 : 0}
+                elevation={headerBorder ? 5 : 0}
+                // elevation={useScrollTrigger() ? 5 : 0}
                 sx={{
                     width: "100vw",
                     zIndex: 1000,

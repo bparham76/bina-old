@@ -1,4 +1,5 @@
 import Header from "../components/general/Header";
+import Footer from "../components/general/Footer";
 import { Box } from "@mui/system";
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
             >
                 Salam
             </Box>
+            <Footer />
         </>
     );
 }

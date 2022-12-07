@@ -6,7 +6,7 @@ const DashboardEcosystem = (props) => {
     const { children } = props;
 
     const createNewAddress = () => {
-        alert("new address");
+        console.log("new address");
     };
 
     const updateAddress = (id) => {};
