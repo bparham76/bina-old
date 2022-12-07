@@ -6,6 +6,10 @@ import {
     Typography,
     useMediaQuery,
     Grid,
+    Table,
+    TableBody,
+    TableCell,
+    TableRow,
 } from "@mui/material";
 import { useState } from "react";
 import { useDashboardSettings } from "../../../features/dashboard/DashboardEcosystem";
@@ -70,8 +74,8 @@ export const AddressEntry = (props) => {
                 <Grid item xs={12} md={4}>
                     <MapViewer
                         mobile={mobile}
-                        height={180}
-                        width={mobile ? "100%" : 300}
+                        height={200}
+                        width={mobile ? "100%" : "auto"}
                         mapCenter={[36.82, 50.86]}
                         attributionControl={false}
                         zoomControl={false}
@@ -79,29 +83,80 @@ export const AddressEntry = (props) => {
                 </Grid>
                 <Grid
                     item
+                    container
                     xs={12}
                     md={8}
-                    gap={2}
                     sx={{
                         pt: 2,
-                        px: mobile ? 2 : 0,
                     }}
                 >
-                    <Grid item>عنوان:‌ {"محل کار"}</Grid>
-                    <Grid item>
-                        استان: {"مازندران"} - شهرستان: {"تنکابن"} -{" "}
-                        {"الباقی نشانی"}
-                    </Grid>
-                    <Grid item>کد پستی: {"4681983933"}</Grid>
-                    <Grid item>تلفن ثابت: {"01154236634"}</Grid>
                     <Grid
                         item
-                        container
+                        xs={12}
+                        md={9}
                         sx={{
-                            p: 2,
-                            justifyContent: mobile
-                                ? "space-between"
-                                : "flex-start",
+                            px: 2,
+                        }}
+                    >
+                        <Table>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell sx={{ p: 0 }} variant="head">
+                                        عنوان
+                                    </TableCell>
+                                    <TableCell sx={{ p: 0 }}>محل کار</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell sx={{ p: 0 }} variant="head">
+                                        نام تحویل گیرنده
+                                    </TableCell>
+                                    <TableCell sx={{ p: 0 }}>
+                                        پرهام باقی زاده
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell sx={{ p: 0 }} variant="head">
+                                        نشانی
+                                    </TableCell>
+                                    <TableCell
+                                        sx={{
+                                            p: 0,
+                                        }}
+                                    >
+                                        مازندران، تنکابن، خیابان میرزا طاهر
+                                        تنکابنی، پاساژ طالقانی، طبقه همکف، واحد
+                                        b8
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell sx={{ p: 0 }} variant="head">
+                                        کد پستی
+                                    </TableCell>
+                                    <TableCell sx={{ p: 0 }}>
+                                        4681983933
+                                    </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell sx={{ p: 0 }} variant="head">
+                                        تلفن
+                                    </TableCell>
+                                    <TableCell sx={{ p: 0 }}>
+                                        01154236634
+                                    </TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+                    </Grid>
+                    <Grid
+                        item
+                        xs={12}
+                        md={3}
+                        sx={{
+                            px: 2,
+                            py: mobile ? 2 : 0,
+                            display: "flex",
+                            flexDirection: mobile ? "row" : "column",
+                            justifyContent: "flex-start",
                         }}
                     >
                         <Button
