@@ -18,7 +18,8 @@ class Authentication extends Controller
 
         // sleep(2);
 
-        $code = random_int(100000, 999999);
+        // $code = random_int(100000, 999999);
+        $code = 111111;
         $time = jdate()->getTimestamp();
 
         AuthTemp::updateOrCreate(
@@ -29,7 +30,7 @@ class Authentication extends Controller
             ]
         );
 
-        return response()->json(['code' => $code]);
+        return response()->json(['message' => 'code sent to your phone']);
     }
 
     public function verify_code(Request $request)

@@ -9,17 +9,14 @@ const LoginStage = (props) => {
     const { mobile } = props;
     const navigate = useNavigate();
     const [formInput, setFormInput] = useState("");
-    // const [loading, setLoading] = useState(false);
+    const { sendCode, loading } = useAuthenticate();
 
-    //input integrity controller
     const handleInput = (input) => {
         const reg = /^\d+\b$/;
         if ((reg.test(input) || input == "") && input.length < 12)
             setFormInput(input);
     };
 
-    const { sendCode, loading } = useAuthenticate();
-    //submit button action
     const handleSubmit = () => {
         if (!loading & (formInput.length == 11)) sendCode(formInput);
     };
@@ -41,7 +38,7 @@ const LoginStage = (props) => {
             </Typography>
             <TextField
                 id="mytextfield"
-                variant="standard"
+                variant="outlined"
                 label="تلفن همراه"
                 color="primary"
                 dir="ltr"
@@ -66,9 +63,6 @@ const LoginStage = (props) => {
                     />
                 )}
             </Button>
-            {/* <Button fullWidth variant="text" color="primary">
-                ورود پرسنل
-            </Button> */}
             <Button
                 fullWidth
                 variant="text"

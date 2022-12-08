@@ -13,7 +13,7 @@ const VerifyStage = (props) => {
     const [canResend, setCanResend] = useState(false);
     const [countDown, setCountDown] = useState(120);
 
-    const { loading, error, authenticated, verifyCode, resendCode } =
+    const { loading, error, verifyCode, resendCode, abortAuth } =
         useAuthenticate();
 
     const navigate = useNavigate();
@@ -46,9 +46,10 @@ const VerifyStage = (props) => {
             toast("مدت زمان اعتبار کد وارد شده به اتمام رسیده است.", {
                 type: "error",
             });
-        } else if (!loading & authenticated) {
-            toast("با موفقیت وارد شدید.", { type: "success" });
         }
+        // else if (!loading & authenticated) {
+        //     toast("با موفقیت وارد شدید.", { type: "success" });
+        // }
     }, [loading]);
 
     return (
@@ -68,7 +69,7 @@ const VerifyStage = (props) => {
             </Typography>
             <TextField
                 id="mytextfield"
-                variant="standard"
+                variant="outlined"
                 label="کد تایید"
                 dir="ltr"
                 fullWidth
@@ -111,6 +112,17 @@ const VerifyStage = (props) => {
                     ارسال مجدد رمز یک بار مصرف
                 </Button>
             )}
+            <Button
+                fullWidth
+                variant="text"
+                color="primary"
+                onClick={() => {
+                    abortAuth();
+                    navigate("/");
+                }}
+            >
+                بازگشت
+            </Button>
         </Stack>
     );
 };

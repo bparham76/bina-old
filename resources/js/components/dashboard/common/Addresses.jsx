@@ -101,26 +101,54 @@ export const AddressEntry = (props) => {
                         <Table>
                             <TableBody>
                                 <TableRow>
-                                    <TableCell sx={{ p: 0 }} variant="head">
+                                    <TableCell
+                                        sx={{
+                                            p: 0,
+                                            borderBottom: "none",
+                                            width: "30%",
+                                        }}
+                                        variant="head"
+                                    >
                                         عنوان
                                     </TableCell>
-                                    <TableCell sx={{ p: 0 }}>محل کار</TableCell>
+                                    <TableCell
+                                        sx={{ p: 0, borderBottom: "none" }}
+                                    >
+                                        محل کار
+                                    </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell sx={{ p: 0 }} variant="head">
+                                    <TableCell
+                                        sx={{
+                                            p: 0,
+                                            borderBottom: "none",
+                                            width: "30%",
+                                        }}
+                                        variant="head"
+                                    >
                                         نام تحویل گیرنده
                                     </TableCell>
-                                    <TableCell sx={{ p: 0 }}>
+                                    <TableCell
+                                        sx={{ p: 0, borderBottom: "none" }}
+                                    >
                                         پرهام باقی زاده
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell sx={{ p: 0 }} variant="head">
+                                    <TableCell
+                                        sx={{
+                                            p: 0,
+                                            borderBottom: "none",
+                                            width: "30%",
+                                        }}
+                                        variant="head"
+                                    >
                                         نشانی
                                     </TableCell>
                                     <TableCell
                                         sx={{
                                             p: 0,
+                                            borderBottom: "none",
                                         }}
                                     >
                                         مازندران، تنکابن، خیابان میرزا طاهر
@@ -129,18 +157,36 @@ export const AddressEntry = (props) => {
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell sx={{ p: 0 }} variant="head">
+                                    <TableCell
+                                        sx={{
+                                            p: 0,
+                                            borderBottom: "none",
+                                            width: "30%",
+                                        }}
+                                        variant="head"
+                                    >
                                         کد پستی
                                     </TableCell>
-                                    <TableCell sx={{ p: 0 }}>
+                                    <TableCell
+                                        sx={{ p: 0, borderBottom: "none" }}
+                                    >
                                         4681983933
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
-                                    <TableCell sx={{ p: 0 }} variant="head">
+                                    <TableCell
+                                        sx={{
+                                            p: 0,
+                                            borderBottom: "none",
+                                            width: "30%",
+                                        }}
+                                        variant="head"
+                                    >
                                         تلفن
                                     </TableCell>
-                                    <TableCell sx={{ p: 0 }}>
+                                    <TableCell
+                                        sx={{ p: 0, borderBottom: "none" }}
+                                    >
                                         01154236634
                                     </TableCell>
                                 </TableRow>

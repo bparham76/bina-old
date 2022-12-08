@@ -1,5 +1,7 @@
 export const reducer = (state, action) => {
     switch (action.type) {
+        case 'abort':
+            return { ...state, authenticated: false, loading: false, phone: '', stage: 0, error: 0 };
         case 'loading':
             return { ...state, loading: true };
         case 'loaded':

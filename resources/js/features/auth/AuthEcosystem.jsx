@@ -130,6 +130,8 @@ const AuthEcosystem = (props) => {
         }
     };
 
+    const abortAuth = () => dispatch({ type: "abort" });
+
     useEffect(() => {
         if (!authData.authenticated) checkAuthState();
     }, [authData.authenticated]);
@@ -139,6 +141,7 @@ const AuthEcosystem = (props) => {
             value={{
                 ...authData,
                 dispatch,
+                abortAuth,
                 sendCode,
                 verifyCode,
                 checkAuthState,
@@ -159,27 +162,8 @@ export const useAuthStage = () => {
 };
 
 export const useAuthenticate = () => {
-    const {
-        sendCode,
-        verifyCode,
-        loading,
-        error,
-        authenticated,
-        checkAuthState,
-        logout,
-        resendCode,
-    } = useContext(AuthContext);
-
-    return {
-        sendCode,
-        verifyCode,
-        loading,
-        error,
-        authenticated,
-        checkAuthState,
-        logout,
-        resendCode,
-    };
+    const { ...AuthEco } = useContext(AuthContext);
+    return { ...AuthEco };
 };
 
 export const useUserData = () => {
