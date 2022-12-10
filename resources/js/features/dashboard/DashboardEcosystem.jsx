@@ -5,12 +5,10 @@ const DashboardContext = createContext(null);
 const DashboardEcosystem = (props) => {
     const { children } = props;
 
-    const createNewAddress = () => {
-        console.log("new address");
-    };
+    const createNewAddress = () => {};
 
-    const updateAddress = (id) => {};
-    const deleteAddress = (id) => {};
+    const updateAddress = ({ id, data }) => {};
+    const deleteAddress = ({ id, data }) => {};
 
     const insertProfileData = (profileData) => {};
 

@@ -8,7 +8,7 @@ const Footer = () => {
                     py: 2,
                     width: "100%",
                     height: 400,
-                    backgroundColor: "ButtonFace",
+                    backgroundColor: "khaki",
                 }}
             >
                 <Typography variant="p" sx={{ fontSize: "0.8rem", px: 4 }}>

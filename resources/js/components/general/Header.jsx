@@ -8,7 +8,6 @@ import {
     Fab,
     Typography,
     useMediaQuery,
-    useScrollTrigger,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useAuthenticate } from "../../features/auth/AuthEcosystem";
@@ -85,7 +84,19 @@ const Header = (props) => {
                 variant="circular"
                 color="primary"
                 size="large"
-                sx={{ m: 2, position: "fixed", bottom: 0, left: 0 }}
+                sx={{
+                    m: 2,
+                    position: "fixed",
+                    bottom: 0,
+                    left: 0,
+                    bgcolor: "lightcoral",
+                    "&:click": {
+                        bgcolor: "lightcoral",
+                    },
+                    "&:hover": {
+                        bgcolor: "lightcoral",
+                    },
+                }}
                 onClick={() => setOpenMenu(true)}
             >
                 <MenuOpenIcon />
@@ -102,16 +113,16 @@ const Header = (props) => {
                 disableFocusRipple
                 disableElevation
                 sx={{
-                    color: "cadetblue",
+                    color: "lightcoral",
                     border: "none",
                     "&:hover": {
                         backgroundColor: "transparent",
                         border: "none",
-                        color: "blue",
+                        color: "red",
                     },
                     "&:click": {
                         backgroundColor: "transparent",
-                        color: "blue",
+                        color: "red",
                     },
                 }}
             >
@@ -168,8 +179,8 @@ const Header = (props) => {
     return (
         <>
             <Paper
+                square
                 elevation={headerBorder ? 5 : 0}
-                // elevation={useScrollTrigger() ? 5 : 0}
                 sx={{
                     width: "100vw",
                     zIndex: 1000,
@@ -242,14 +253,13 @@ const Header = (props) => {
                 <ComponentPopper
                     open={openProducts}
                     anchor="right"
-                    fullScreen
                     onClick={() => setOpenProducts(false)}
                 >
                     <ProductCategory />
                 </ComponentPopper>
                 <ComponentPopper
                     open={openSearch}
-                    anchor="bottom"
+                    anchor="top"
                     onClick={() => setOpenSearch(false)}
                 >
                     <Search />

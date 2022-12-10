@@ -167,5 +167,5 @@ export const useAuthenticate = () => {
 };
 
 export const useUserData = () => {
-    return { role: 0 };
+    return { role: 1 };
 };

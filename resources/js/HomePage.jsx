@@ -23,6 +23,10 @@ const routes = createBrowserRouter([
         path: "dashboard/:dist",
         element: <Dashboard />,
     },
+    {
+        path: "dashboard/:dist/:act",
+        element: <Dashboard />,
+    },
 ]);
 
 ReactDOM.createRoot(document.getElementById("body")).render(

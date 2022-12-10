@@ -1,7 +1,8 @@
-import React from "react";
-
-const SupervisorMenu = () => {
-    return <div>SupervisorMenu</div>;
-};
+const SupervisorMenu = [
+    {
+        name: "",
+        address: "",
+    },
+];
 
 export default SupervisorMenu;

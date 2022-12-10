@@ -23,7 +23,9 @@ const LoginStage = (props) => {
 
     return (
         <Stack spacing={1} sx={{ dispaly: "flex", alignItems: "center" }}>
-            <AdminPanelSettingsIcon sx={{ fontSize: "4rem" }} />
+            <AdminPanelSettingsIcon
+                sx={{ fontSize: "4rem", color: "lightcoral" }}
+            />
             <Typography variant="h6">ورود یا ثبت نام</Typography>
             <Typography
                 variant="p"
@@ -40,7 +42,7 @@ const LoginStage = (props) => {
                 id="mytextfield"
                 variant="outlined"
                 label="تلفن همراه"
-                color="primary"
+                color="error"
                 dir="ltr"
                 fullWidth
                 value={formInput}
@@ -52,6 +54,10 @@ const LoginStage = (props) => {
                 variant="contained"
                 disabled={formInput.length == 11 ? false : true}
                 onClick={handleSubmit}
+                sx={{
+                    bgcolor: "lightcoral",
+                    "&:hover": { bgcolor: "lightcoral" },
+                }}
             >
                 {!loading && "ارسال رمز یک بار مصرف"}
                 {loading && (
@@ -68,6 +74,9 @@ const LoginStage = (props) => {
                 variant="text"
                 color="primary"
                 onClick={() => navigate("/")}
+                sx={{
+                    color: "lightcoral",
+                }}
             >
                 بازگشت
             </Button>

@@ -1,5 +1,5 @@
 import { useMediaQuery, Box, Grid } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Header from "../components/general/Header";
 import Footer from "../components/general/Footer";
@@ -15,18 +15,24 @@ import ShoppingCarts from "../components/dashboard/common/ShoppingCarts";
 
 import DashboardEcosystem from "../features/dashboard/DashboardEcosystem";
 
+import { useShopInfo } from "../features/shop/ShopEcosystem";
+
 const Dashboard = () => {
+    const [render, setRender] = useState(false);
     const { authenticated, loading } = useAuthenticate();
     const navigate = useNavigate();
     const { dist } = useParams();
     const mobile = useMediaQuery("(max-width: 450px)");
+    const { shopName, shopDescription } = useShopInfo();
 
     useEffect(() => {
         if (!loading & !authenticated) navigate("/auth");
+        else setRender(true);
     }, [authenticated, loading]);
 
     const showDashboardPagePart = () => {
         switch (dist) {
+            case "":
             case "profile":
                 return <ProfileInfo />;
             case "addresses":
@@ -42,12 +48,11 @@ const Dashboard = () => {
         //else if(user role = sth else)
     };
 
+    if (!render) return;
+
     return (
         <>
-            <Header
-                websiteName="بازرگانی مهر"
-                websiteDetails="نماینده رسمی فروش و خدمات شرکت ایران رادیاتور"
-            />
+            <Header websiteName={shopName} websiteDetails={shopDescription} />
             <DashboardEcosystem>
                 <Grid
                     container

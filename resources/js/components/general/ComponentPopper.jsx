@@ -42,12 +42,12 @@ const ComponentPopper = (props) => {
                                 : autoHeight
                                 ? ""
                                 : anchor === "top" || anchor === "bottom"
-                                ? "90vh"
+                                ? "80vh"
                                 : "100vh",
                             width: fullScreen
                                 ? "100vw"
                                 : anchor === "left" || anchor === "right"
-                                ? "90vw"
+                                ? "80vw"
                                 : "100vw",
                         },
                     }}

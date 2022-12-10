@@ -78,7 +78,14 @@ const ProfileInfo = () => {
                 </>
             )}
             <DashboardPagePart>
-                <Button size="large" variant="contained">
+                <Button
+                    size="large"
+                    variant="contained"
+                    sx={{
+                        bgcolor: "lightcoral",
+                        "&:hover": { bgcolor: "red" },
+                    }}
+                >
                     ذخیره تغییرات
                 </Button>
             </DashboardPagePart>

@@ -2,13 +2,14 @@ import Header from "../components/general/Header";
 import Footer from "../components/general/Footer";
 import { Box } from "@mui/system";
 
+import { useShopInfo } from "../features/shop/ShopEcosystem";
+
 export default function Home() {
+    const { shopName, shopDescription } = useShopInfo();
+
     return (
         <>
-            <Header
-                websiteName="بازرگانی مهر"
-                websiteDetails="نماینده رسمی فروش و خدمات شرکت ایران رادیاتور"
-            />
+            <Header websiteName={shopName} websiteDetails={shopDescription} />
             <Box
                 sx={{
                     display: "flex",

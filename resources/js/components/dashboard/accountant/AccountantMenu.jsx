@@ -1,7 +1,8 @@
-import React from "react";
-
-const AccountantMenu = () => {
-    return <div>AccountantMenu</div>;
-};
+const AccountantMenu = [
+    {
+        name: "حسابداری",
+        address: "accountant",
+    },
+];
 
 export default AccountantMenu;

@@ -30,7 +30,16 @@ const OrderHistory = () => {
                 <TableCell align="center">
                     <Button
                         variant="outlined"
-                        sx={{ px: 4 }}
+                        sx={{
+                            px: 4,
+                            color: "lightcoral",
+                            borderColor: "lightcoral",
+                            "&:hover": {
+                                color: "white",
+                                borderColor: "lightcoral",
+                                bgcolor: "lightcoral",
+                            },
+                        }}
                         onClick={(e) => setShowDetails(true)}
                     >
                         مشاهده

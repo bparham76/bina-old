@@ -54,7 +54,7 @@ const VerifyStage = (props) => {
 
     return (
         <Stack spacing={1} sx={{ dispaly: "flex", alignItems: "center" }}>
-            <SmsIcon sx={{ fontSize: "4rem" }} />
+            <SmsIcon sx={{ fontSize: "4rem", color: "lightcoral" }} />
             <Typography variant="h6">اعتبارسنجی</Typography>
             <Typography
                 variant="p"
@@ -71,6 +71,7 @@ const VerifyStage = (props) => {
                 id="mytextfield"
                 variant="outlined"
                 label="کد تایید"
+                color="error"
                 dir="ltr"
                 fullWidth
                 value={formInput}
@@ -82,6 +83,10 @@ const VerifyStage = (props) => {
                 variant="contained"
                 disabled={formInput.length == 6 ? false : true}
                 onClick={handleSubmit}
+                sx={{
+                    bgcolor: "lightcoral",
+                    "&:hover": { bgcolor: "lightcoral" },
+                }}
             >
                 {!loading && "تایید و ورود"}
                 {loading && (
@@ -119,6 +124,9 @@ const VerifyStage = (props) => {
                 onClick={() => {
                     abortAuth();
                     navigate("/");
+                }}
+                sx={{
+                    color: "lightcoral",
                 }}
             >
                 بازگشت

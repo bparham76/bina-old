@@ -21,48 +21,71 @@ const DashboardMenu = () => {
     const userData = useUserData();
 
     const menuButtonClick = (address) => {
-        navigate("/dashboard/" + address);
         setDrawerOpen(false);
+        navigate("/dashboard/" + address);
     };
 
-    const Menu = () => (
-        <Stack
-            spacing={mobile ? 2 : 0}
-            sx={{
-                display: "flex",
-                width: "100%",
-                justifyContent: "center",
-                p: mobile ? 0 : 2,
-            }}
-        >
-            <DashboardMenuButton onClick={() => menuButtonClick("profile")}>
-                اطلاعات کاربر
-            </DashboardMenuButton>
-            <DashboardMenuButton onClick={() => menuButtonClick("addresses")}>
-                نشانی ها
-            </DashboardMenuButton>
-            <DashboardMenuButton
-                onClick={() => menuButtonClick("order-history")}
+    let menuitems = [
+        {
+            name: "اطلاعات کاربر",
+            address: "profile",
+        },
+        {
+            name: "نشانی ها",
+            address: "addresses",
+        },
+        {
+            name: "تاریخچه سفارشات",
+            address: "order-history",
+        },
+        {
+            name: "سبد های خرید",
+            address: "carts",
+        },
+    ];
+
+    switch (userData.role) {
+        case 0:
+            menuitems = menuitems.concat([...CustomerMenu]);
+            break;
+        case 1:
+            menuitems = menuitems.concat([...AccountantMenu]);
+            break;
+        case 2:
+            menuitems = menuitems.concat([...MarketerMenu]);
+            break;
+        case 3:
+            menuitems = menuitems.concat([...SupervisorMenu]);
+            break;
+        default:
+            break;
+    }
+
+    const Menu = () => {
+        return (
+            <Stack
+                spacing={mobile ? 2 : 0}
+                sx={{
+                    display: "flex",
+                    width: "100%",
+                    justifyContent: "center",
+                    p: mobile ? 0 : 2,
+                }}
             >
-                تاریخچه سفارشات
-            </DashboardMenuButton>
-            <DashboardMenuButton onClick={() => menuButtonClick("carts")}>
-                سبد های خرید
-            </DashboardMenuButton>
-            {userData.role == 0 ? (
-                <CustomerMenu onSelect={menuButtonClick} />
-            ) : userData.role == 1 ? (
-                <MarketerMenu onSelect={menuButtonClick} />
-            ) : userData.role == 2 ? (
-                <AccountantMenu onSelect={menuButtonClick} />
-            ) : userData.role == 3 ? (
-                <SupervisorMenu onSelect={menuButtonClick} />
-            ) : null}
-            <DashboardMenuButton onClick={logout}>
-                خروج از حساب کاربری
-            </DashboardMenuButton>
-        </Stack>
-    );
+                {menuitems.map((item, index) => (
+                    <DashboardMenuButton
+                        key={index}
+                        onClick={() => menuButtonClick(item.address)}
+                    >
+                        {item.name}
+                    </DashboardMenuButton>
+                ))}
+                <DashboardMenuButton onClick={logout}>
+                    خروج از حساب کاربری
+                </DashboardMenuButton>
+            </Stack>
+        );
+    };
 
     useEffect(() => {
         setDrawerOpen(false);
@@ -80,6 +103,7 @@ const DashboardMenu = () => {
                         bottom: 0,
                         right: 0,
                         position: "fixed",
+                        bgcolor: "lightcoral",
                     }}
                     onClick={() => {
                         setDrawerOpen(true);

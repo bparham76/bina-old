@@ -1,24 +1,12 @@
-import DashboardMenuButton from "../DashboardMenuButton";
-
-const CustomerMenu = (props) => {
-    const { onSelect } = props;
-
-    return (
-        <>
-            <DashboardMenuButton onClick={(e) => onSelect("fuck")}>
-                salam
-            </DashboardMenuButton>
-            <DashboardMenuButton onClick={(e) => onSelect("fuck")}>
-                salam
-            </DashboardMenuButton>
-            <DashboardMenuButton onClick={(e) => onSelect("fuck")}>
-                salam
-            </DashboardMenuButton>
-            <DashboardMenuButton onClick={(e) => onSelect("fuck")}>
-                salam
-            </DashboardMenuButton>
-        </>
-    );
-};
+const CustomerMenu = [
+    {
+        name: "salam",
+        address: "salam",
+    },
+    {
+        name: "khubi",
+        address: "khubi",
+    },
+];
 
 export default CustomerMenu;

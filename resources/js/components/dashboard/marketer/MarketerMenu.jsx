@@ -1,7 +1,8 @@
-import React from "react";
-
-const MarketerMenu = () => {
-    return <div>MarketerMenu</div>;
-};
+const MarketerMenu = [
+    {
+        name: "",
+        address: "",
+    },
+];
 
 export default MarketerMenu;
