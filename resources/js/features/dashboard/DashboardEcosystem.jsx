@@ -1,11 +1,15 @@
-import { useContext, createContext } from "react";
+import { Box } from "@mui/material";
+
+import { useContext, createContext, useState } from "react";
 
 const DashboardContext = createContext(null);
 
 const DashboardEcosystem = (props) => {
     const { children } = props;
 
-    const createNewAddress = () => {};
+    const [userAddresses, setUserAddresses] = useState([]);
+
+    const createNewAddress = (addressData) => {};
 
     const updateAddress = ({ id, data }) => {};
     const deleteAddress = ({ id, data }) => {};
@@ -15,6 +19,8 @@ const DashboardEcosystem = (props) => {
     return (
         <DashboardContext.Provider
             value={{
+                userAddresses,
+                setUserAddresses,
                 createNewAddress,
                 updateAddress,
                 deleteAddress,

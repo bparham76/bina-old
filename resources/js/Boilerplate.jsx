@@ -21,10 +21,18 @@ const RTL = (props) => {
 };
 
 const theme = createTheme({
+    palette: { primary: { main: "#f00" } },
     typography: {
         fontFamily: "shabnam, Arial",
     },
     components: {
+        MuiButton: {
+            styleOverrides: {
+                containedPrimary: {
+                    backgroundColor: "lightcoral",
+                },
+            },
+        },
         MuiCssBaseline: {
             styleOverrides: `
         @font-face {

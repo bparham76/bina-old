@@ -12,16 +12,15 @@ import {
     TableRow,
 } from "@mui/material";
 import { useState } from "react";
-import { useDashboardSettings } from "../../../features/dashboard/DashboardEcosystem";
 import MapViewer from "../../general/MapViewer";
-
+import { useNavigate } from "react-router-dom";
 import { PlaylistAdd } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const Addresses = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
-    const { createNewAddress } = useDashboardSettings();
+    const navigate = useNavigate();
 
     const AddressEntry = (props) => {
         const { mobile } = props;
@@ -173,12 +172,18 @@ const Addresses = () => {
                             <Button
                                 endIcon={<EditIcon />}
                                 sx={{ px: 4, color: "gray" }}
+                                onClick={() => {
+                                    navigate("/dashboard/addresses/edit", {
+                                        state: { fuck: "yes", id: 1026 },
+                                    });
+                                }}
                             >
                                 ویرایش
                             </Button>
                             <Button
                                 endIcon={<DeleteForeverIcon />}
                                 sx={{ px: 4, color: "lightcoral" }}
+                                onClick={() => alert("delete")}
                             >
                                 حذف
                             </Button>
@@ -213,7 +218,7 @@ const Addresses = () => {
                             borderColor: "lightcoral",
                             "&:hover": { borderColor: "lightcoral" },
                         }}
-                        onClick={createNewAddress}
+                        onClick={() => navigate("/dashboard/addresses/new")}
                         endIcon={<PlaylistAdd />}
                     >
                         افزودن نشانی جدید

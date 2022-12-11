@@ -1,6 +1,6 @@
 import { Paper, Stack, useMediaQuery } from "@mui/material";
-import LoginStage from "./Authentication/LoginStage";
-import VerifyStage from "./Authentication/VerifyStage";
+import LoginStage from "../components/auth/LoginStage";
+import VerifyStage from "../components/auth/VerifyStage";
 import { useAuthStage, useAuthenticate } from "../features/auth/AuthEcosystem";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
