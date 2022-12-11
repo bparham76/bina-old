@@ -1,11 +1,7 @@
 const CustomerMenu = [
     {
-        name: "salam",
-        address: "salam",
-    },
-    {
-        name: "khubi",
-        address: "khubi",
+        name: "امور مالی",
+        address: "financials",
     },
 ];
 
