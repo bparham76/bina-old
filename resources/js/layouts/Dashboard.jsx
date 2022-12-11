@@ -8,7 +8,7 @@ import Header from "../components/general/Header";
 import Footer from "../components/general/Footer";
 
 import DashboardMenu from "../components/dashboard/DashboardMenu";
-import DashboardEcosystem from "../features/dashboard/DashboardEcosystem";
+// import DashboardEcosystem from "../features/dashboard/DashboardEcosystem";
 
 import { useShopInfo } from "../features/shop/ShopEcosystem";
 
@@ -17,8 +17,9 @@ import Addresses from "../components/dashboard/common/Addresses";
 import OrderHistory from "../components/dashboard/common/OrderHistory";
 import ShoppingCarts from "../components/dashboard/common/ShoppingCarts";
 
-import NewAddress from "../components/dashboard/common/NewAddress";
-import EditAddress from "../components/dashboard/common/EditAddress";
+import AddressDetails from "../components/dashboard/common/AddressDetails";
+import OrderDetails from "../components/dashboard/common/OrderDetails";
+import ShopCartDetails from "../components/dashboard/common/ShopCartDetails";
 
 const Dashboard = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
@@ -35,25 +36,22 @@ const Dashboard = () => {
     }, [authenticated, loading]);
 
     const DashboardView = () => {
+        window.scrollTo({ behavior: "smooth", top: 0, left: 0 });
         switch (dist) {
             case undefined:
                 return <ProfileInfo />;
             case "profile":
                 return <ProfileInfo />;
             case "addresses":
-                switch (act) {
-                    case "edit":
-                        return <EditAddress />;
-                    case "new":
-                        return <NewAddress />;
-                    default:
-                        return <Addresses />;
-                }
-                break;
+                if (act == "edit") return <AddressDetails edit />;
+                else if (act == "new") return <AddressDetails />;
+                else return <Addresses />;
             case "order-history":
-                return <OrderHistory />;
+                if (act == "show") return <OrderDetails />;
+                else return <OrderHistory />;
             case "carts":
-                return <ShoppingCarts />;
+                if (act == "show") return <ShopCartDetails />;
+                else return <ShoppingCarts />;
             default:
                 return <Box sx={{ width: "100%", height: "80vh" }}>404</Box>;
         }
@@ -64,31 +62,31 @@ const Dashboard = () => {
     return (
         <>
             <Header websiteName={shopName} websiteDetails={shopDescription} />
-            <DashboardEcosystem>
-                <Grid
-                    container
-                    sx={{
-                        p: 2,
-                        pt: mobile ? 2 : 4,
-                        backgroundColor: "snow",
-                    }}
-                >
-                    <Grid item xs={12} sm={2}>
-                        <Box
-                            sx={{
-                                zIndex: 900,
-                                position: "sticky",
-                                top: 120,
-                            }}
-                        >
-                            <DashboardMenu />
-                        </Box>
-                    </Grid>
-                    <Grid item xs={12} sm={10}>
-                        <DashboardView />
-                    </Grid>
+            {/* <DashboardEcosystem> */}
+            <Grid
+                container
+                sx={{
+                    p: 2,
+                    pt: mobile ? 2 : 4,
+                    backgroundColor: "snow",
+                }}
+            >
+                <Grid item xs={12} sm={2}>
+                    <Box
+                        sx={{
+                            zIndex: 900,
+                            position: "sticky",
+                            top: 120,
+                        }}
+                    >
+                        <DashboardMenu />
+                    </Box>
                 </Grid>
-            </DashboardEcosystem>
+                <Grid item xs={12} sm={10}>
+                    <DashboardView />
+                </Grid>
+            </Grid>
+            {/* </DashboardEcosystem> */}
             <Footer />
         </>
     );

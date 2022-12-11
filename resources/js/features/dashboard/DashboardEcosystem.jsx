@@ -1,5 +1,3 @@
-import { Box } from "@mui/material";
-
 import { useContext, createContext, useState } from "react";
 
 const DashboardContext = createContext(null);
@@ -8,6 +6,7 @@ const DashboardEcosystem = (props) => {
     const { children } = props;
 
     const [userAddresses, setUserAddresses] = useState([]);
+    const [carts, setCarts] = useState([]);
 
     const createNewAddress = (addressData) => {};
 

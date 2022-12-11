@@ -28,6 +28,11 @@ const theme = createTheme({
     components: {
         MuiButton: {
             styleOverrides: {
+                outlinedPrimary: {
+                    color: "lightcoral",
+                    borderColor: "lightcoral",
+                    ":hover": { color: "red" },
+                },
                 containedPrimary: {
                     backgroundColor: "lightcoral",
                 },

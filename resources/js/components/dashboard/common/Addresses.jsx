@@ -12,6 +12,7 @@ import {
     TableRow,
 } from "@mui/material";
 import { useState } from "react";
+import { useShop } from "../../../features/shop/ShopEcosystem";
 import MapViewer from "../../general/MapViewer";
 import { useNavigate } from "react-router-dom";
 import { PlaylistAdd } from "@mui/icons-material";
@@ -22,8 +23,9 @@ const Addresses = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
     const navigate = useNavigate();
 
-    const AddressEntry = (props) => {
-        const { mobile } = props;
+    const { addNewAddress, userAddresses } = useShop();
+
+    const AddressEntry = ({ mobile, id }) => {
         const [hoverOn, setHoverOn] = useState(false);
 
         return (
@@ -41,6 +43,9 @@ const Addresses = () => {
                             mapCenter={[36.82, 50.86]}
                             attributionControl={false}
                             zoomControl={false}
+                            touchZoom={false}
+                            scrollWheelZoom={false}
+                            doubleClickZoom={false}
                         />
                     </Grid>
                     <Grid
@@ -76,7 +81,7 @@ const Addresses = () => {
                                         <TableCell
                                             sx={{ p: 0, borderBottom: "none" }}
                                         >
-                                            محل کار
+                                            محل کار {id}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -218,7 +223,8 @@ const Addresses = () => {
                             borderColor: "lightcoral",
                             "&:hover": { borderColor: "lightcoral" },
                         }}
-                        onClick={() => navigate("/dashboard/addresses/new")}
+                        onClick={(e) => addNewAddress(userAddresses.length + 1)}
+                        // onClick={() => navigate("/dashboard/addresses/new")}
                         endIcon={<PlaylistAdd />}
                     >
                         افزودن نشانی جدید
@@ -227,8 +233,8 @@ const Addresses = () => {
             </DashboardPagePart>
             <DashboardPagePart full>
                 <Typography variant="h6">نشانی های ثبت شده</Typography>
-                {[...new Array(5)].map((item, index) => (
-                    <AddressEntry key={index} mobile={mobile} />
+                {userAddresses.map((item, index) => (
+                    <AddressEntry key={index} mobile={mobile} id={item.id} />
                 ))}
             </DashboardPagePart>
         </DashboardPage>

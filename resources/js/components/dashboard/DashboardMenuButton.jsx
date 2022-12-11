@@ -16,9 +16,6 @@ const DashboardMenuButton = (props) => {
                         px: 2,
                         my: 0.5,
                         bgcolor: "lightcoral",
-                        "&:hover": {
-                            bgcolor: "red",
-                        },
                     };
                 else return { color: "lightcoral" };
             }}

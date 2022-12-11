@@ -15,9 +15,11 @@ import { PlaylistAdd } from "@mui/icons-material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCarts = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
+    const navigate = useNavigate();
 
     const CartEntry = () => {
         const [hover, setHover] = useState(false);
@@ -28,11 +30,13 @@ const ShoppingCarts = () => {
                 onMouseLeave={() => setHover(false)}
                 elevation={hover ? 8 : 4}
                 sx={{
+                    cursor: "pointer",
                     p: 1,
                     height: 250,
                     width: mobile ? "100%" : 250,
                     transition: "all 200ms ease",
                 }}
+                onClick={(e) => navigate("/dashboard/carts/show")}
             >
                 <Box
                     sx={{
@@ -87,7 +91,8 @@ const ShoppingCarts = () => {
                     <Button
                         variant="text"
                         endIcon={<DeleteForeverIcon />}
-                        sx={{ color: "lightcoral" }}
+                        sx={{ color: "lightcoral", p: 2 }}
+                        onClick={(e) => e.stopPropagation()}
                     >
                         حذف سبد
                     </Button>

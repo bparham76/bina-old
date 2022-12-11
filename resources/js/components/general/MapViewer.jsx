@@ -19,7 +19,7 @@ const MapViewer = (props) => {
         <MapContainer
             style={{ height: height, width: width }}
             center={mapCenter}
-            zoom={14}
+            zoom={12}
             {...other}
         >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

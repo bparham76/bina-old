@@ -1,8 +1,6 @@
 import DashboardPage, { DashboardPagePart } from "../DashboardPage";
 import {
     Paper,
-    Box,
-    Fade,
     Typography,
     Table,
     TableBody,
@@ -12,10 +10,10 @@ import {
     TableRow,
     Button,
 } from "@mui/material";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const OrderHistory = () => {
-    const [showDetails, setShowDetails] = useState(false);
+    const navigate = useNavigate();
 
     const OrderEntry = (props) => {
         const { index } = props;
@@ -40,45 +38,14 @@ const OrderHistory = () => {
                                 bgcolor: "lightcoral",
                             },
                         }}
-                        onClick={(e) => setShowDetails(true)}
+                        onClick={(e) =>
+                            navigate("/dashboard/order-history/show")
+                        }
                     >
                         مشاهده
                     </Button>
                 </TableCell>
             </TableRow>
-        );
-    };
-
-    const OrderDetails = (props) => {
-        return (
-            <Fade in={showDetails}>
-                <Paper
-                    square
-                    elevation={4}
-                    sx={{
-                        position: "fixed",
-                        top: "0",
-                        left: "0",
-                        height: "100%",
-                        width: "100%",
-                        zIndex: 2000,
-                        overflowY: "scroll",
-                    }}
-                    onClick={(e) => setShowDetails(false)}
-                >
-                    <Box
-                        sx={{
-                            width: "100%",
-                            height: "100%",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                        }}
-                    >
-                        salam
-                    </Box>
-                </Paper>
-            </Fade>
         );
     };
 
@@ -120,7 +87,6 @@ const OrderHistory = () => {
                     </Table>
                 </TableContainer>
             </DashboardPagePart>
-            {true && <OrderDetails />}
         </DashboardPage>
     );
 };
