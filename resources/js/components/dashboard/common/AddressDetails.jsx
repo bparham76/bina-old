@@ -1,20 +1,56 @@
-import DashboardPage, { DashboardPagePart } from "../DashboardPage";
 import {
     Box,
     Typography,
     Button,
     TextField,
     useMediaQuery,
+    MenuItem,
 } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+
+import { useSetWebPage } from "../../../features/shop/ShopEcosystem";
+
+import DashboardPage, { DashboardPagePart } from "../DashboardPage";
 import MapSelector from "../../general/MapSelector";
-import { useState } from "react";
 
 const AddressDetails = ({ edit }) => {
     const mobile = useMediaQuery("(max-width: 450px)");
-    const navigate = useNavigate();
+    const goto = useSetWebPage();
     const { state } = useLocation();
+
     const [position, setPosition] = useState([35.65, 51.35]);
+
+    const [provinces, setProvinces] = useState({});
+    const [counties, setCounties] = useState({});
+    const [cities, setCities] = useState({});
+
+    const [province, setProvince] = useState(0);
+    const [county, setCounty] = useState(0);
+    const [city, setCity] = useState(0);
+
+    useEffect(() => {
+        axios.get("/api/provinces").then((r) => setProvinces(r.data));
+    }, []);
+
+    useEffect(() => {
+        if (province != 0)
+            axios
+                .get("/api/counties?province=" + province)
+                .then((r) => setCounties(r.data));
+        setCounty(0);
+        setCity(0);
+        setCities([]);
+    }, [province]);
+
+    useEffect(() => {
+        if (county != 0)
+            axios
+                .get("/api/cities?county=" + county)
+                .then((r) => setCities(r.data));
+        setCity(0);
+    }, [county]);
 
     return (
         <DashboardPage>
@@ -42,11 +78,58 @@ const AddressDetails = ({ edit }) => {
                 <TextField label="تلفن ثابت" />
             </DashboardPagePart>
             <DashboardPagePart>
-                <TextField select label="استان"></TextField>
-                <TextField select label="شهرستان"></TextField>
-                <TextField label="کد پستی" />
+                <TextField
+                    select
+                    defaultValue={0}
+                    label="استان"
+                    value={province}
+                    onChange={(e) => setProvince(e.target.value)}
+                >
+                    <MenuItem value={0}>انتخاب کنید</MenuItem>
+                    {provinces.length > 0 &&
+                        provinces.map((item) => (
+                            <MenuItem key={item.id} value={item.id}>
+                                {item.name}
+                            </MenuItem>
+                        ))}
+                </TextField>
+                <TextField
+                    select
+                    defaultValue={0}
+                    value={county}
+                    label="شهرستان"
+                    onChange={(e) => setCounty(e.target.value)}
+                >
+                    <MenuItem value={0}>انتخاب کنید</MenuItem>
+                    {counties.length > 0 &&
+                        counties.map((item) => (
+                            <MenuItem key={item.id} value={item.id}>
+                                {item.name}
+                            </MenuItem>
+                        ))}
+                </TextField>
+                <TextField
+                    select
+                    defaultValue={0}
+                    value={city}
+                    label="شهر"
+                    onChange={(e) => setCity(e.target.value)}
+                >
+                    <MenuItem value={0}>انتخاب کنید</MenuItem>
+                    {cities.length > 0 &&
+                        cities.map((item) => (
+                            <MenuItem key={item.id} value={item.id}>
+                                {item.name}
+                            </MenuItem>
+                        ))}
+                </TextField>
             </DashboardPagePart>
+
             <DashboardPagePart>
+                <TextField label="کد پستی" />
+                <TextField label="پلاک" />
+            </DashboardPagePart>
+            <DashboardPagePart full>
                 <TextField label="نشانی" multiline rows={7}></TextField>
             </DashboardPagePart>
             <DashboardPagePart full>
@@ -73,7 +156,10 @@ const AddressDetails = ({ edit }) => {
                 <Button
                     variant="outlined"
                     size="large"
-                    onClick={(e) => navigate("/dashboard/addresses")}
+                    // onClick={(e) => navigate("/dashboard/addresses")}
+                    onClick={(e) =>
+                        goto({ page: "/dashboard/addresses", authCheck: false })
+                    }
                 >
                     بازگشت
                 </Button>

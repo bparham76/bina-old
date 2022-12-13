@@ -1,7 +1,6 @@
 import Header from "../components/general/Header";
 import Footer from "../components/general/Footer";
 import { Box } from "@mui/system";
-
 import { useShopInfo } from "../features/shop/ShopEcosystem";
 
 export default function Home() {

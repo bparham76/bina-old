@@ -11,18 +11,18 @@ import {
     Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useShop } from "../../../features/shop/ShopEcosystem";
 
 const OrderHistory = () => {
     const navigate = useNavigate();
+    const { orders, setOrders } = useShop();
 
-    const OrderEntry = (props) => {
-        const { index } = props;
-
+    const OrderEntry = ({ index, id }) => {
         return (
             <TableRow>
                 <TableCell align="center">{index + 1}</TableCell>
                 <TableCell align="center">salam</TableCell>
-                <TableCell align="center">salam</TableCell>
+                <TableCell align="center">{id}</TableCell>
                 <TableCell align="center">salam</TableCell>
                 <TableCell align="center">salam</TableCell>
                 <TableCell align="center">
@@ -80,8 +80,12 @@ const OrderHistory = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {[...new Array(15)].map((item, index) => (
-                                <OrderEntry key={index} index={index} />
+                            {orders.map((item, index) => (
+                                <OrderEntry
+                                    key={index}
+                                    index={index}
+                                    id={item.id}
+                                />
                             ))}
                         </TableBody>
                     </Table>

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useSetWebPage } from "../../features/shop/ShopEcosystem";
 import { useMediaQuery, Fab, Stack, Paper, Button } from "@mui/material";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ComponentPopper from "../general/ComponentPopper";
 import {
     useUserData,
     useAuthenticate,
 } from "../../features/auth/AuthEcosystem";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import ComponentPopper from "../general/ComponentPopper";
 import DashboardMenuButton from "./DashboardMenuButton";
 import AccountantMenu from "./accountant/AccountantMenu";
 import CustomerMenu from "./customer/CustomerMenu";
@@ -16,13 +16,13 @@ import SupervisorMenu from "./supervisor/SupervisorMenu";
 const DashboardMenu = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const navigate = useNavigate();
+    const goto = useSetWebPage();
     const { logout } = useAuthenticate();
     const userData = useUserData();
 
     const menuButtonClick = (address) => {
         setDrawerOpen(false);
-        navigate("/dashboard/" + address);
+        goto({ page: "/dashboard/" + address });
     };
 
     let menuitems = [

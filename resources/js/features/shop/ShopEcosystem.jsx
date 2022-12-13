@@ -1,10 +1,10 @@
-import { useCallback } from "react";
 import { createContext, useContext, useState, useEffect } from "react";
+import { useAuthenticate } from "../auth/AuthEcosystem";
+import { useNavigate } from "react-router-dom";
 
 export const ShopContext = createContext(null);
 
-const ShopEcosystem = (props) => {
-    const { children } = props;
+const ShopEcosystem = ({ children }) => {
     const [shopName, setShopName] = useState("بازرگانی مهر");
     const [shopDescription, setShopDescription] = useState(
         "نماینده رسمی فروش و خدمات شرکت ایران رادیاتور"
@@ -32,10 +32,6 @@ const ShopEcosystem = (props) => {
 
     const addNewAddress = (id) =>
         setUserAddresses(userAddresses.concat({ id: id }));
-
-    // const addNewAddress = useCallback((id) => {
-    //     setUserAddresses(userAddresses.concat({ id: id }));
-    // }, []);
 
     return (
         <ShopContext.Provider
@@ -68,4 +64,17 @@ export const useShop = () => {
     const { ...shop } = useContext(ShopContext);
 
     return { ...shop };
+};
+
+export const useSetWebPage = () => {
+    const { checkAuthState } = useAuthenticate();
+    const navigate = useNavigate();
+
+    const setter = ({ page = "", authCheck = true, data }) => {
+        if (authCheck) checkAuthState();
+        navigate(page, { state: data });
+        window.scrollTo({ behavior: "smooth", top: 0, left: 0 });
+    };
+
+    return setter;
 };

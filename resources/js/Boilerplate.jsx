@@ -56,8 +56,7 @@ const theme = createTheme({
     },
 });
 
-export default function Boilerplate(props) {
-    const { children } = props;
+export default function Boilerplate({ children }) {
     return (
         <RTL>
             <ThemeProvider theme={theme}>

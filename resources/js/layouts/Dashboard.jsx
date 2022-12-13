@@ -8,7 +8,6 @@ import Header from "../components/general/Header";
 import Footer from "../components/general/Footer";
 
 import DashboardMenu from "../components/dashboard/DashboardMenu";
-// import DashboardEcosystem from "../features/dashboard/DashboardEcosystem";
 
 import { useShopInfo } from "../features/shop/ShopEcosystem";
 
@@ -36,7 +35,6 @@ const Dashboard = () => {
     }, [authenticated, loading]);
 
     const DashboardView = () => {
-        window.scrollTo({ behavior: "smooth", top: 0, left: 0 });
         switch (dist) {
             case undefined:
                 return <ProfileInfo />;
@@ -57,12 +55,11 @@ const Dashboard = () => {
         }
     };
 
-    if (!render) return;
+    // if (!render) return;
 
     return (
         <>
             <Header websiteName={shopName} websiteDetails={shopDescription} />
-            {/* <DashboardEcosystem> */}
             <Grid
                 container
                 sx={{
@@ -83,10 +80,9 @@ const Dashboard = () => {
                     </Box>
                 </Grid>
                 <Grid item xs={12} sm={10}>
-                    <DashboardView />
+                    {render && <DashboardView />}
                 </Grid>
             </Grid>
-            {/* </DashboardEcosystem> */}
             <Footer />
         </>
     );

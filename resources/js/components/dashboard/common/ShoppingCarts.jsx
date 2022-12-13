@@ -11,15 +11,17 @@ import {
     TableCell,
     useMediaQuery,
 } from "@mui/material";
+import { useShop } from "../../../features/shop/ShopEcosystem";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PlaylistAdd } from "@mui/icons-material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const ShoppingCarts = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
     const navigate = useNavigate();
+    const { carts, setCarts } = useShop();
 
     const CartEntry = () => {
         const [hover, setHover] = useState(false);
@@ -31,9 +33,10 @@ const ShoppingCarts = () => {
                 elevation={hover ? 8 : 4}
                 sx={{
                     cursor: "pointer",
-                    p: 1,
-                    height: 250,
-                    width: mobile ? "100%" : 250,
+                    py: 2,
+                    px: 1,
+                    height: 300,
+                    width: mobile ? "100%" : "32%",
                     transition: "all 200ms ease",
                 }}
                 onClick={(e) => navigate("/dashboard/carts/show")}
@@ -44,7 +47,7 @@ const ShoppingCarts = () => {
                         width: "100%",
                         display: "flex",
                         alignItems: "center",
-                        justifyContent: "center",
+                        justifyContent: "space-around",
                         flexDirection: "column",
                     }}
                 >
@@ -126,6 +129,9 @@ const ShoppingCarts = () => {
                             "&:hover": { borderColor: "lightcoral" },
                         }}
                         endIcon={<PlaylistAdd />}
+                        onClick={(e) =>
+                            setCarts(carts.concat({ id: carts.length + 1 }))
+                        }
                     >
                         افزودن سبد جدید
                     </Button>
@@ -133,7 +139,7 @@ const ShoppingCarts = () => {
             </DashboardPagePart>
             <DashboardPagePart full>
                 <Grid container gap={2} sx={{ py: 2 }}>
-                    {[...new Array(4)].map((item, index) => (
+                    {carts.map((item, index) => (
                         <CartEntry key={index} />
                     ))}
                 </Grid>

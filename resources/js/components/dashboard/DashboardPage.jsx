@@ -1,7 +1,6 @@
 import { Grid, Stack, useMediaQuery } from "@mui/material";
 
-const DashboardPage = (props) => {
-    const { children, ...others } = props;
+const DashboardPage = ({ children, ...others }) => {
     const mobile = useMediaQuery("(max-width: 450px)");
 
     return (

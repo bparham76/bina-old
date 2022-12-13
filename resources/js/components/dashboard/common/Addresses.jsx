@@ -12,7 +12,7 @@ import {
     TableRow,
 } from "@mui/material";
 import { useState } from "react";
-import { useShop } from "../../../features/shop/ShopEcosystem";
+import { useShop, useSetWebPage } from "../../../features/shop/ShopEcosystem";
 import MapViewer from "../../general/MapViewer";
 import { useNavigate } from "react-router-dom";
 import { PlaylistAdd } from "@mui/icons-material";
@@ -23,7 +23,9 @@ const Addresses = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
     const navigate = useNavigate();
 
-    const { addNewAddress, userAddresses } = useShop();
+    const goto = useSetWebPage();
+
+    const { userAddresses } = useShop();
 
     const AddressEntry = ({ mobile, id }) => {
         const [hoverOn, setHoverOn] = useState(false);
@@ -177,11 +179,12 @@ const Addresses = () => {
                             <Button
                                 endIcon={<EditIcon />}
                                 sx={{ px: 4, color: "gray" }}
-                                onClick={() => {
-                                    navigate("/dashboard/addresses/edit", {
-                                        state: { fuck: "yes", id: 1026 },
-                                    });
-                                }}
+                                onClick={(e) =>
+                                    goto({
+                                        page: "/dashboard/addresses/edit",
+                                        data: { show: "show me" },
+                                    })
+                                }
                             >
                                 ویرایش
                             </Button>
@@ -223,8 +226,9 @@ const Addresses = () => {
                             borderColor: "lightcoral",
                             "&:hover": { borderColor: "lightcoral" },
                         }}
-                        onClick={(e) => addNewAddress(userAddresses.length + 1)}
-                        // onClick={() => navigate("/dashboard/addresses/new")}
+                        onClick={(e) =>
+                            goto({ page: "/dashboard/addresses/new" })
+                        }
                         endIcon={<PlaylistAdd />}
                     >
                         افزودن نشانی جدید

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Authentication;
+use App\Http\Controllers\Misc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,6 @@ Route::controller(Authentication::class)->group(function () {
     Route::get('verifycode', 'verify_code');
 });
 
-
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('check', function () {
         return response()->json(['auth' => true]);
@@ -35,4 +35,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::controller(Authentication::class)->group(function () {
         Route::post('logout', 'logout');
     });
+});
+
+Route::controller(Misc::class)->group(function () {
+    Route::get(
+        'provinces',
+        'get_provinces'
+    );
+    Route::get('counties', 'get_counties');
+    Route::get('cities', 'get_cities');
 });
