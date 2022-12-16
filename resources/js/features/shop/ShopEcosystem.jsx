@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuthenticate } from "../auth/AuthEcosystem";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export const ShopContext = createContext(null);
 
@@ -69,10 +69,15 @@ export const useShop = () => {
 export const useSetWebPage = () => {
     const { checkAuthState } = useAuthenticate();
     const navigate = useNavigate();
+    const location = useLocation();
 
-    const setter = ({ page = "", authCheck = true, data }) => {
+    const setter = ({ page = "", authCheck = false, data }) => {
+        if (location.pathname == page) return;
+
         if (authCheck) checkAuthState();
+
         navigate(page, { state: data });
+
         window.scrollTo({ behavior: "smooth", top: 0, left: 0 });
     };
 

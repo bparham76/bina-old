@@ -4,18 +4,8 @@ import { useReducer, createContext, useContext, useEffect } from "react";
 
 export const AuthContext = createContext(null);
 
-const AuthEcosystem = (props) => {
-    const { children } = props;
-
-    const _data = {
-        stage: 0,
-        error: 0,
-        phone: "",
-        token: "",
-        authenticated: false,
-        loading: true,
-    };
-    const [authData, dispatch] = useReducer(reducer, _data);
+const AuthEcosystem = ({ children }) => {
+    const [authData, dispatch] = useReducer(reducer, {});
 
     const sendCode = async (phone) => {
         try {

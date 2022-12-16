@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 use App\Models\UserInfo;
+use App\Models\Address;
 
 class User extends Authenticatable
 {
@@ -20,11 +20,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'state',
-        'user_info_id',
         'phone',
-        // 'email',
-        // 'password',
     ];
 
     /**
@@ -33,7 +29,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        // 'password',
         'remember_token',
     ];
 
@@ -49,5 +44,10 @@ class User extends Authenticatable
     public function user_info()
     {
         return $this->hasOne(UserInfo::class)->withDefault(null);
+    }
+
+    public function address()
+    {
+        return $this->hasMany(Address::class)->withDefault(null);
     }
 }

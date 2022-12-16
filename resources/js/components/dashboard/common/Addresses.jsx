@@ -12,23 +12,88 @@ import {
     TableRow,
 } from "@mui/material";
 import { useState } from "react";
-import { useShop, useSetWebPage } from "../../../features/shop/ShopEcosystem";
+import { useSetWebPage } from "../../../features/shop/ShopEcosystem";
 import MapViewer from "../../general/MapViewer";
 import { useNavigate } from "react-router-dom";
 import { PlaylistAdd } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import useFetch from "../../../features/useFetch";
+import LoadingSpinner from "../../general/LoadingSpinner";
+import { useEffect } from "react";
+import Swal from "sweetalert2";
+import { useAuthenticate } from "../../../features/auth/AuthEcosystem";
+import axios from "axios";
 
 const Addresses = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
     const navigate = useNavigate();
-
+    const [loading, setLoading] = useState(true);
+    const [delItem, setDelItem] = useState(0);
+    const [data, setData] = useState(null);
+    const { done, result } = useFetch("/api/address/get", "get");
     const goto = useSetWebPage();
+    const { token } = useAuthenticate();
 
-    const { userAddresses } = useShop();
+    useEffect(() => {
+        if (done) setData(result.data);
+    }, [done]);
 
-    const AddressEntry = ({ mobile, id }) => {
+    useEffect(() => {
+        if (!data) return;
+        setLoading(false);
+    }, [data]);
+
+    const actDelete = async () => {
+        setLoading(true);
+        try {
+            const res = await axios({
+                url: "/api/address/delete",
+                method: "post",
+                headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + token,
+                },
+                data: { id: delItem },
+            });
+            if (res.status == 200) {
+                setData(data.filter((item) => item.id !== delItem));
+            }
+        } catch (e) {
+            Swal.fire({
+                text: "متاسفانه خطایی در برقراری ارتباط با سرور رخ داده است. لطفا مجددا امتحان کنید.",
+                icon: "error",
+                showConfirmButton: true,
+                confirmButtonText: "تایید",
+            });
+        } finally {
+            setLoading(false);
+            setDelItem(0);
+        }
+    };
+
+    useEffect(() => {
+        if (delItem != 0) actDelete();
+    }, [delItem]);
+
+    const AddressEntry = ({ entry }) => {
         const [hoverOn, setHoverOn] = useState(false);
+
+        const editHandler = () => {};
+        const deleteHandler = () => {
+            Swal.fire({
+                text: `آیا از حذف نشانی ${entry.title} اطمینان دارید؟`,
+                title: "حذف نشانی",
+                icon: "warning",
+                showCancelButton: true,
+                showConfirmButton: true,
+                cancelButtonText: "خیر",
+                confirmButtonText: "بله",
+                reverseButtons: true,
+            }).then((r) => {
+                if (r.isConfirmed) setDelItem(entry.id);
+            });
+        };
 
         return (
             <Paper
@@ -42,7 +107,7 @@ const Addresses = () => {
                             mobile={mobile}
                             height={200}
                             width={mobile ? "100%" : "auto"}
-                            mapCenter={[36.82, 50.86]}
+                            mapCenter={[entry.latitude, entry.longitude]}
                             attributionControl={false}
                             zoomControl={false}
                             touchZoom={false}
@@ -83,7 +148,7 @@ const Addresses = () => {
                                         <TableCell
                                             sx={{ p: 0, borderBottom: "none" }}
                                         >
-                                            محل کار {id}
+                                            {entry.title}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -100,7 +165,7 @@ const Addresses = () => {
                                         <TableCell
                                             sx={{ p: 0, borderBottom: "none" }}
                                         >
-                                            پرهام باقی زاده
+                                            {entry.owner}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -120,9 +185,7 @@ const Addresses = () => {
                                                 borderBottom: "none",
                                             }}
                                         >
-                                            مازندران، تنکابن، خیابان میرزا طاهر
-                                            تنکابنی، پاساژ طالقانی، طبقه همکف،
-                                            واحد b8
+                                            {entry.text}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -139,7 +202,7 @@ const Addresses = () => {
                                         <TableCell
                                             sx={{ p: 0, borderBottom: "none" }}
                                         >
-                                            4681983933
+                                            {entry.po_box}
                                         </TableCell>
                                     </TableRow>
                                     <TableRow>
@@ -156,7 +219,7 @@ const Addresses = () => {
                                         <TableCell
                                             sx={{ p: 0, borderBottom: "none" }}
                                         >
-                                            01154236634
+                                            {entry.phone}
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -179,19 +242,20 @@ const Addresses = () => {
                             <Button
                                 endIcon={<EditIcon />}
                                 sx={{ px: 4, color: "gray" }}
-                                onClick={(e) =>
-                                    goto({
-                                        page: "/dashboard/addresses/edit",
-                                        data: { show: "show me" },
-                                    })
-                                }
+                                // onClick={(e) =>
+                                //     goto({
+                                //         page: "/dashboard/addresses/edit",
+                                //         data: { show: "show me" },
+                                //     })
+                                // }
+                                onClick={editHandler}
                             >
                                 ویرایش
                             </Button>
                             <Button
                                 endIcon={<DeleteForeverIcon />}
                                 sx={{ px: 4, color: "lightcoral" }}
-                                onClick={() => alert("delete")}
+                                onClick={deleteHandler}
                             >
                                 حذف
                             </Button>
@@ -201,6 +265,8 @@ const Addresses = () => {
             </Paper>
         );
     };
+
+    if (loading || !done) return <LoadingSpinner />;
 
     return (
         <DashboardPage>
@@ -237,8 +303,8 @@ const Addresses = () => {
             </DashboardPagePart>
             <DashboardPagePart full>
                 <Typography variant="h6">نشانی های ثبت شده</Typography>
-                {userAddresses.map((item, index) => (
-                    <AddressEntry key={index} mobile={mobile} id={item.id} />
+                {data.map((item, index) => (
+                    <AddressEntry entry={item} key={index} mobile={mobile} />
                 ))}
             </DashboardPagePart>
         </DashboardPage>

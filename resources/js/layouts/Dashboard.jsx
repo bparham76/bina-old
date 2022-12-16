@@ -37,7 +37,7 @@ const Dashboard = () => {
     const DashboardView = () => {
         switch (dist) {
             case undefined:
-                return <ProfileInfo />;
+                return;
             case "profile":
                 return <ProfileInfo />;
             case "addresses":

@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
-class UserInfo extends Model
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Address extends Model
 {
     use HasFactory;
 
@@ -14,16 +15,16 @@ class UserInfo extends Model
 
     protected $fillable = [
         'user_id',
-        'first_name',
-        'last_name',
-        'pid',
-        'email',
-        'eco_no',
-        'reg_no',
-        'shaba_no',
-        'acc_no',
-        'sex',
-        'type',
+        'title',
+        'owner',
+        'text',
+        'po_box',
+        'phone',
+        'latitude',
+        'longitude',
+        'province',
+        'city',
+        'county'
     ];
 
     public function user()
