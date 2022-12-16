@@ -14,19 +14,18 @@ class User extends Controller
         $data = $request->validate([
             'first_name' => 'nullable|string',
             'last_name' => 'nullable|string',
-            'pid' => 'nullable|digits:10|unique:user_infos,pid',
-            'email' => 'nullable|email|unique:user_infos,emal',
+            'pid' => 'nullable|digits:10',
+            'email' => 'nullable|email',
             'eco_no' => 'nullable|numeric',
             'reg_no' => 'nullable|numeric',
             'shaba_no' => 'nullable|string',
             'acc_no' => 'nullable|numeric',
-            'sex' => 'nullable|digit:1',
-            'type' => 'nullable|digit:1',
+            'sex' => 'nullable|digits:1',
+            'type' => 'nullable|digits:1',
         ]);
 
         $user_info = UserInfo::whereBelongsTo($request->user());
 
-        // $user_info->update($data);
         $user_info->update([
             'first_name' => !empty($data['first_name']) ? $data['first_name'] : '',
             'last_name' => !empty($data['last_name']) ? $data['last_name'] : '',
@@ -39,13 +38,16 @@ class User extends Controller
             'sex' => !empty($data['sex']) ? $data['sex'] : 0,
             'type' => !empty($data['type']) ? $data['type'] : 0,
         ]);
-
-        // return $user_info->get();
     }
 
     public function get_user_info(Request $request)
     {
-        return response()->json(array_merge(UserInfo::whereBelongsTo($request->user())->get()[0]->toArray(), ['phone' => $request->user()->phone]));
+        return response()->json(
+            array_merge(
+                UserInfo::whereBelongsTo($request->user())->get()[0]->toArray(),
+                ['phone' => $request->user()->phone]
+            )
+        );
     }
 
     public function add_user_address(Request $request)
@@ -56,8 +58,8 @@ class User extends Controller
             'text' => 'required|string',
             'po_box' => 'required|digits:10',
             'phone' => 'required|digits:11',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
             'province' => 'required|numeric',
             'county' => 'required|numeric',
             'city' => 'required|numeric',
@@ -68,13 +70,12 @@ class User extends Controller
 
     public function get_user_addresses(Request $request)
     {
-        return Address::whereBelongsTo($request->user())->get();
+        return Address::whereBelongsTo($request->user())->get()->toArray();
     }
 
     public function delete_user_address(Request $request)
     {
         $id = $request->validate(['id' => 'numeric']);
         return Address::find($id)->first()->delete();
-        // return $item;
     }
 }

@@ -156,7 +156,6 @@ const AddressDetails = ({ edit }) => {
                 <Button
                     variant="outlined"
                     size="large"
-                    // onClick={(e) => navigate("/dashboard/addresses")}
                     onClick={(e) =>
                         goto({ page: "/dashboard/addresses", authCheck: false })
                     }

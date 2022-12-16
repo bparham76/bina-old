@@ -18,7 +18,6 @@ import { useNavigate } from "react-router-dom";
 import { PlaylistAdd } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import useFetch from "../../../features/useFetch";
 import LoadingSpinner from "../../general/LoadingSpinner";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
@@ -31,16 +30,28 @@ const Addresses = () => {
     const [loading, setLoading] = useState(true);
     const [delItem, setDelItem] = useState(0);
     const [data, setData] = useState(null);
-    const { done, result } = useFetch("/api/address/get", "get");
     const goto = useSetWebPage();
     const { token } = useAuthenticate();
 
     useEffect(() => {
-        if (done) setData(result.data);
-    }, [done]);
+        const get = async () => {
+            setLoading(true);
+            try {
+                const res = await axios.get("/api/address/get", {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: "Bearer " + token,
+                    },
+                });
+                if (res != null) setData(res.data);
+            } catch (e) {}
+        };
+
+        get();
+    }, []);
 
     useEffect(() => {
-        if (!data) return;
+        if (data == null) return;
         setLoading(false);
     }, [data]);
 
@@ -266,7 +277,7 @@ const Addresses = () => {
         );
     };
 
-    if (loading || !done) return <LoadingSpinner />;
+    if (loading) return <LoadingSpinner />;
 
     return (
         <DashboardPage>
@@ -303,9 +314,15 @@ const Addresses = () => {
             </DashboardPagePart>
             <DashboardPagePart full>
                 <Typography variant="h6">نشانی های ثبت شده</Typography>
-                {data.map((item, index) => (
-                    <AddressEntry entry={item} key={index} mobile={mobile} />
-                ))}
+                {data != null && data.count > 0
+                    ? data.map((item, index) => (
+                          <AddressEntry
+                              entry={item}
+                              key={index}
+                              mobile={mobile}
+                          />
+                      ))
+                    : "داده ای برای نمایش وجود ندارد."}
             </DashboardPagePart>
         </DashboardPage>
     );
