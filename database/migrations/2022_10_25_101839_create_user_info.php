@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('pid')->nullable()->unique();
             $table->string('email')->nullable()->unique();
-            $table->string('eco_no')->nullable()->unique();
-            $table->string('reg_no')->nullable()->unique();
-            $table->string('shaba_no')->nullable()->unique();
-            $table->string('acc_no')->nullable()->unique();
+            $table->string('eco_no')->nullable();
+            $table->string('reg_no')->nullable();
+            $table->string('shaba_no')->nullable();
+            $table->string('acc_no')->nullable();
             $table->integer('sex')->nullable();
             $table->integer('type')->default(0);
         });

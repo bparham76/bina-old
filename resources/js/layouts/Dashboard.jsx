@@ -20,6 +20,8 @@ import AddressDetails from "../components/dashboard/common/AddressDetails";
 import OrderDetails from "../components/dashboard/common/OrderDetails";
 import ShopCartDetails from "../components/dashboard/common/ShopCartDetails";
 
+import CustomerFinancials from "../components/dashboard/customer/CustomerFinancials";
+
 const Dashboard = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
     const { shopName, shopDescription } = useShopInfo();
@@ -50,6 +52,9 @@ const Dashboard = () => {
             case "carts":
                 if (act == "show") return <ShopCartDetails />;
                 else return <ShoppingCarts />;
+            case "financials":
+                //check for user role and load page based on that
+                return <CustomerFinancials />;
             default:
                 return <Box sx={{ width: "100%", height: "80vh" }}>404</Box>;
         }

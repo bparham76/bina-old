@@ -19,8 +19,22 @@ use Morilog\Jalali;
 |
 */
 
+// sleep(2);
+
 Route::get('time', function () {
-    return jdate() . ' * ' . jdate()->getTimestamp();
+    return response()->json(['datetime' => jdate()->toString(), 'timestamp' => jdate()->getTimestamp()]);
+});
+
+Route::post('time-post', function () {
+    return response()->json(['datetime' => jdate()->toString(), 'timestamp' => jdate()->getTimestamp()]);
+});
+
+Route::get('sth', function () {
+    return response()->json(['item1' => 'some text']);
+});
+
+Route::post('sth-post', function () {
+    return response()->json(['item1' => 'some text']);
 });
 
 Route::controller(Authentication::class)->group(function () {
@@ -42,6 +56,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::get('user/info', 'get_user_info');
 
         Route::post('address/add', 'add_user_address');
+        Route::post('address/update', 'update_user_address');
         Route::get('address/get', 'get_user_addresses');
         Route::post('address/delete', 'delete_user_address');
     });

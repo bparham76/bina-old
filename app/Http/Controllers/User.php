@@ -68,6 +68,10 @@ class User extends Controller
         Address::create([...$data, 'user_id' => $request->user()->id]);
     }
 
+    public function update_user_address(Request $request)
+    {
+    }
+
     public function get_user_addresses(Request $request)
     {
         return Address::whereBelongsTo($request->user())->get()->toArray();

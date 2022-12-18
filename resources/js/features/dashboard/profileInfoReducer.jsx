@@ -66,6 +66,19 @@ export function profileInfoCompare(l1, l2) {
     return false;
 }
 
+export const defaultInfo = {
+    acc_no: "",
+    eco_no: "",
+    email: "",
+    first_name: "",
+    last_name: "",
+    pid: "",
+    reg_no: "",
+    sex: "",
+    shaba_no: "",
+    phone: "",
+};
+
 // acc_no
 // eco_no
 // email

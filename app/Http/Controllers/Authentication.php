@@ -69,8 +69,8 @@ class Authentication extends Controller
 
             $user_info = UserInfo::create(['user_id' => $user->id]);
 
-            $user->user_info_id = $user_info->id;
-            $user->save();
+            // $user->user_info_id = $user_info->id;
+            // $user->save();
 
             $token = $user->createToken($data['phone'])->plainTextToken;
 

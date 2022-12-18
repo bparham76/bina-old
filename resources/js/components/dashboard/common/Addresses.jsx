@@ -14,77 +14,43 @@ import {
 import { useState } from "react";
 import { useSetWebPage } from "../../../features/shop/ShopEcosystem";
 import MapViewer from "../../general/MapViewer";
-import { useNavigate } from "react-router-dom";
 import { PlaylistAdd } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import LoadingSpinner from "../../general/LoadingSpinner";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
-import { useAuthenticate } from "../../../features/auth/AuthEcosystem";
-import axios from "axios";
+import useServer from "../../../features/useServer";
 
 const Addresses = () => {
     const mobile = useMediaQuery("(max-width: 450px)");
-    const navigate = useNavigate();
-    const [loading, setLoading] = useState(true);
-    const [delItem, setDelItem] = useState(0);
     const [data, setData] = useState(null);
+    const [delItem, setDelItem] = useState(0);
     const goto = useSetWebPage();
-    const { token } = useAuthenticate();
+    const { loading, response, sendRequest } = useServer();
 
     useEffect(() => {
-        const get = async () => {
-            setLoading(true);
-            try {
-                const res = await axios.get("/api/address/get", {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + token,
-                    },
-                });
-                if (res != null) setData(res.data);
-            } catch (e) {}
-        };
-
-        get();
+        sendRequest({ url: "/api/address/get", method: "get" });
     }, []);
 
     useEffect(() => {
-        if (data == null) return;
-        setLoading(false);
-    }, [data]);
+        if (loading) return;
 
-    const actDelete = async () => {
-        setLoading(true);
-        try {
-            const res = await axios({
-                url: "/api/address/delete",
-                method: "post",
-                headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + token,
-                },
-                data: { id: delItem },
-            });
-            if (res.status == 200) {
-                setData(data.filter((item) => item.id !== delItem));
-            }
-        } catch (e) {
-            Swal.fire({
-                text: "متاسفانه خطایی در برقراری ارتباط با سرور رخ داده است. لطفا مجددا امتحان کنید.",
-                icon: "error",
-                showConfirmButton: true,
-                confirmButtonText: "تایید",
-            });
-        } finally {
-            setLoading(false);
+        if (delItem == 0) setData(response);
+        else {
+            setData(data.filter((item) => item.id != delItem));
             setDelItem(0);
         }
-    };
+    }, [loading]);
 
     useEffect(() => {
-        if (delItem != 0) actDelete();
+        if (delItem == 0) return;
+
+        sendRequest({
+            url: "/api/address/delete",
+            method: "post",
+            data: { id: delItem },
+        });
     }, [delItem]);
 
     const AddressEntry = ({ entry }) => {
@@ -96,9 +62,9 @@ const Addresses = () => {
                 text: `آیا از حذف نشانی ${entry.title} اطمینان دارید؟`,
                 title: "حذف نشانی",
                 icon: "warning",
-                showCancelButton: true,
                 showConfirmButton: true,
-                cancelButtonText: "خیر",
+                showDenyButton: true,
+                denyButtonText: "خیر",
                 confirmButtonText: "بله",
                 reverseButtons: true,
             }).then((r) => {
@@ -277,8 +243,6 @@ const Addresses = () => {
         );
     };
 
-    if (loading) return <LoadingSpinner />;
-
     return (
         <DashboardPage>
             <DashboardPagePart full>
@@ -290,9 +254,14 @@ const Addresses = () => {
                     این صفحه ثبت نمایید.
                 </Typography>
             </DashboardPagePart>
+
             <DashboardPagePart mdSize={6}>
                 <Box
-                    sx={{ display: "flex", justifyContent: "flex-end", gap: 2 }}
+                    sx={{
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        gap: 2,
+                    }}
                 >
                     <Button
                         variant="outlined"
@@ -312,18 +281,26 @@ const Addresses = () => {
                     </Button>
                 </Box>
             </DashboardPagePart>
-            <DashboardPagePart full>
-                <Typography variant="h6">نشانی های ثبت شده</Typography>
-                {data != null && data.count > 0
-                    ? data.map((item, index) => (
-                          <AddressEntry
-                              entry={item}
-                              key={index}
-                              mobile={mobile}
-                          />
-                      ))
-                    : "داده ای برای نمایش وجود ندارد."}
-            </DashboardPagePart>
+            {loading ? (
+                <DashboardPagePart full>
+                    <LoadingSpinner />
+                </DashboardPagePart>
+            ) : (
+                <>
+                    <DashboardPagePart full>
+                        <Typography variant="h6">نشانی های ثبت شده</Typography>
+                        {data
+                            ? data.map((item, index) => (
+                                  <AddressEntry
+                                      entry={item}
+                                      key={index}
+                                      mobile={mobile}
+                                  />
+                              ))
+                            : "داده ای برای نمایش وجود ندارد."}
+                    </DashboardPagePart>
+                </>
+            )}
         </DashboardPage>
     );
 };

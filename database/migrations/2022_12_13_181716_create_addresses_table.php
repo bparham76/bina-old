@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('owner');
             $table->string('text');
             $table->string('po_box');
+            $table->string('no');
             $table->string('phone');
             $table->float('latitude');
             $table->float('longitude');
