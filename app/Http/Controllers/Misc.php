@@ -19,8 +19,6 @@ class Misc extends Controller
     {
         $province = $request->validate(['province' => 'numeric'])['province'];
         $counties = IranCounty::where('province_id', $province)->get(['id', 'name']);
-        // $counties = IranProvince::find($province)->counties;
-        // $cities = IranProvince::find($province)->cities()->get(['id', 'name']);
         return response()->json($counties);
     }
 
@@ -28,7 +26,6 @@ class Misc extends Controller
     {
         $county = $request->validate(['county' => 'numeric'])['county'];
         $cities = IranCity::where('county_id', $county)->get(['id', 'name']);
-        // $sectors = IranProvince::find($data['province'])->counties()->find($data['county']);
         return response()->json($cities);
     }
 }

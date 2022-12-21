@@ -15,7 +15,7 @@ const MapSelector = ({ mobile, data }) => {
 
     const MapLayer = () => {
         useMapEvents({
-            click: (e) => setPosition(e.latlng),
+            click: (e) => setPosition([e.latlng.lat, e.latlng.lng]),
             contextmenu: (e) => null,
             dblclick: (e) => e.originalEvent.stopPropagation(),
         });

@@ -56,7 +56,13 @@ const Addresses = () => {
     const AddressEntry = ({ entry }) => {
         const [hoverOn, setHoverOn] = useState(false);
 
-        const editHandler = () => {};
+        const editHandler = () => {
+            goto({
+                page: "/dashboard/addresses/edit",
+                data: { id: entry.id },
+            });
+        };
+
         const deleteHandler = () => {
             Swal.fire({
                 text: `آیا از حذف نشانی ${entry.title} اطمینان دارید؟`,
@@ -219,12 +225,6 @@ const Addresses = () => {
                             <Button
                                 endIcon={<EditIcon />}
                                 sx={{ px: 4, color: "gray" }}
-                                // onClick={(e) =>
-                                //     goto({
-                                //         page: "/dashboard/addresses/edit",
-                                //         data: { show: "show me" },
-                                //     })
-                                // }
                                 onClick={editHandler}
                             >
                                 ویرایش
@@ -244,7 +244,7 @@ const Addresses = () => {
     };
 
     return (
-        <DashboardPage>
+        <DashboardPage loading={loading}>
             <DashboardPagePart full>
                 <Typography variant="h4">نشانی ها</Typography>
             </DashboardPagePart>
@@ -281,26 +281,18 @@ const Addresses = () => {
                     </Button>
                 </Box>
             </DashboardPagePart>
-            {loading ? (
-                <DashboardPagePart full>
-                    <LoadingSpinner />
-                </DashboardPagePart>
-            ) : (
-                <>
-                    <DashboardPagePart full>
-                        <Typography variant="h6">نشانی های ثبت شده</Typography>
-                        {data
-                            ? data.map((item, index) => (
-                                  <AddressEntry
-                                      entry={item}
-                                      key={index}
-                                      mobile={mobile}
-                                  />
-                              ))
-                            : "داده ای برای نمایش وجود ندارد."}
-                    </DashboardPagePart>
-                </>
-            )}
+            <DashboardPagePart full>
+                <Typography variant="h6">نشانی های ثبت شده</Typography>
+                {data
+                    ? data.map((item, index) => (
+                          <AddressEntry
+                              entry={item}
+                              key={index}
+                              mobile={mobile}
+                          />
+                      ))
+                    : "داده ای برای نمایش وجود ندارد."}
+            </DashboardPagePart>
         </DashboardPage>
     );
 };

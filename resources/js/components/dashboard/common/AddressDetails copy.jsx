@@ -17,12 +17,16 @@ import addressReducer, {
     defaultAddress,
 } from "../../../features/dashboard/addressReducer";
 
+import useServer from "../../../features/useServer";
+
 const AddressDetails = ({ edit }) => {
     const mobile = useMediaQuery("(max-width: 450px)");
     const goto = useSetWebPage();
     const { state } = useLocation();
     const { token } = useAuthenticate();
     const [data, dispatch] = useReducer(addressReducer, defaultAddress);
+
+    const { loading, response, sendRequest } = useServer();
 
     const [position, setPosition] = useState([35.65, 51.35]);
 

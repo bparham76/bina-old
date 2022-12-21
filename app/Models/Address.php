@@ -24,7 +24,8 @@ class Address extends Model
         'longitude',
         'province',
         'city',
-        'county'
+        'county',
+        'no'
     ];
 
     public function user()

@@ -1,21 +1,25 @@
-import { Grid, Stack, useMediaQuery } from "@mui/material";
+import { Grid, Stack, useMediaQuery, Fade } from "@mui/material";
+import LoadingSpinner from "../general/LoadingSpinner";
 
-const DashboardPage = ({ children, ...others }) => {
+const DashboardPage = ({ children, loading, ...others }) => {
     const mobile = useMediaQuery("(max-width: 450px)");
 
+    if (loading) return <LoadingSpinner />;
     return (
-        <Grid
-            {...others}
-            container
-            spacing={mobile ? 4 : 2}
-            sx={{
-                px: mobile ? 0 : 4,
-                mb: mobile ? 8 : 4,
-                zIndex: 2,
-            }}
-        >
-            {children}
-        </Grid>
+        <Fade in={true} timeout={700}>
+            <Grid
+                {...others}
+                container
+                spacing={mobile ? 4 : 2}
+                sx={{
+                    px: mobile ? 0 : 4,
+                    mb: mobile ? 8 : 4,
+                    zIndex: 2,
+                }}
+            >
+                {children}
+            </Grid>
+        </Fade>
     );
 };
 

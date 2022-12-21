@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('address/add', 'add_user_address');
         Route::post('address/update', 'update_user_address');
         Route::get('address/get', 'get_user_addresses');
+        Route::get('address/get/single', 'get_single_address');
         Route::post('address/delete', 'delete_user_address');
     });
 });

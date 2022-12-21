@@ -16,7 +16,8 @@ import Addresses from "../components/dashboard/common/Addresses";
 import OrderHistory from "../components/dashboard/common/OrderHistory";
 import ShoppingCarts from "../components/dashboard/common/ShoppingCarts";
 
-import AddressDetails from "../components/dashboard/common/AddressDetails";
+import AddressNew from "../components/dashboard/common/AddressNew";
+import AddressEdit from "../components/dashboard/common/AddressEdit";
 import OrderDetails from "../components/dashboard/common/OrderDetails";
 import ShopCartDetails from "../components/dashboard/common/ShopCartDetails";
 
@@ -43,8 +44,8 @@ const Dashboard = () => {
             case "profile":
                 return <ProfileInfo />;
             case "addresses":
-                if (act == "edit") return <AddressDetails edit />;
-                else if (act == "new") return <AddressDetails />;
+                if (act == "edit") return <AddressEdit />;
+                else if (act == "new") return <AddressNew />;
                 else return <Addresses />;
             case "order-history":
                 if (act == "show") return <OrderDetails />;

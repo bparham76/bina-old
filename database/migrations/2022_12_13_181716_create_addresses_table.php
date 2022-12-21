@@ -16,17 +16,17 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->string('owner');
-            $table->string('text');
-            $table->string('po_box');
-            $table->string('no');
-            $table->string('phone');
-            $table->float('latitude');
-            $table->float('longitude');
-            $table->integer('province');
-            $table->integer('county');
-            $table->integer('city');
+            $table->string('title')->default('');
+            $table->string('owner')->default('');
+            $table->string('text')->default('');
+            $table->string('po_box')->default('');
+            $table->string('no')->default(0);
+            $table->string('phone')->default('');
+            $table->double('latitude', 16, 14)->default(0);
+            $table->double('longitude', 16, 14)->default(0);
+            $table->integer('province')->default(0);
+            $table->integer('county')->default(0);
+            $table->integer('city')->default(0);
         });
     }
 

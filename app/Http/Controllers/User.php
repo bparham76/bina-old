@@ -38,6 +38,13 @@ class User extends Controller
             'sex' => !empty($data['sex']) ? $data['sex'] : 0,
             'type' => !empty($data['type']) ? $data['type'] : 0,
         ]);
+
+        return response()->json(
+            array_merge(
+                $user_info->get()[0]->toArray(),
+                ['phone' => $request->user()->phone]
+            )
+        );
     }
 
     public function get_user_info(Request $request)
@@ -63,6 +70,7 @@ class User extends Controller
             'province' => 'required|numeric',
             'county' => 'required|numeric',
             'city' => 'required|numeric',
+            'no' => 'required|numeric'
         ]);
 
         Address::create([...$data, 'user_id' => $request->user()->id]);
@@ -70,6 +78,43 @@ class User extends Controller
 
     public function update_user_address(Request $request)
     {
+        $data = $request->validate([
+            'id' => 'required|numeric',
+            'title' => 'required|string',
+            'owner' => 'required|string',
+            'text' => 'required|string',
+            'po_box' => 'required|digits:10',
+            'phone' => 'required|digits:11',
+            'latitude' => 'nullable|numeric',
+            'longitude' => 'nullable|numeric',
+            'province' => 'required|numeric',
+            'county' => 'required|numeric',
+            'city' => 'required|numeric',
+            'no' => 'required|numeric'
+        ]);
+
+        Address::updateOrCreate(
+            ['id' => $data['id']],
+            [
+                'title' => $data['title'],
+                'owner' => $data['owner'],
+                'text' => $data['text'],
+                'po_box' => $data['po_box'],
+                'phone' => $data['phone'],
+                'latitude' => $data['latitude'],
+                'longitude' => $data['longitude'],
+                'province' => $data['province'],
+                'county' => $data['county'],
+                'city' => $data['city'],
+                'no' => $data['no'],
+            ]
+        );
+    }
+
+    public function get_single_address(Request $request)
+    {
+        $id = $request->validate(['id' => 'numeric'])['id'];
+        return response()->json(Address::find($id));
     }
 
     public function get_user_addresses(Request $request)
@@ -80,6 +125,6 @@ class User extends Controller
     public function delete_user_address(Request $request)
     {
         $id = $request->validate(['id' => 'numeric']);
-        return Address::find($id)->first()->delete();
+        Address::find($id)->first()->delete();
     }
 }

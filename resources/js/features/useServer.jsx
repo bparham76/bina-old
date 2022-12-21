@@ -10,30 +10,25 @@ export default function useServer() {
     const [loading, setLoading] = useState(false);
     const [method, setMethod] = useState("");
     const [url, setUrl] = useState("");
+    const [execute, setExecute] = useState(false);
 
     useEffect(() => {
-        if (method == "") return;
+        if (!execute) return;
+        if (method == "" || url == "") return;
+
+        setExecute(false);
 
         switch (method) {
             case "get":
                 get();
-                break;
+                return;
             case "post":
                 post();
-                break;
+                return;
             default:
-                break;
+                return;
         }
-
-        return () => {
-            setMethod("");
-            setUrl("");
-            setData(null);
-            setError(null);
-            setResponse(null);
-            setLoading(false);
-        };
-    }, [url]);
+    }, [execute]);
 
     const get = async () => {
         try {
@@ -48,7 +43,6 @@ export default function useServer() {
 
             if (res.status < 400) {
                 setResponse(res.data);
-                // console.log(response);
             }
         } catch (e) {
             setError(e);
@@ -72,7 +66,6 @@ export default function useServer() {
 
             if (res.status < 400) {
                 setResponse(res.data);
-                // console.log(response);
             }
         } catch (e) {
             setError(e);
@@ -87,7 +80,12 @@ export default function useServer() {
         setMethod(method);
         setData(data);
         setUrl(url);
+        setExecute(true);
     };
+
+    useEffect(() => {
+        if (!loading) window?.scrollTo({ behavior: "smooth", top: 0, left: 0 });
+    }, [loading]);
 
     return { response, error, loading, sendRequest };
 }
