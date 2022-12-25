@@ -2,7 +2,7 @@ import { Grid, Stack, useMediaQuery, Fade } from "@mui/material";
 import LoadingSpinner from "../general/LoadingSpinner";
 
 const DashboardPage = ({ children, loading, ...others }) => {
-    const mobile = useMediaQuery("(max-width: 450px)");
+    const mobile = useMediaQuery("(max-width: 800px)");
 
     if (loading) return <LoadingSpinner />;
     return (

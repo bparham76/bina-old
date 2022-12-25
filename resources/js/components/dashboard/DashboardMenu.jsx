@@ -14,7 +14,7 @@ import MarketerMenu from "./marketer/MarketerMenu";
 import SupervisorMenu from "./supervisor/SupervisorMenu";
 
 const DashboardMenu = () => {
-    const mobile = useMediaQuery("(max-width: 450px)");
+    const mobile = useMediaQuery("(max-width: 800px)");
     const [drawerOpen, setDrawerOpen] = useState(false);
     const goto = useSetWebPage();
     const { logout } = useAuthenticate();

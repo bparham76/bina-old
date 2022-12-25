@@ -14,6 +14,9 @@ const ShopEcosystem = ({ children }) => {
     const [carts, setCarts] = useState([]);
     const [orders, setOrders] = useState([]);
     const [financials, setFinancials] = useState([]);
+    const [breadcrumbsItems, setBreadCrumbsItems] = useState([]);
+
+    const [sideMenuOpen, setSideMenuOpen] = useState(false);
 
     //sample data
     useEffect(() => {
@@ -21,6 +24,12 @@ const ShopEcosystem = ({ children }) => {
         setCarts([{ id: 1 }, { id: 2 }, { id: 3 }]);
         setOrders([{ id: 1 }, { id: 2 }, { id: 3 }]);
         setFinancials([{ id: 1 }, { id: 2 }, { id: 3 }]);
+        setBreadCrumbsItems([
+            {
+                title: "خانه",
+                address: "/",
+            },
+        ]);
     }, []);
 
     const getShopInfo = () => {
@@ -36,6 +45,10 @@ const ShopEcosystem = ({ children }) => {
     return (
         <ShopContext.Provider
             value={{
+                sideMenuOpen,
+                setSideMenuOpen,
+                breadcrumbsItems,
+                setBreadCrumbsItems,
                 getShopInfo,
                 userAddresses,
                 setUserAddresses,

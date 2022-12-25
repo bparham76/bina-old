@@ -23,7 +23,7 @@ import Swal from "sweetalert2";
 import useServer from "../../../features/useServer";
 
 const Addresses = () => {
-    const mobile = useMediaQuery("(max-width: 450px)");
+    const mobile = useMediaQuery("(max-width: 800px)");
     const [data, setData] = useState(null);
     const [delItem, setDelItem] = useState(0);
     const goto = useSetWebPage();

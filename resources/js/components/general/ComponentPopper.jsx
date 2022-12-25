@@ -18,7 +18,7 @@ const ComponentPopper = (props) => {
         children,
         ...otherProps
     } = props;
-    const mobileScreen = useMediaQuery("(max-width: 450px)");
+    const mobileScreen = useMediaQuery("(max-width: 800px)");
 
     const [mouseOnFadeComponent, setMouseOnFadeComponent] = useState(false);
     const handleFadeClick = () => {

@@ -1,7 +1,7 @@
 import { Button, useMediaQuery } from "@mui/material";
 
 const DashboardMenuButton = ({ children, ...others }) => {
-    const mobile = useMediaQuery("(max-width: 450px)");
+    const mobile = useMediaQuery("(max-width: 800px)");
 
     return (
         <Button

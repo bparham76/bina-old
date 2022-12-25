@@ -4,6 +4,7 @@ import Boilerplate from "./Boilerplate";
 import Home from "./layouts/Home";
 import Authentication from "./layouts/Authentication";
 import Dashboard from "./layouts/Dashboard";
+import Shop from "./layouts/Shop";
 
 const routes = createBrowserRouter([
     {
@@ -26,6 +27,18 @@ const routes = createBrowserRouter([
     {
         path: "dashboard/:dist/:act",
         element: <Dashboard />,
+    },
+    {
+        path: "shop",
+        element: <Shop />,
+    },
+    {
+        path: "shop/:dist",
+        element: <Shop />,
+    },
+    {
+        path: "shop/:dist/:act",
+        element: <Shop />,
     },
 ]);
 

@@ -23,7 +23,7 @@ const ShopCard = (props) => {
     const { pic, ...others } = props;
 
     const [hover, setHover] = useState(false);
-    const mobile = useMediaQuery("(max-width: 450px)");
+    const mobile = useMediaQuery("(max-width: 800px)");
 
     const ButtonList = () => (
         <>
