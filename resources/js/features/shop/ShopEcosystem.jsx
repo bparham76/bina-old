@@ -16,8 +16,6 @@ const ShopEcosystem = ({ children }) => {
     const [financials, setFinancials] = useState([]);
     const [breadcrumbsItems, setBreadCrumbsItems] = useState([]);
 
-    const [sideMenuOpen, setSideMenuOpen] = useState(false);
-
     //sample data
     useEffect(() => {
         setUserAddresses([{ id: 1 }, { id: 2 }, { id: 3 }]);
@@ -45,8 +43,6 @@ const ShopEcosystem = ({ children }) => {
     return (
         <ShopContext.Provider
             value={{
-                sideMenuOpen,
-                setSideMenuOpen,
                 breadcrumbsItems,
                 setBreadCrumbsItems,
                 getShopInfo,

@@ -18,39 +18,29 @@ const Purchase = ({ mobile, productId }) => {
 
     return (
         <Grid container spacing={1}>
-            <Grid item xs={12}>
-                <Box sx={{ height: "200px" }}>
-                    <Stack>
-                        <h1>salam</h1>
-                        <h1>salam</h1>
-                    </Stack>
-                </Box>
+            <Grid item xs={12} sm={mobile ? 6 : 12}>
+                <Stack direction="row" spacing={1}>
+                    <TextField
+                        sx={{ width: "90%" }}
+                        InputProps={{
+                            startAdornment: (
+                                <InputAdornment position="start">
+                                    تعداد
+                                </InputAdornment>
+                            ),
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    واحد
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <Button sx={{ width: "10%" }} variant="outlined" fullWidth>
+                        <BookmarkAdd />
+                    </Button>
+                </Stack>
             </Grid>
-            <Grid item xs={7}>
-                <TextField
-                    InputProps={{
-                        startAdornment: (
-                            <InputAdornment position="start">
-                                تعداد
-                            </InputAdornment>
-                        ),
-                        endAdornment: (
-                            <InputAdornment position="end">واحد</InputAdornment>
-                        ),
-                    }}
-                />
-            </Grid>
-            <Grid item xs={5}>
-                <Button
-                    variant="outlined"
-                    fullWidth
-                    sx={{ height: "100%" }}
-                    endIcon={<BookmarkAdd />}
-                >
-                    نشانه گذاری
-                </Button>
-            </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={mobile ? 6 : 12}>
                 <Button
                     fullWidth
                     variant="contained"

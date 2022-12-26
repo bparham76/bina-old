@@ -24,7 +24,7 @@ import ShopCartDetails from "../components/dashboard/common/ShopCartDetails";
 import CustomerFinancials from "../components/dashboard/customer/CustomerFinancials";
 
 const Dashboard = () => {
-    const mobile = useMediaQuery("(max-width: 800px)");
+    const mobile = useMediaQuery("(max-width: 900px)");
     const { shopName, shopDescription } = useShopInfo();
     const [render, setRender] = useState(false);
     const { authenticated, loading } = useAuthenticate();

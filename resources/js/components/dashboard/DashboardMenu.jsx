@@ -1,6 +1,15 @@
 import { useState, useEffect } from "react";
 import { useSetWebPage } from "../../features/shop/ShopEcosystem";
-import { useMediaQuery, Fab, Stack, Paper, Button } from "@mui/material";
+import {
+    useMediaQuery,
+    Fab,
+    SwipeableDrawer,
+    Paper,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+} from "@mui/material";
 import {
     useUserData,
     useAuthenticate,
@@ -14,7 +23,7 @@ import MarketerMenu from "./marketer/MarketerMenu";
 import SupervisorMenu from "./supervisor/SupervisorMenu";
 
 const DashboardMenu = () => {
-    const mobile = useMediaQuery("(max-width: 800px)");
+    const mobile = useMediaQuery("(max-width: 900px)");
     const [drawerOpen, setDrawerOpen] = useState(false);
     const goto = useSetWebPage();
     const { logout } = useAuthenticate();
@@ -61,31 +70,24 @@ const DashboardMenu = () => {
             break;
     }
 
-    const Menu = () => {
-        return (
-            <Stack
-                spacing={mobile ? 2 : 0}
-                sx={{
-                    display: "flex",
-                    width: "100%",
-                    justifyContent: "center",
-                    p: mobile ? 0 : 2,
-                }}
-            >
-                {menuitems.map((item, index) => (
-                    <DashboardMenuButton
-                        key={index}
+    const Menu = () => (
+        <List>
+            {menuitems.map((item, index) => (
+                <ListItem key={index}>
+                    <ListItemButton
                         onClick={() => menuButtonClick(item.address)}
                     >
-                        {item.name}
-                    </DashboardMenuButton>
-                ))}
-                <DashboardMenuButton onClick={logout}>
-                    خروج از حساب کاربری
-                </DashboardMenuButton>
-            </Stack>
-        );
-    };
+                        <ListItemText primary={item.name} />
+                    </ListItemButton>
+                </ListItem>
+            ))}
+            <ListItem>
+                <ListItemButton onClick={logout}>
+                    <ListItemText primary="خروج از حساب کاربری" />
+                </ListItemButton>
+            </ListItem>
+        </List>
+    );
 
     useEffect(() => {
         setDrawerOpen(false);
@@ -96,14 +98,15 @@ const DashboardMenu = () => {
             <>
                 <Fab
                     variant="circular"
-                    color="primary"
+                    color="default"
                     size="large"
                     sx={{
                         m: 2,
                         bottom: 0,
-                        right: 0,
+                        left: 0,
                         position: "fixed",
-                        bgcolor: "lightcoral",
+                        // color: "red",
+                        // bgcolor: "red",
                     }}
                     onClick={() => {
                         setDrawerOpen(true);
@@ -111,16 +114,23 @@ const DashboardMenu = () => {
                 >
                     <DashboardIcon />
                 </Fab>
-                <Paper>
-                    <ComponentPopper
-                        open={drawerOpen}
-                        anchor="bottom"
-                        autoHeight
-                        onClick={() => setDrawerOpen(false)}
-                    >
-                        <Menu />
-                    </ComponentPopper>
-                </Paper>
+
+                <SwipeableDrawer
+                    onClose={(e) => setDrawerOpen(false)}
+                    onOpen={(e) => setDrawerOpen(true)}
+                    open={drawerOpen}
+                    anchor="bottom"
+                    PaperProps={{
+                        style: {
+                            width: "100%",
+                            maxHeight: "90%",
+                            borderTopLeftRadius: 20,
+                            borderTopRightRadius: 20,
+                        },
+                    }}
+                >
+                    <Menu />
+                </SwipeableDrawer>
             </>
         );
 

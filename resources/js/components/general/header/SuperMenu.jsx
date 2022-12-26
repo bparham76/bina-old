@@ -6,14 +6,13 @@ import {
     Button,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useShop } from "../../../features/shop/ShopEcosystem";
+import { useState } from "react";
+import SideMenuDrawer from "./SideMenuDrawer";
 
 const SuperMenu = () => {
     const mediumScreen = useMediaQuery("(max-width: 900px)");
     const scroll = useScrollTrigger();
-
-    const { setSideMenuOpen } = useShop();
-    const openMenu = () => setSideMenuOpen(true);
+    const [menuOpen, setMenuOpen] = useState(false);
 
     return mediumScreen ? (
         <>
@@ -32,7 +31,7 @@ const SuperMenu = () => {
                         color: "black",
                     }}
                     size="large"
-                    onClick={openMenu}
+                    onClick={(e) => setMenuOpen(true)}
                 >
                     <MenuIcon
                         sx={{
@@ -41,6 +40,7 @@ const SuperMenu = () => {
                     />
                 </Button>
             </Box>
+            <SideMenuDrawer handleMenu={{ menuOpen, setMenuOpen }} />
         </>
     ) : (
         <Box sx={{ width: "100%" }}>

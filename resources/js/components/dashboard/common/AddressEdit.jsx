@@ -24,7 +24,7 @@ import useServer from "../../../features/useServer";
 
 const AddressEdit = () => {
     const { state } = useLocation();
-    const mobile = useMediaQuery("(max-width: 800px)");
+    const mobile = useMediaQuery("(max-width: 900px)");
     const goto = useSetWebPage();
     const [data, dispatch] = useReducer(addressReducer, defaultAddress);
     const defaultData = useRef();

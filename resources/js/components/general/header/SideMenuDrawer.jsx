@@ -1,15 +1,40 @@
-import { useShop } from "../../../features/shop/ShopEcosystem";
-import { SwipeableDrawer } from "@mui/material";
+import {
+    Drawer,
+    Box,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemText,
+} from "@mui/material";
 
-const SideMenuDrawer = () => {
-    const { sideMenuOpen, setSideMenuOpen } = useShop();
+const SideMenuDrawer = ({ handleMenu }) => {
+    const { menuOpen, setMenuOpen } = handleMenu;
+
+    const MenuItem = ({ title, address }) => (
+        <ListItem>
+            <ListItemButton>
+                <ListItemText primary={title} />
+            </ListItemButton>
+        </ListItem>
+    );
+
+    const menuItems = [
+        { title: "داشبورد", address: "" },
+        { title: "سبد خرید", address: "" },
+        { title: "سبد خرید", address: "" },
+        { title: "سبد خرید", address: "" },
+        { title: "سبد خرید", address: "" },
+        { title: "فروشگاه", address: "" },
+        { title: "دسته بندی", address: "" },
+        { title: "خروج", address: "" },
+    ];
 
     return (
-        <SwipeableDrawer
+        <Drawer
             anchor="right"
-            open={sideMenuOpen}
-            onClose={() => setSideMenuOpen(false)}
-            onOpen={() => setSideMenuOpen(true)}
+            open={menuOpen}
+            onClose={() => setMenuOpen(false)}
+            SlideProps={{ unmountOnExit: true }}
             PaperProps={{
                 style: {
                     left: "unset",
@@ -19,8 +44,14 @@ const SideMenuDrawer = () => {
                 },
             }}
         >
-            salam
-        </SwipeableDrawer>
+            <Box sx={{ p: 0 }}>
+                <List subheader={<h1>Salam</h1>}>
+                    {menuItems.map((item, index) => (
+                        <MenuItem key={index} title={item.title} />
+                    ))}
+                </List>
+            </Box>
+        </Drawer>
     );
 };
 

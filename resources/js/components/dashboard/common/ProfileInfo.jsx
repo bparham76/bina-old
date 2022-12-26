@@ -22,7 +22,7 @@ import profileInfoReducer, {
 import useServer from "../../../features/useServer";
 
 const ProfileInfo = () => {
-    const mobile = useMediaQuery("(max-width: 800px)");
+    const mobile = useMediaQuery("(max-width: 900px)");
     const [update, setUpdate] = useState(false);
     const [info, dispatch] = useReducer(profileInfoReducer, defaultInfo);
     const infoOrigin = useRef(null);

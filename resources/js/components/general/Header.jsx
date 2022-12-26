@@ -1,9 +1,19 @@
-import { Box, Grid, useMediaQuery, Typography, Button } from "@mui/material";
+import {
+    Box,
+    Grid,
+    useMediaQuery,
+    Typography,
+    Button,
+    Drawer,
+} from "@mui/material";
 import { ShoppingCart, Login } from "@mui/icons-material";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useLayoutEffect, useState } from "react";
 import { useShopInfo } from "../../features/shop/ShopEcosystem";
+import { useAuthenticate } from "../../features/auth/AuthEcosystem";
+import { useSetWebPage } from "../../features/shop/ShopEcosystem";
 import SuperMenu from "./header/SuperMenu";
-import SideMenuDrawer from "./header/SideMenuDrawer";
+import SuperSearch from "./header/SuperSearch";
 
 const Header = () => {
     const mediumScreen = useMediaQuery("(max-width: 900px)");
@@ -11,6 +21,8 @@ const Header = () => {
     const [showHeaderBorder, setShowHeaderBorder] = useState(false);
 
     const { shopName, shopDescription } = useShopInfo();
+    const { authenticated } = useAuthenticate();
+    const goto = useSetWebPage();
 
     useLayoutEffect(() => {
         window.addEventListener("scroll", () => {
@@ -37,15 +49,32 @@ const Header = () => {
                     p: 2,
                 }}
             >
-                <Button
-                    sx={{
-                        color: "black",
-                    }}
-                    size="large"
-                    startIcon={!smallScreen && <Login />}
-                >
-                    {smallScreen ? <Login /> : "ورود یا ثبت نام"}
-                </Button>
+                {mediumScreen && <SuperSearch />}
+                {authenticated ? (
+                    <>
+                        <Button
+                            sx={{
+                                color: "black",
+                            }}
+                            size="large"
+                            startIcon={!smallScreen && <DashboardIcon />}
+                            onClick={(e) => goto({ page: "/dashboard" })}
+                        >
+                            {smallScreen ? <DashboardIcon /> : "پروفایل کاربری"}
+                        </Button>
+                    </>
+                ) : (
+                    <Button
+                        sx={{
+                            color: "black",
+                        }}
+                        size="large"
+                        startIcon={!smallScreen && <Login />}
+                        onClick={(e) => goto({ page: "/dashboard" })}
+                    >
+                        {smallScreen ? <Login /> : "ورود یا ثبت نام"}
+                    </Button>
+                )}
                 <Button
                     sx={{
                         color: "black",
@@ -91,7 +120,7 @@ const Header = () => {
                     </>
                 )}
             </Grid>
-            {mediumScreen && <SideMenuDrawer />}
+            {!mediumScreen && <Box sx={{ height: 100, width: "100%" }}></Box>}
         </>
     );
 };

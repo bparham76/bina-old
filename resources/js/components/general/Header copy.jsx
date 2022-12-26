@@ -32,8 +32,7 @@ const Header = ({
 }) => {
     const navigate = useNavigate();
     const { authenticated } = useAuthenticate();
-    const mobileScreen = useMediaQuery("(max-width: 800px)");
-
+    const mobileScreen = useMediaQuery("(max-width: 900spx)");
     const [openMenu, setOpenMenu] = useState(false);
     const [openSearch, setOpenSearch] = useState(false);
     const [openCart, setOpenCart] = useState(false);

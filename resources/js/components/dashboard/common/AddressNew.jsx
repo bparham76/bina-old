@@ -18,7 +18,7 @@ import addressReducer, {
 import useServer from "../../../features/useServer";
 
 const AddressNew = () => {
-    const mobile = useMediaQuery("(max-width: 800px)");
+    const mobile = useMediaQuery("(max-width: 900px)");
     const goto = useSetWebPage();
     const [data, dispatch] = useReducer(addressReducer, defaultAddress);
 

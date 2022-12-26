@@ -19,7 +19,7 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
 const ShoppingCarts = () => {
-    const mobile = useMediaQuery("(max-width: 800px)");
+    const mobile = useMediaQuery("(max-width: 900px)");
     const navigate = useNavigate();
     const { carts, setCarts } = useShop();
 
