@@ -13,7 +13,7 @@ const SingleProduct = ({ productId }) => {
                     <Box
                         sx={{
                             position: "sticky",
-                            top: 120,
+                            top: mobile ? 20 : 120,
                         }}
                     >
                         <ImageSlider mobile={mobile} productId={productId} />
@@ -62,35 +62,14 @@ const SingleProduct = ({ productId }) => {
             <Grid item xs={12} md={3}>
                 <Box
                     sx={
-                        mobile
+                        !mobile
                             ? {
-                                  position: "fixed",
-                                  bottom: 0,
-                                  left: 0,
-                                  zIndex: 300,
-                                  bgcolor: "white",
-                                  width: "100%",
-                                  p: 1,
-                              }
-                            : {
                                   position: "sticky",
                                   top: 120,
                               }
-                        // {
-                        //     position: "sticky",
-                        //     top: 120,
-                        // }
+                            : {}
                     }
                 >
-                    {/* <Button
-                        fullWidth
-                        variant="contained"
-                        color="error"
-                        sx={{ height: "50px" }}
-                        endIcon={<ShoppingCart />}
-                    >
-                        افزودن به سبد خرید
-                    </Button> */}
                     <Purchase mobile={mobile} />
                 </Box>
             </Grid>

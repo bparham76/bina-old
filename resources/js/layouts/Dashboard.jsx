@@ -64,29 +64,19 @@ const Dashboard = () => {
     return (
         <>
             <Header websiteName={shopName} websiteDetails={shopDescription} />
-            <Grid
-                container
-                sx={{
-                    p: 2,
-                    pt: mobile ? 2 : 4,
-                    backgroundColor: "snow",
-                }}
-            >
-                <Grid item xs={12} sm={2}>
-                    <Box
-                        sx={{
-                            zIndex: 900,
-                            position: "sticky",
-                            top: 120,
-                        }}
-                    >
-                        <DashboardMenu />
-                    </Box>
+            <Box sx={{ p: 2 }}>
+                <Grid container sx={{ p: 2 }} spacing={2}>
+                    <Grid item xs={12} md={3}>
+                        <Box sx={mobile ? {} : { position: "sticky", top: 90 }}>
+                            <DashboardMenu />
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12} md={9}>
+                        {render && <DashboardView />}
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} sm={10}>
-                    {render && <DashboardView />}
-                </Grid>
-            </Grid>
+            </Box>
+
             <Footer />
         </>
     );

@@ -6,6 +6,7 @@ import {
     ListItemButton,
     ListItemText,
 } from "@mui/material";
+import MegaMenu from "./MegaMenu";
 
 const SideMenuDrawer = ({ handleMenu }) => {
     const { menuOpen, setMenuOpen } = handleMenu;

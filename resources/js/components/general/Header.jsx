@@ -1,11 +1,4 @@
-import {
-    Box,
-    Grid,
-    useMediaQuery,
-    Typography,
-    Button,
-    Drawer,
-} from "@mui/material";
+import { Box, Grid, useMediaQuery, Typography, Button } from "@mui/material";
 import { ShoppingCart, Login } from "@mui/icons-material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useLayoutEffect, useState } from "react";
@@ -32,7 +25,7 @@ const Header = () => {
     }, []);
 
     const InfoBlock = () => (
-        <Grid item xs={12} md={6} sx={{ p: 1 }}>
+        <Grid item xs={12} md={6} sx={{ p: 2 }}>
             <Typography variant="h6">{shopName}</Typography>
             <Typography variant="caption">{shopDescription}</Typography>
         </Grid>

@@ -4,7 +4,6 @@ import {
     useMediaQuery,
     Fab,
     SwipeableDrawer,
-    Paper,
     List,
     ListItem,
     ListItemButton,
@@ -15,8 +14,6 @@ import {
     useAuthenticate,
 } from "../../features/auth/AuthEcosystem";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ComponentPopper from "../general/ComponentPopper";
-import DashboardMenuButton from "./DashboardMenuButton";
 import AccountantMenu from "./accountant/AccountantMenu";
 import CustomerMenu from "./customer/CustomerMenu";
 import MarketerMenu from "./marketer/MarketerMenu";
@@ -24,6 +21,7 @@ import SupervisorMenu from "./supervisor/SupervisorMenu";
 
 const DashboardMenu = () => {
     const mobile = useMediaQuery("(max-width: 900px)");
+    const MenuBreakPoint = useMediaQuery("(max-width: 600px)");
     const [drawerOpen, setDrawerOpen] = useState(false);
     const goto = useSetWebPage();
     const { logout } = useAuthenticate();
@@ -77,13 +75,19 @@ const DashboardMenu = () => {
                     <ListItemButton
                         onClick={() => menuButtonClick(item.address)}
                     >
-                        <ListItemText primary={item.name} />
+                        <ListItemText
+                            primary={item.name}
+                            style={{ textAlign: MenuBreakPoint && "center" }}
+                        />
                     </ListItemButton>
                 </ListItem>
             ))}
             <ListItem>
                 <ListItemButton onClick={logout}>
-                    <ListItemText primary="خروج از حساب کاربری" />
+                    <ListItemText
+                        primary="خروج از حساب کاربری"
+                        style={{ textAlign: MenuBreakPoint && "center" }}
+                    />
                 </ListItemButton>
             </ListItem>
         </List>
@@ -98,15 +102,13 @@ const DashboardMenu = () => {
             <>
                 <Fab
                     variant="circular"
-                    color="default"
+                    color="error"
                     size="large"
                     sx={{
                         m: 2,
                         bottom: 0,
-                        left: 0,
+                        right: 0,
                         position: "fixed",
-                        // color: "red",
-                        // bgcolor: "red",
                     }}
                     onClick={() => {
                         setDrawerOpen(true);
@@ -122,10 +124,12 @@ const DashboardMenu = () => {
                     anchor="bottom"
                     PaperProps={{
                         style: {
-                            width: "100%",
+                            width: MenuBreakPoint ? "100%" : "60%",
                             maxHeight: "90%",
                             borderTopLeftRadius: 20,
                             borderTopRightRadius: 20,
+                            marginLeft: !MenuBreakPoint && "auto",
+                            marginRight: !MenuBreakPoint && "auto",
                         },
                     }}
                 >

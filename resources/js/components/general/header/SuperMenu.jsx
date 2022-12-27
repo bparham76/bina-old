@@ -29,6 +29,8 @@ const SuperMenu = () => {
                 <Button
                     sx={{
                         color: "black",
+                        position: "sticky",
+                        top: 10,
                     }}
                     size="large"
                     onClick={(e) => setMenuOpen(true)}

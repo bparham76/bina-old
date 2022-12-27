@@ -26,24 +26,16 @@ const SuperSearch = () => {
                 anchor="bottom"
                 PaperProps={{
                     style: {
-                        width: "100%",
+                        width: mediumScreen ? "100%" : "60%",
+                        marginLeft: !mediumScreen && "auto",
+                        marginRight: !mediumScreen && "auto",
                         height: "90%",
                         borderTopLeftRadius: 20,
                         borderTopRightRadius: 20,
                     },
                 }}
             >
-                <Box
-                    sx={{
-                        display: "flex",
-                        justifyContent: "center",
-                        p: 2,
-                        // bgcolor: "red",
-                        // width: "100%",
-                        // height: "100%",
-                        // alignItems: "center",
-                    }}
-                >
+                <Box sx={{ p: 2, display: "flex", justifyContent: "center" }}>
                     جستجو
                 </Box>
             </SwipeableDrawer>
