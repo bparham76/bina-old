@@ -18,6 +18,7 @@ import AccountantMenu from "./accountant/AccountantMenu";
 import CustomerMenu from "./customer/CustomerMenu";
 import MarketerMenu from "./marketer/MarketerMenu";
 import SupervisorMenu from "./supervisor/SupervisorMenu";
+import AdminMenu from "./admin/AdminMenu";
 
 const DashboardMenu = () => {
     const mobile = useMediaQuery("(max-width: 900px)");
@@ -46,8 +47,8 @@ const DashboardMenu = () => {
             address: "order-history",
         },
         {
-            name: "سبد های خرید",
-            address: "carts",
+            name: "علاقه مندی ها",
+            address: "favourites",
         },
     ];
 
@@ -63,6 +64,9 @@ const DashboardMenu = () => {
             break;
         case 3:
             menuitems = menuitems.concat([...SupervisorMenu]);
+            break;
+        case 4:
+            menuitems = menuitems.concat([...AdminMenu]);
             break;
         default:
             break;

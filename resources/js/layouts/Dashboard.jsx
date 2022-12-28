@@ -8,20 +8,9 @@ import Header from "../components/general/Header";
 import Footer from "../components/general/Footer";
 
 import DashboardMenu from "../components/dashboard/DashboardMenu";
+import DashboardView from "../features/dashboard/DashboardView";
 
 import { useShopInfo } from "../features/shop/ShopEcosystem";
-
-import ProfileInfo from "../components/dashboard/common/ProfileInfo";
-import Addresses from "../components/dashboard/common/Addresses";
-import OrderHistory from "../components/dashboard/common/OrderHistory";
-import ShoppingCarts from "../components/dashboard/common/ShoppingCarts";
-
-import AddressNew from "../components/dashboard/common/AddressNew";
-import AddressEdit from "../components/dashboard/common/AddressEdit";
-import OrderDetails from "../components/dashboard/common/OrderDetails";
-import ShopCartDetails from "../components/dashboard/common/ShopCartDetails";
-
-import CustomerFinancials from "../components/dashboard/customer/CustomerFinancials";
 
 const Dashboard = () => {
     const mobile = useMediaQuery("(max-width: 900px)");
@@ -37,30 +26,6 @@ const Dashboard = () => {
         else setRender(true);
     }, [authenticated, loading]);
 
-    const DashboardView = () => {
-        switch (dist) {
-            case undefined:
-                return;
-            case "profile":
-                return <ProfileInfo />;
-            case "addresses":
-                if (act == "edit") return <AddressEdit />;
-                else if (act == "new") return <AddressNew />;
-                else return <Addresses />;
-            case "order-history":
-                if (act == "show") return <OrderDetails />;
-                else return <OrderHistory />;
-            case "carts":
-                if (act == "show") return <ShopCartDetails />;
-                else return <ShoppingCarts />;
-            case "financials":
-                //check for user role and load page based on that
-                return <CustomerFinancials />;
-            default:
-                return <Box sx={{ width: "100%", height: "80vh" }}>404</Box>;
-        }
-    };
-
     return (
         <>
             <Header websiteName={shopName} websiteDetails={shopDescription} />
@@ -72,7 +37,7 @@ const Dashboard = () => {
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={9}>
-                        {render && <DashboardView />}
+                        {render && <DashboardView dist={dist} act={act} />}
                     </Grid>
                 </Grid>
             </Box>

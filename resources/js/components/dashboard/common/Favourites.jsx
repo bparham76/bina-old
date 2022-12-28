@@ -18,7 +18,7 @@ import { PlaylistAdd } from "@mui/icons-material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 
-const ShoppingCarts = () => {
+const Favourites = () => {
     const mobile = useMediaQuery("(max-width: 900px)");
     const navigate = useNavigate();
     const { carts, setCarts } = useShop();
@@ -39,7 +39,7 @@ const ShoppingCarts = () => {
                     width: mobile ? "100%" : "32%",
                     transition: "all 200ms ease",
                 }}
-                onClick={(e) => navigate("/dashboard/carts/show")}
+                onClick={(e) => navigate("/dashboard/favourites/show")}
             >
                 <Box
                     sx={{
@@ -64,12 +64,12 @@ const ShoppingCarts = () => {
                                     sx={{ border: "none" }}
                                     align="center"
                                 >
-                                    عنوان سبد خرید
+                                    عنوان فهرست علاقه مندی
                                 </TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell sx={{ border: "none" }}>
-                                    شماره سبد:
+                                    شماره لیست:
                                 </TableCell>
                                 <TableCell
                                     sx={{ border: "none" }}
@@ -97,7 +97,7 @@ const ShoppingCarts = () => {
                         sx={{ color: "lightcoral", p: 2 }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        حذف سبد
+                        حذف لیست
                     </Button>
                 </Box>
             </Card>
@@ -107,12 +107,13 @@ const ShoppingCarts = () => {
     return (
         <DashboardPage>
             <DashboardPagePart full>
-                <Typography variant="h4">سبد های خرید</Typography>
+                <Typography variant="h4">لیست های علاقه مندی</Typography>
             </DashboardPagePart>
             <DashboardPagePart mdSize={6}>
                 <Typography variant="p" sx={{ fontSize: "0.8rem" }}>
-                    در این صفحه می توانید چندین سبد خرید مجزا تعریف کرده و تاریخ
-                    تسویه و دریافت سفارشات خود را بصورت جداگانه مدیریت نمایید.
+                    در این صفحه می توانید چندین لیست علاقه مندی بصورت مجزا تعریف
+                    کرده و تاریخ تسویه و دریافت سفارشات خود را بصورت جداگانه
+                    مدیریت نمایید.
                 </Typography>
             </DashboardPagePart>
             <DashboardPagePart mdSize={6}>
@@ -133,7 +134,7 @@ const ShoppingCarts = () => {
                             setCarts(carts.concat({ id: carts.length + 1 }))
                         }
                     >
-                        افزودن سبد جدید
+                        افزودن لیست جدید
                     </Button>
                 </Box>
             </DashboardPagePart>
@@ -148,4 +149,4 @@ const ShoppingCarts = () => {
     );
 };
 
-export default ShoppingCarts;
+export default Favourites;
