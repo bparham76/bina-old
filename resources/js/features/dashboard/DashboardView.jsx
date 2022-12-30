@@ -14,6 +14,12 @@ import CustomerFinancials from "../../components/dashboard/customer/CustomerFina
 
 import ManageProducts from "../../components/dashboard/admin/ManageProducts";
 
+import ManageCategories from "../../components/dashboard/admin/ManageCategories";
+import ManageGallery from "../../components/dashboard/admin/ManageGallery";
+import NewProduct from "../../components/dashboard/admin/NewProduct";
+import ProductEdit from "../../components/dashboard/admin/ProductEdit";
+import ProductsList from "../../components/dashboard/admin/ProductsList";
+
 const DashboardView = ({ dist, act }) => {
     const { role } = useUserData();
 
@@ -37,11 +43,11 @@ const DashboardView = ({ dist, act }) => {
             return <CustomerFinancials />;
         case "products":
             //check for user role and load page based on that
-            if (act == "new") return "new";
-            else if (act == "view") return "view";
-            else if (act == "category") return "category";
-            else if (act == "gallery") return "gallery";
-            else if (act == "edit") return "edit";
+            if (act == "new") return <NewProduct />;
+            else if (act == "view") return <ProductsList />;
+            else if (act == "category") return <ManageCategories />;
+            else if (act == "gallery") return <ManageGallery />;
+            else if (act == "edit") return <ProductEdit />;
             else return <ManageProducts />;
         default:
             return <Box sx={{ width: "100%", height: "80vh" }}>404</Box>;

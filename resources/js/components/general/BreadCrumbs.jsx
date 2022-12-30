@@ -3,13 +3,16 @@ import { useSetWebPage } from "../../features/shop/ShopEcosystem";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+
 const BreadCrumbs = () => {
     const goto = useSetWebPage();
     const { pathname } = useLocation();
     const [steps, setSteps] = useState();
 
     useEffect(() => {
-        if (pathname.length > 1) setSteps(pathname.split("/"));
+        if (pathname.length > 1)
+            setSteps(pathname.replace(/[0-9]/g, "").split("/"));
         else setSteps(null);
     }, [pathname]);
 
@@ -52,7 +55,6 @@ const BreadCrumbs = () => {
             <Link
                 onClick={handleClick}
                 sx={{
-                    fontSize: "0.5rem",
                     color: "black",
                     textDecoration: "none",
                     cursor: lastOne ? "default" : "pointer",
@@ -63,8 +65,14 @@ const BreadCrumbs = () => {
                           },
                 }}
             >
-                {info.title}
-                {!lastOne && " >"}
+                <Typography style={{ fontSize: "0.7rem" }}>
+                    {info.title + " "}
+                    {!lastOne && (
+                        <ArrowBackIosIcon
+                            sx={{ fontSize: "0.7rem", verticalAlign: -2 }}
+                        />
+                    )}
+                </Typography>
             </Link>
         );
     };

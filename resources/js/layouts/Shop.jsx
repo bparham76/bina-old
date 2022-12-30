@@ -4,9 +4,7 @@ import { Box } from "@mui/system";
 import { useShopInfo } from "../features/shop/ShopEcosystem";
 import { useParams } from "react-router-dom";
 
-import ProductGroup from "../components/shop/ProductGroup";
-import SingleProduct from "../components/shop/SingleProduct";
-import SearchProduct from "../components/shop/SearchProducts";
+import ShopView from "../features/shop/ShopView";
 
 const Shop = () => {
     const { shopName, shopDescription } = useShopInfo();
@@ -37,18 +35,3 @@ const Shop = () => {
 };
 
 export default Shop;
-
-const ShopView = ({ dist, act }) => {
-    switch (dist) {
-        case undefined:
-            return <ProductGroup />;
-        case "search":
-            return <SearchProduct />;
-        case "product":
-            if (typeof act != "undefined")
-                return <SingleProduct productId={act} />;
-            else return "404";
-        default:
-            return "404";
-    }
-};

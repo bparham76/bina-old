@@ -46,7 +46,7 @@ const SuperMenu = () => {
         </>
     ) : (
         <Box sx={{ width: "100%" }}>
-            <Collapse in={scroll}>salam</Collapse>
+            <Collapse in={!scroll}>salam</Collapse>
         </Box>
     );
 };
