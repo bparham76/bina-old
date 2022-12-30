@@ -17,6 +17,8 @@ export default function useServer() {
         if (method == "" || url == "") return;
 
         setExecute(false);
+        setResponse(null);
+        setError(null);
 
         switch (method) {
             case "get":

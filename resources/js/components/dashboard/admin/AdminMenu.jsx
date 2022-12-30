@@ -1,6 +1,6 @@
 const AdminMenu = [
     {
-        name: "محصولات",
+        name: "مدیریت محصولات",
         address: "products",
     },
 ];

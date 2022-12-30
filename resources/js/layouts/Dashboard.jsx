@@ -1,7 +1,7 @@
 import { useMediaQuery, Box, Grid } from "@mui/material";
 import { useEffect, useState } from "react";
 
-import { useAuthenticate, useUserData } from "../features/auth/AuthEcosystem";
+import { useAuthenticate } from "../features/auth/AuthEcosystem";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "../components/general/Header";
@@ -18,7 +18,6 @@ const Dashboard = () => {
     const [render, setRender] = useState(false);
     const { authenticated, loading } = useAuthenticate();
     const navigate = useNavigate();
-    const { role } = useUserData();
     const { dist, act } = useParams();
 
     useEffect(() => {

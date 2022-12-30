@@ -3,10 +3,10 @@
 use App\Http\Controllers\Authentication;
 use App\Http\Controllers\Misc;
 use App\Http\Controllers\User;
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-use Morilog\Jalali;
+// use Morilog\Jalali;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,3 +71,5 @@ Route::controller(Misc::class)->group(function () {
     Route::get('counties', 'get_counties');
     Route::get('cities', 'get_cities');
 });
+
+Route::prefix('admin')->group(base_path('routes/admin.php'));
